@@ -221,20 +221,15 @@ Metafields: family_id="solitaire-pendant-necklace", available_shapes=[7]
 
 ---
 
-## Open Questions for Davide
+## Decisions (Confirmed by Davide)
 
-1. **Tennis bracelet length pricing**: Should we create 56 variants (carat × purity × length)
-   or keep length as a line item property with frontend price calculation?
-   **Recommendation**: Line item property for now. 56 variants is excessive.
+1. **Tennis bracelet length pricing**: **14 variants** (carat × purity). Length stays as line item property with frontend price multiplier.
 
-2. **Stud earrings purity**: Do 14K and 18K have different prices in Shopify?
-   If not, we can keep 6 variants instead of 12.
+2. **Stud earrings purity**: 14K and 18K **do have different prices** in Shopify → 12 variants (6 carats × 2 purities).
 
-3. **Romantic ring 18K**: Should we add 18K variants in the future?
-   Currently blocked in UI. If yes, that would expand to 90 variants.
+3. **Romantic ring 18K**: **Stay 14K only**. No expansion to 18K.
 
-4. **Shape images**: Keep in code (faster) or move to metafields (more flexible)?
-   **Recommendation**: Code for now, metafields later.
+4. **Shape images**: **Keep in code** for now. Metafields later if needed.
 
 ---
 
