@@ -4,9 +4,12 @@ import type {CartQueryDataReturn} from '@shopify/hydrogen';
 import {CartForm} from '@shopify/hydrogen';
 import {CartMain} from '~/components/CartMain';
 
-export const meta: Route.MetaFunction = () => {
-  return [{title: `Hydrogen | Cart`}];
-};
+export function meta({}: Route.MetaArgs) {
+  return [
+    {title: 'Cart | Astreas'},
+    {name: 'description', content: 'Your shopping cart at Astreas.'},
+  ];
+}
 
 export const headers: HeadersFunction = ({actionHeaders}) => actionHeaders;
 
@@ -36,25 +39,18 @@ export async function action({request, context}: Route.ActionArgs) {
       break;
     case CartForm.ACTIONS.DiscountCodesUpdate: {
       const formDiscountCode = inputs.discountCode;
-
-      // User inputted discount code
       const discountCodes = (
         formDiscountCode ? [formDiscountCode] : []
       ) as string[];
-
-      // Combine discount codes already applied on cart
       discountCodes.push(...inputs.discountCodes);
-
       result = await cart.updateDiscountCodes(discountCodes);
       break;
     }
     case CartForm.ACTIONS.GiftCardCodesAdd: {
       const formGiftCardCode = inputs.giftCardCode;
-
       const giftCardCodes = (
         formGiftCardCode ? [formGiftCardCode] : []
       ) as string[];
-
       result = await cart.addGiftCardCodes(giftCardCodes);
       break;
     }
@@ -105,9 +101,16 @@ export default function Cart() {
   const cart = useLoaderData<typeof loader>();
 
   return (
-    <div className="cart">
-      <h1>Cart</h1>
-      <CartMain layout="page" cart={cart} />
+    <div className="min-h-screen">
+      <section className="container-wide py-16 md:py-24">
+        <div className="text-center mb-12">
+          <p className="caps-label text-accent mb-3">Shopping</p>
+          <h1 className="serif-heading text-4xl md:text-5xl">Your Cart</h1>
+        </div>
+        <div className="max-w-3xl mx-auto">
+          <CartMain layout="page" cart={cart} />
+        </div>
+      </section>
     </div>
   );
 }
