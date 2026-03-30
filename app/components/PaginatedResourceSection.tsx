@@ -2,7 +2,8 @@ import * as React from 'react';
 import {Pagination} from '@shopify/hydrogen';
 
 /**
- * <PaginatedResourceSection > is a component that encapsulate how the previous and next behaviors throughout your application.
+ * <PaginatedResourceSection> wraps Hydrogen's Pagination component
+ * with Astreas-styled previous/next navigation.
  */
 export function PaginatedResourceSection<NodesType>({
   connection,
@@ -22,17 +23,37 @@ export function PaginatedResourceSection<NodesType>({
 
         return (
           <div>
-            <PreviousLink>
-              {isLoading ? 'Loading...' : <span>↑ Load previous</span>}
-            </PreviousLink>
+            <div className="flex justify-center mb-10">
+              <PreviousLink>
+                {isLoading ? (
+                  <span className="text-sm text-muted-foreground">
+                    Loading...
+                  </span>
+                ) : (
+                  <span className="btn-dawn text-xs">
+                    &uarr; Load previous
+                  </span>
+                )}
+              </PreviousLink>
+            </div>
             {resourcesClassName ? (
               <div className={resourcesClassName}>{resourcesMarkup}</div>
             ) : (
               resourcesMarkup
             )}
-            <NextLink>
-              {isLoading ? 'Loading...' : <span>Load more ↓</span>}
-            </NextLink>
+            <div className="flex justify-center mt-12">
+              <NextLink>
+                {isLoading ? (
+                  <span className="text-sm text-muted-foreground">
+                    Loading...
+                  </span>
+                ) : (
+                  <span className="btn-dawn text-xs">
+                    Load more &darr;
+                  </span>
+                )}
+              </NextLink>
+            </div>
           </div>
         );
       }}
