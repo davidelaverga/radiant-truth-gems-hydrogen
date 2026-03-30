@@ -19,26 +19,32 @@ export function ProductItem({
 }) {
   const variantUrl = useVariantUrl(product.handle);
   const image = product.featuredImage;
+
   return (
     <Link
-      className="product-item"
       key={product.id}
       prefetch="intent"
       to={variantUrl}
+      className="group block"
     >
       {image && (
-        <Image
-          alt={image.altText || product.title}
-          aspectRatio="1/1"
-          data={image}
-          loading={loading}
-          sizes="(min-width: 45em) 400px, 100vw"
-        />
+        <div className="aspect-square overflow-hidden mb-4">
+          <Image
+            alt={image.altText || product.title}
+            aspectRatio="1/1"
+            data={image}
+            loading={loading}
+            sizes="(min-width: 64em) 25vw, (min-width: 45em) 33vw, 50vw"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+          />
+        </div>
       )}
-      <h4>{product.title}</h4>
-      <small>
+      <h4 className="text-sm font-medium group-hover:text-accent transition-colors duration-300">
+        {product.title}
+      </h4>
+      <p className="text-sm text-muted-foreground mt-1">
         <Money data={product.priceRange.minVariantPrice} />
-      </small>
+      </p>
     </Link>
   );
 }
