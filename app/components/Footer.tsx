@@ -1,129 +1,157 @@
-import {Suspense} from 'react';
-import {Await, NavLink} from 'react-router';
-import type {FooterQuery, HeaderQuery} from 'storefrontapi.generated';
+import {Link} from 'react-router';
 
-interface FooterProps {
-  footer: Promise<FooterQuery | null>;
-  header: HeaderQuery;
-  publicStoreDomain: string;
-}
-
-export function Footer({
-  footer: footerPromise,
-  header,
-  publicStoreDomain,
-}: FooterProps) {
+export function Footer() {
   return (
-    <Suspense>
-      <Await resolve={footerPromise}>
-        {(footer) => (
-          <footer className="footer">
-            {footer?.menu && header.shop.primaryDomain?.url && (
-              <FooterMenu
-                menu={footer.menu}
-                primaryDomainUrl={header.shop.primaryDomain.url}
-                publicStoreDomain={publicStoreDomain}
+    <footer className="bg-foreground text-background/60">
+      {/* Newsletter CTA */}
+      <div className="border-b border-background/8">
+        <div className="container-wide py-16 md:py-20 flex flex-col md:flex-row items-center justify-between gap-8">
+          <div>
+            <h3 className="serif-heading text-2xl text-background/90 mb-2">
+              Stay Connected
+            </h3>
+            <p className="text-xs text-background/40 tracking-wide">
+              Receive curated updates on new collections and exclusive pieces.
+            </p>
+          </div>
+          <div className="flex w-full md:w-auto">
+            <input
+              type="email"
+              placeholder="Your email"
+              className="flex-1 md:w-64 bg-transparent border border-background/15 px-5 py-3 text-xs text-background/80 placeholder:text-background/25 outline-none focus:border-background/30 transition-colors"
+            />
+            <button className="px-8 py-3 text-[9px] uppercase tracking-[0.22em] font-medium border border-background/15 border-l-0 text-background/60 hover:bg-background/10 transition-all duration-500">
+              Subscribe
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="container-wide py-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 lg:gap-12 mb-20">
+          {/* Brand Column */}
+          <div>
+            <div className="mb-6">
+              <img
+                src="/astreas-logo.svg"
+                alt="Astreas"
+                className="h-6 w-auto brightness-0 invert opacity-60"
               />
-            )}
-          </footer>
-        )}
-      </Await>
-    </Suspense>
+              <span className="block text-[9px] tracking-[0.28em] uppercase text-background/50 font-normal mt-0.5">
+                Italy
+              </span>
+            </div>
+            <p className="text-xs leading-[2] text-background/35 max-w-[240px]">
+              Lab-grown diamond fine jewelry. IGI certified. Crafted with
+              intention, priced with transparency.
+            </p>
+          </div>
+
+          {/* Shop Column */}
+          <div>
+            <p className="caps-label text-background/25 mb-6 text-[9px]">
+              Shop
+            </p>
+            <div className="space-y-3">
+              {[
+                {name: 'Rings', href: '/collections/rings'},
+                {name: 'Earrings', href: '/collections/earrings'},
+                {name: 'Necklaces', href: '/collections/necklaces'},
+                {name: 'Bracelets', href: '/collections/bracelets'},
+                {name: 'All Jewelry', href: '/collections'},
+              ].map((item) => (
+                <Link
+                  key={item.href}
+                  to={item.href}
+                  prefetch="intent"
+                  className="block text-xs text-background/40 hover:text-background/70 transition-colors duration-500"
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Learn Column */}
+          <div>
+            <p className="caps-label text-background/25 mb-6 text-[9px]">
+              Learn
+            </p>
+            <div className="space-y-3">
+              {[
+                {name: 'Gold Guide', href: '/education/gold-guide'},
+                {
+                  name: 'Lab Diamond Guide',
+                  href: '/education/lab-diamond-guide',
+                },
+                {
+                  name: 'Stone Comparison',
+                  href: '/education/stone-comparison',
+                },
+                {name: 'FAQ', href: '/faq'},
+              ].map((item) => (
+                <Link
+                  key={item.href}
+                  to={item.href}
+                  prefetch="intent"
+                  className="block text-xs text-background/40 hover:text-background/70 transition-colors duration-500"
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Support Column */}
+          <div>
+            <p className="caps-label text-background/25 mb-6 text-[9px]">
+              Support
+            </p>
+            <div className="space-y-3">
+              {[
+                {name: 'Contact', href: '/contact'},
+                {name: 'About Astreas', href: '/about'},
+                {name: 'Shipping & Returns', href: '/faq'},
+              ].map((item) => (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  prefetch="intent"
+                  className="block text-xs text-background/40 hover:text-background/70 transition-colors duration-500"
+                >
+                  {item.name}
+                </Link>
+              ))}
+              <a
+                href="mailto:support@astreasjewelry.com"
+                className="block text-xs text-background/40 hover:text-background/70 transition-colors duration-500"
+              >
+                support@astreasjewelry.com
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="border-t border-background/8 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-[10px] text-background/20 tracking-[0.15em]">
+            &copy; {new Date().getFullYear()} Astreas. All rights reserved.
+          </p>
+          <div className="flex items-center gap-6">
+            <span className="text-[10px] text-background/20 tracking-wide">
+              IGI Certified
+            </span>
+            <span className="text-background/10">&middot;</span>
+            <span className="text-[10px] text-background/20 tracking-wide">
+              Lab-Grown Diamonds
+            </span>
+            <span className="text-background/10">&middot;</span>
+            <span className="text-[10px] text-background/20 tracking-wide">
+              Made to Order
+            </span>
+          </div>
+        </div>
+      </div>
+    </footer>
   );
-}
-
-function FooterMenu({
-  menu,
-  primaryDomainUrl,
-  publicStoreDomain,
-}: {
-  menu: FooterQuery['menu'];
-  primaryDomainUrl: FooterProps['header']['shop']['primaryDomain']['url'];
-  publicStoreDomain: string;
-}) {
-  return (
-    <nav className="footer-menu" role="navigation">
-      {(menu || FALLBACK_FOOTER_MENU).items.map((item) => {
-        if (!item.url) return null;
-        // if the url is internal, we strip the domain
-        const url =
-          item.url.includes('myshopify.com') ||
-          item.url.includes(publicStoreDomain) ||
-          item.url.includes(primaryDomainUrl)
-            ? new URL(item.url).pathname
-            : item.url;
-        const isExternal = !url.startsWith('/');
-        return isExternal ? (
-          <a href={url} key={item.id} rel="noopener noreferrer" target="_blank">
-            {item.title}
-          </a>
-        ) : (
-          <NavLink
-            end
-            key={item.id}
-            prefetch="intent"
-            style={activeLinkStyle}
-            to={url}
-          >
-            {item.title}
-          </NavLink>
-        );
-      })}
-    </nav>
-  );
-}
-
-const FALLBACK_FOOTER_MENU = {
-  id: 'gid://shopify/Menu/199655620664',
-  items: [
-    {
-      id: 'gid://shopify/MenuItem/461633060920',
-      resourceId: 'gid://shopify/ShopPolicy/23358046264',
-      tags: [],
-      title: 'Privacy Policy',
-      type: 'SHOP_POLICY',
-      url: '/policies/privacy-policy',
-      items: [],
-    },
-    {
-      id: 'gid://shopify/MenuItem/461633093688',
-      resourceId: 'gid://shopify/ShopPolicy/23358013496',
-      tags: [],
-      title: 'Refund Policy',
-      type: 'SHOP_POLICY',
-      url: '/policies/refund-policy',
-      items: [],
-    },
-    {
-      id: 'gid://shopify/MenuItem/461633126456',
-      resourceId: 'gid://shopify/ShopPolicy/23358111800',
-      tags: [],
-      title: 'Shipping Policy',
-      type: 'SHOP_POLICY',
-      url: '/policies/shipping-policy',
-      items: [],
-    },
-    {
-      id: 'gid://shopify/MenuItem/461633159224',
-      resourceId: 'gid://shopify/ShopPolicy/23358079032',
-      tags: [],
-      title: 'Terms of Service',
-      type: 'SHOP_POLICY',
-      url: '/policies/terms-of-service',
-      items: [],
-    },
-  ],
-};
-
-function activeLinkStyle({
-  isActive,
-  isPending,
-}: {
-  isActive: boolean;
-  isPending: boolean;
-}) {
-  return {
-    fontWeight: isActive ? 'bold' : undefined,
-    color: isPending ? 'grey' : 'white',
-  };
 }

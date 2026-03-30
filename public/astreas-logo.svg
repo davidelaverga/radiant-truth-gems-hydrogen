@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 240" width="1200" height="240">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#C4A265" />
+      <stop offset="40%" stop-color="#D4B87A" />
+      <stop offset="100%" stop-color="#C4A265" />
+    </linearGradient>
+    <linearGradient id="dFacet1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4B87A" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#C4A265" stop-opacity="0.8"/>
+    </linearGradient>
+    <linearGradient id="dFacet2" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#C4A265" stop-opacity="0.75"/>
+      <stop offset="100%" stop-color="#A8884F" stop-opacity="0.9"/>
+    </linearGradient>
+    <linearGradient id="dFacet3" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#D4B87A" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#C4A265" stop-opacity="0.85"/>
+    </linearGradient>
+  </defs>
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&amp;display=swap');
+  </style>
+  
+  <!-- Main text -->
+  <text 
+    x="50%" y="55%" 
+    dominant-baseline="middle" 
+    text-anchor="middle"
+    font-family="'Cormorant Garamond', 'Didot', 'Bodoni MT', serif"
+    font-weight="300"
+    font-size="120"
+    letter-spacing="22"
+    fill="url(#goldGrad)"
+  >ASTREAS</text>
+  
+  <!-- Diamond in A - minimal geometric -->
+  <!-- Top facet left -->
+  <polygon points="347.79999999999995,114.0 336.79999999999995,122.4 343.4,122.4" fill="url(#dFacet2)" />
+  <!-- Top facet center -->
+  <polygon points="347.79999999999995,114.0 343.4,122.4 352.19999999999993,122.4" fill="url(#dFacet3)" />
+  <!-- Top facet right -->
+  <polygon points="347.79999999999995,114.0 352.19999999999993,122.4 358.79999999999995,122.4" fill="url(#dFacet1)" />
+  <!-- Bottom facet left -->
+  <polygon points="336.79999999999995,122.4 347.79999999999995,142.0 347.79999999999995,122.4" fill="url(#dFacet1)" />
+  <!-- Bottom facet right -->
+  <polygon points="358.79999999999995,122.4 347.79999999999995,142.0 347.79999999999995,122.4" fill="url(#dFacet2)" />
+  
+  <!-- Diamond outline for crispness -->
+  <polygon points="347.79999999999995,114.0 358.79999999999995,122.4 347.79999999999995,142.0 336.79999999999995,122.4" 
+    fill="none" stroke="#C4A265" stroke-width="0.5" opacity="0.6"/>
+  <!-- Girdle line -->
+  <line x1="336.79999999999995" y1="122.4" x2="358.79999999999995" y2="122.4" stroke="#C4A265" stroke-width="0.4" opacity="0.5"/>
+  
+</svg>
