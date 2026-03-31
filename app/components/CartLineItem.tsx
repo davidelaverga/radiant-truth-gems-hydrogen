@@ -23,6 +23,7 @@ export function CartLineItem({
 }) {
   const {id, merchandise} = line;
   const {product, title, image, selectedOptions} = merchandise;
+  const displayImage = image ?? product.featuredImage ?? null;
   const lineItemUrl = useVariantUrl(product.handle, selectedOptions);
   const {close} = useAside();
   const lineItemChildren = childrenMap[id];
@@ -31,7 +32,7 @@ export function CartLineItem({
   return (
     <li key={id} className="py-6">
       <div className="flex gap-4">
-        {image && (
+        {displayImage && (
           <Link
             prefetch="intent"
             to={lineItemUrl}
@@ -41,7 +42,7 @@ export function CartLineItem({
             <Image
               alt={title}
               aspectRatio="1/1"
-              data={image}
+              data={displayImage}
               height={layout === 'aside' ? 80 : 120}
               loading="lazy"
               width={layout === 'aside' ? 80 : 120}

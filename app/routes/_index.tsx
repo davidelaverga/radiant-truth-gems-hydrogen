@@ -56,6 +56,7 @@ export default function Homepage() {
     <div>
       <Hero />
       <FeaturedCategories />
+      <MothersDayBundle />
       <BrandStory />
       <WhyChooseAstreas />
       <HowItWorks />
@@ -155,6 +156,62 @@ function FeaturedCategories() {
             </Link>
           </motion.div>
         ))}
+      </div>
+    </section>
+  );
+}
+
+/* ===== MOTHER'S DAY BUNDLE ===== */
+function MothersDayBundle() {
+  return (
+    <section className="bg-ivory">
+      <div className="container-wide section-dawn">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <div className="relative">
+            <img
+              src="/mothers-day-bundle-white.jpg"
+              alt="Mother's Day Signature Set"
+              className="w-full aspect-[4/5] object-cover"
+            />
+            <div className="absolute top-6 left-6">
+              <span className="caps-label text-[9px] bg-accent text-background px-3 py-1.5">
+                Limited Edition
+              </span>
+            </div>
+          </div>
+          <div>
+            <p
+              className="caps-label text-[9px] mb-6"
+              style={{color: 'hsl(var(--gold))'}}
+            >
+              Mother's Day
+            </p>
+            <h2 className="serif-heading text-3xl md:text-4xl mb-4 leading-[1.15]">
+              The Complete Signature Set
+            </h2>
+            <p className="body-refined leading-[2] mb-3">
+              Four pieces. One unforgettable gift. Our Mother's Day Signature
+              Set brings together a tennis bracelet, solitaire necklace, stud
+              earrings, and classic ring — all in matching solid gold.
+            </p>
+            <p className="body-refined leading-[2] mb-8">
+              Available in white, yellow, and rose gold. IGI certified diamonds
+              throughout. Made to order in 15–20 days.
+            </p>
+            <div className="flex items-baseline gap-3 mb-10">
+              <span className="serif-heading text-2xl">€4,190</span>
+              <span className="text-sm text-muted-foreground line-through">€6,700</span>
+              <span className="caps-label text-accent text-[9px]">Save €2,510</span>
+            </div>
+            <Link
+              to="/mothers-day-set"
+              prefetch="intent"
+              className="btn-dawn-accent"
+            >
+              View the Set
+            </Link>
+          </div>
+        </div>
       </div>
     </section>
   );
