@@ -31,7 +31,7 @@ const tennisBracelet = [
   {name: 'Lab Diamond Tennis Bracelet', carat: '5.00 ct Total Weight', retailPrice: 8500, ourPrice: 5900, description: 'Continuous brilliance in a seamless line of light.', image: '/pricing-bracelet-5ct.jpg'},
 ];
 
-function PricingCard({item}: {item: typeof engagementRings[0]}) {
+function PricingCard({item, designLink}: {item: typeof engagementRings[0]; designLink: string}) {
   return (
     <motion.div
       initial={{opacity: 0, y: 20}}
@@ -39,15 +39,17 @@ function PricingCard({item}: {item: typeof engagementRings[0]}) {
       transition={{duration: 0.5}}
       className="border border-border/30 overflow-hidden group"
     >
-      {item.image && (
-        <div className="aspect-square overflow-hidden">
-          <img
-            src={item.image}
-            alt={item.name}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-          />
-        </div>
-      )}
+      <Link to={designLink} prefetch="intent" className="block">
+        {item.image && (
+          <div className="aspect-square overflow-hidden">
+            <img
+              src={item.image}
+              alt={item.name}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            />
+          </div>
+        )}
+      </Link>
       <div className="p-6">
         {item.bestSeller && (
           <span className="caps-label text-[8px] text-accent mb-2 block">Best Seller</span>
@@ -62,12 +64,19 @@ function PricingCard({item}: {item: typeof engagementRings[0]}) {
         <p className="text-[10px] text-accent mt-1">
           Save ${(item.retailPrice - item.ourPrice).toLocaleString()}
         </p>
+        <Link
+          to={designLink}
+          prefetch="intent"
+          className="block mt-4 text-center btn-dawn text-xs"
+        >
+          Customize &amp; Buy
+        </Link>
       </div>
     </motion.div>
   );
 }
 
-function SectionBlock({label, title, items}: {label: string; title: string; items: typeof engagementRings}) {
+function SectionBlock({label, title, items, designLink}: {label: string; title: string; items: typeof engagementRings; designLink: string}) {
   return (
     <div className="mb-28 last:mb-0">
       <div className="text-center mb-16">
@@ -76,7 +85,7 @@ function SectionBlock({label, title, items}: {label: string; title: string; item
       </div>
       <div className={`grid gap-6 md:gap-8 ${items.length === 1 ? 'max-w-md mx-auto' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4'}`}>
         {items.map((item, i) => (
-          <PricingCard key={i} item={item} />
+          <PricingCard key={i} item={item} designLink={designLink} />
         ))}
       </div>
     </div>
@@ -105,9 +114,9 @@ export default function Pricing() {
       {/* Pricing Sections */}
       <section className="section-dawn">
         <div className="container-wide">
-          <SectionBlock label="Engagement" title="Engagement Rings" items={engagementRings} />
-          <SectionBlock label="Studs" title="Diamond Stud Earrings" items={studEarrings} />
-          <SectionBlock label="Bracelets" title="Tennis Bracelet" items={tennisBracelet} />
+          <SectionBlock label="Engagement" title="Engagement Rings" items={engagementRings} designLink="/design/classic-solitaire-ring" />
+          <SectionBlock label="Studs" title="Diamond Stud Earrings" items={studEarrings} designLink="/design/diamond-stud-earrings" />
+          <SectionBlock label="Bracelets" title="Tennis Bracelet" items={tennisBracelet} designLink="/design/tennis-bracelet" />
         </div>
       </section>
 

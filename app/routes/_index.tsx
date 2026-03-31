@@ -373,10 +373,10 @@ function HowItWorks() {
 /* ===== FEATURED SHAPES ===== */
 function FeaturedShapes() {
   const shapes = [
-    {name: 'Round', image: '/shape-round-solitaire.jpg'},
-    {name: 'Princess', image: '/shape-princess-solitaire.jpg'},
-    {name: 'Oval', image: '/shape-oval-solitaire.jpg'},
-    {name: 'Emerald', image: '/shape-emerald-solitaire.jpg'},
+    {name: 'Round', image: '/shape-round-solitaire.jpg', shape: 'Round'},
+    {name: 'Princess', image: '/shape-princess-solitaire.jpg', shape: 'Princess'},
+    {name: 'Oval', image: '/shape-oval-solitaire.jpg', shape: 'Oval'},
+    {name: 'Emerald', image: '/shape-emerald-solitaire.jpg', shape: 'Emerald'},
   ];
 
   return (
@@ -399,7 +399,7 @@ function FeaturedShapes() {
             transition={{duration: 0.5, delay: i * 0.1}}
           >
             <Link
-              to="/collections"
+              to={`/design/classic-solitaire-ring?shape=${shape.shape}`}
               prefetch="intent"
               className="group block"
             >
@@ -412,7 +412,7 @@ function FeaturedShapes() {
               </div>
               <h3 className="text-center text-sm font-medium">{shape.name}</h3>
               <p className="text-center caps-label text-accent text-[9px] mt-1">
-                Explore
+                Customize
               </p>
             </Link>
           </motion.div>

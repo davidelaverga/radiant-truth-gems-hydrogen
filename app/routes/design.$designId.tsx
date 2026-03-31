@@ -12,7 +12,7 @@ import {
   CartForm,
   type OptimisticCartLineInput,
 } from '@shopify/hydrogen';
-import {useNavigate} from 'react-router';
+import {useNavigate, useSearchParams} from 'react-router';
 import {getDesignFamily, getConfiguratorImage} from '~/lib/design-families';
 import {useAside} from '~/components/Aside';
 import {ShieldCheck, Truck, Package} from 'lucide-react';
@@ -54,6 +54,7 @@ export async function loader({context, params, request}: Route.LoaderArgs) {
 export default function ConfigurableProduct() {
   const {product, family} = useLoaderData<typeof loader>();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const {open} = useAside();
 
   const selectedVariant = useOptimisticVariant(
@@ -70,7 +71,12 @@ export default function ConfigurableProduct() {
 
   // Visual-only state (not Shopify variants)
   const [selectedColor, setSelectedColor] = useState('yellow');
-  const [selectedShape, setSelectedShape] = useState(family.shapes[0] || '');
+  const initialShape = searchParams.get('shape');
+  const [selectedShape, setSelectedShape] = useState(
+    initialShape && family.shapes.includes(initialShape)
+      ? initialShape
+      : family.shapes[0] || '',
+  );
   const [selectedRingSize, setSelectedRingSize] = useState('7');
   const [selectedLength, setSelectedLength] = useState('7in');
 

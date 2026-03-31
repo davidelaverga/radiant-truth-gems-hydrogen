@@ -2,7 +2,8 @@ import type {CartApiQueryFragment} from 'storefrontapi.generated';
 import type {CartLayout} from '~/components/CartMain';
 import {CartForm, Money, type OptimisticCart} from '@shopify/hydrogen';
 import {useEffect, useId, useRef, useState} from 'react';
-import {useFetcher} from 'react-router';
+import {useFetcher, Link} from 'react-router';
+import {useAside} from '~/components/Aside';
 
 type CartSummaryProps = {
   cart: OptimisticCart<CartApiQueryFragment | null>;
@@ -42,22 +43,34 @@ export function CartSummary({cart, layout}: CartSummaryProps) {
         discountCodeInputId={discountCodeInputId}
       />
 
-      <CartCheckoutActions checkoutUrl={cart?.checkoutUrl} />
+      <CartCheckoutActions checkoutUrl={cart?.checkoutUrl} layout={layout} />
     </div>
   );
 }
 
-function CartCheckoutActions({checkoutUrl}: {checkoutUrl?: string}) {
+function CartCheckoutActions({checkoutUrl, layout}: {checkoutUrl?: string; layout: CartLayout}) {
   if (!checkoutUrl) return null;
+  const {close} = useAside();
 
   return (
-    <a
-      href={checkoutUrl}
-      target="_self"
-      className="block w-full btn-dawn-filled text-center"
-    >
-      Continue to Checkout
-    </a>
+    <div className="space-y-3">
+      {layout === 'aside' && (
+        <Link
+          to="/cart"
+          onClick={close}
+          className="block w-full btn-dawn text-center"
+        >
+          View Full Cart
+        </Link>
+      )}
+      <a
+        href={checkoutUrl}
+        target="_self"
+        className="block w-full btn-dawn-filled text-center"
+      >
+        Continue to Checkout
+      </a>
+    </div>
   );
 }
 

@@ -31,7 +31,12 @@ async function loadCriticalData({context, request}: Route.LoaderArgs) {
     }),
   ]);
 
-  return {collections};
+  // Filter out the default "Home page" (frontpage) collection
+  const filteredNodes = collections.nodes.filter(
+    (c: {handle: string}) => c.handle !== 'frontpage',
+  );
+
+  return {collections: {...collections, nodes: filteredNodes}};
 }
 
 export default function Collections() {
