@@ -149,7 +149,7 @@ function FeaturedCategories() {
                 <h3 className="text-background text-lg font-medium serif-heading">
                   {cat.name}
                 </h3>
-                <span className="caps-label text-background/60 text-[9px]">
+                <span className="inline-block mt-3 px-5 py-1.5 border border-background/70 text-background text-[10px] uppercase tracking-[0.18em] font-semibold group-hover:bg-background group-hover:text-foreground transition-all duration-500">
                   Shop Now
                 </span>
               </div>
@@ -411,8 +411,10 @@ function FeaturedShapes() {
                 />
               </div>
               <h3 className="text-center text-sm font-medium">{shape.name}</h3>
-              <p className="text-center caps-label text-accent text-[9px] mt-1">
-                Customize
+              <p className="text-center mt-3">
+                <span className="inline-block px-5 py-1.5 border border-foreground/30 text-foreground text-[10px] uppercase tracking-[0.18em] font-semibold group-hover:bg-foreground group-hover:text-background transition-all duration-500">
+                  Customize
+                </span>
               </p>
             </Link>
           </motion.div>
