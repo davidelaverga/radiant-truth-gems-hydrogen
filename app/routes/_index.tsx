@@ -61,6 +61,7 @@ export default function Homepage() {
       <WhyChooseAstreas />
       <HowItWorks />
       <FeaturedShapes />
+      <SideStoneRings />
       <RecommendedProducts products={data.recommendedProducts} />
       <TrustSignals />
       <ShippingReturnsWarranty />
@@ -419,6 +420,65 @@ function FeaturedShapes() {
             </Link>
           </motion.div>
         ))}
+      </div>
+    </section>
+  );
+}
+
+/* ===== SIDE STONE RINGS ===== */
+function SideStoneRings() {
+  const shapes = [
+    {name: 'Round', image: '/shape-round-sidestone.jpg', shape: 'Round'},
+    {name: 'Princess', image: '/shape-princess-sidestone.jpg', shape: 'Princess'},
+    {name: 'Oval', image: '/shape-oval-sidestone.jpg', shape: 'Oval'},
+    {name: 'Emerald', image: '/shape-emerald-sidestone.jpg', shape: 'Emerald'},
+    {name: 'Cushion', image: '/shape-cushion-sidestone.jpg', shape: 'Cushion'},
+  ];
+
+  return (
+    <section className="bg-ivory">
+      <div className="container-wide section-dawn">
+        <div className="text-center mb-16">
+          <p className="caps-label text-accent mb-3">Side Stone Rings</p>
+          <h2 className="serif-heading text-3xl md:text-4xl mb-3">
+            Choose Your Diamond Shape
+          </h2>
+          <p className="text-sm text-muted-foreground max-w-lg mx-auto">
+            Elegant designs that highlight the center stone with refined side
+            details. Crafted to enhance brilliance while maintaining a timeless
+            look.
+          </p>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
+          {shapes.map((shape, i) => (
+            <motion.div
+              key={shape.name}
+              initial={{opacity: 0, y: 20}}
+              animate={{opacity: 1, y: 0}}
+              transition={{duration: 0.5, delay: i * 0.1}}
+            >
+              <Link
+                to={`/design/side-stone-ring?shape=${shape.shape}`}
+                prefetch="intent"
+                className="group block"
+              >
+                <div className="aspect-square overflow-hidden mb-4">
+                  <img
+                    src={shape.image}
+                    alt={`${shape.name} cut side stone ring`}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                </div>
+                <h3 className="text-center text-sm font-medium">{shape.name}</h3>
+                <p className="text-center mt-3">
+                  <span className="inline-block px-5 py-1.5 border border-foreground/30 text-foreground text-[10px] uppercase tracking-[0.18em] font-semibold group-hover:bg-foreground group-hover:text-background transition-all duration-500">
+                    Customize
+                  </span>
+                </p>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
