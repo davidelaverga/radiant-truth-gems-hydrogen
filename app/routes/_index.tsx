@@ -433,6 +433,8 @@ function SideStoneRings() {
     {name: 'Oval', image: '/shape-oval-sidestone.jpg', shape: 'Oval'},
     {name: 'Emerald', image: '/shape-emerald-sidestone.jpg', shape: 'Emerald'},
     {name: 'Cushion', image: '/shape-cushion-sidestone.jpg', shape: 'Cushion'},
+    {name: 'Pear', image: '/shape-pear-sidestone.jpg', shape: 'Pear'},
+    {name: 'Marquise', image: '/shape-marquise-sidestone.jpg', shape: 'Marquise'},
   ];
 
   return (
@@ -449,7 +451,7 @@ function SideStoneRings() {
             look.
           </p>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {shapes.map((shape, i) => (
             <motion.div
               key={shape.name}
