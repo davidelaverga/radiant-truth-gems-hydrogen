@@ -75,6 +75,7 @@ export default function Homepage() {
       <ShippingReturnsWarranty />
       <Testimonials />
       <FinalCTA />
+      <MomentsThatStay />
     </div>
   );
 }
@@ -814,6 +815,61 @@ function Testimonials() {
             </p>
           </motion.div>
         ))}
+      </div>
+    </section>
+  );
+}
+
+/* ===== MOMENTS THAT STAY ===== */
+function MomentsThatStay() {
+  const moments = [
+    {
+      src: '/moment-portrait.jpg',
+      alt: 'Close-up of diamond marquise ring being worn',
+    },
+    {
+      src: '/moment-bridal.jpg',
+      alt: 'Bridal marquise ring stack on hand',
+    },
+    {
+      src: '/moment-couple.jpg',
+      alt: 'Couple moment with oval side stone ring',
+    },
+    {
+      src: '/moment-bracelet.jpg',
+      alt: 'Diamond tennis bracelet on wrist',
+    },
+  ];
+
+  return (
+    <section className="bg-ivory">
+      <div className="container-wide section-dawn">
+        <div className="text-center mb-16">
+          <p className="caps-label text-accent mb-3">Moments That Stay</p>
+          <h2 className="serif-heading text-3xl md:text-4xl mb-4 font-normal leading-[1.15]">
+            Not just jewelry.
+          </h2>
+          <p className="text-sm text-muted-foreground max-w-xs mx-auto leading-relaxed">
+            A moment you&apos;ll carry forever.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+          {moments.map((moment, i) => (
+            <motion.div
+              key={moment.src}
+              initial={{opacity: 0, y: 20}}
+              animate={{opacity: 1, y: 0}}
+              transition={{duration: 0.7, delay: i * 0.15}}
+              className="overflow-hidden"
+            >
+              <img
+                src={moment.src}
+                alt={moment.alt}
+                className="w-full aspect-[3/4] object-cover hover:scale-105 transition-transform duration-700"
+              />
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
