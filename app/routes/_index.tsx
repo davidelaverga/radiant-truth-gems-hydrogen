@@ -47,7 +47,14 @@ function loadDeferredData({context}: Route.LoaderArgs) {
       return null;
     });
 
-  return {recommendedProducts};
+  const mostLovedProducts = context.storefront
+    .query(MOST_LOVED_QUERY)
+    .catch((error: Error) => {
+      console.error(error);
+      return null;
+    });
+
+  return {recommendedProducts, mostLovedProducts};
 }
 
 export default function Homepage() {
@@ -61,6 +68,7 @@ export default function Homepage() {
       <WhyChooseAstreas />
       <HowItWorks />
       <FeaturedShapes />
+      <MostLovedPieces products={data.mostLovedProducts} />
       <SideStoneRings />
       <RecommendedProducts products={data.recommendedProducts} />
       <TrustSignals />
@@ -428,6 +436,137 @@ function FeaturedShapes() {
   );
 }
 
+/* ===== MOST LOVED PIECES ===== */
+type MostLovedProduct = {
+  title: string;
+  handle: string;
+  priceRange: {minVariantPrice: {amount: string; currencyCode: string}};
+} | null;
+
+type MostLovedData = {
+  bracelet: MostLovedProduct;
+  solitaire: MostLovedProduct;
+  earrings: MostLovedProduct;
+  sidestone: MostLovedProduct;
+} | null;
+
+function MostLovedPieces({products}: {products: Promise<MostLovedData> | null}) {
+  const items = [
+    {
+      image: '/most-loved-bracelet.jpg',
+      label: '4 Carats Diamond Bracelet',
+      sub: '14K White Gold',
+      href: '/products/lab-diamond-tennis-bracelet',
+      productKey: 'bracelet' as const,
+    },
+    {
+      image: '/most-loved-solitaire.jpg',
+      label: '1 Carat Solitaire Ring',
+      sub: '14K White Gold',
+      href: '/design/classic-solitaire-ring',
+      productKey: 'solitaire' as const,
+    },
+    {
+      image: '/most-loved-earrings.jpg',
+      label: '2 Carats Diamond Earrings',
+      sub: '14K White Gold',
+      href: '/products/lab-diamond-stud-earrings',
+      productKey: 'earrings' as const,
+    },
+    {
+      image: '/most-loved-marquise.jpg',
+      label: 'Marquise Side Stone Ring',
+      sub: '2 Carats · 14K Yellow Gold',
+      href: '/design/side-stone-ring?shape=Marquise',
+      productKey: 'sidestone' as const,
+    },
+    {
+      image: '/most-loved-oval.jpg',
+      label: 'Oval Side Stone Ring',
+      sub: '2 Carats · 14K Yellow Gold',
+      href: '/design/side-stone-ring?shape=Oval',
+      productKey: 'sidestone' as const,
+    },
+  ];
+
+  return (
+    <section className="container-wide section-dawn">
+      <div className="text-center mb-16">
+        <p className="caps-label text-accent mb-3">Most Loved Pieces</p>
+        <h2 className="serif-heading text-3xl md:text-4xl mb-3">
+          A Curated Selection
+        </h2>
+        <p className="text-sm text-muted-foreground max-w-lg mx-auto">
+          Timeless pieces chosen for their beauty, versatility, and lasting
+          appeal.
+        </p>
+      </div>
+      <Suspense
+        fallback={
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+            {items.map((_, i) => (
+              <div key={i} className="animate-pulse">
+                <div className="aspect-square bg-muted mb-4" />
+                <div className="h-4 bg-muted rounded w-3/4 mb-2" />
+                <div className="h-3 bg-muted rounded w-1/2" />
+              </div>
+            ))}
+          </div>
+        }
+      >
+        <Await resolve={products}>
+          {(data) => (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+              {items.map((item, i) => {
+                const product = data?.[item.productKey] ?? null;
+                return (
+                  <motion.div
+                    key={`${item.productKey}-${i}`}
+                    initial={{opacity: 0, y: 20}}
+                    animate={{opacity: 1, y: 0}}
+                    transition={{duration: 0.5, delay: i * 0.1}}
+                  >
+                    <Link
+                      to={item.href}
+                      prefetch="intent"
+                      className="group block"
+                    >
+                      <div className="aspect-square overflow-hidden mb-4">
+                        <img
+                          src={item.image}
+                          alt={item.label}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        />
+                      </div>
+                      <h3 className="text-sm font-medium group-hover:text-accent transition-colors">
+                        {item.label}
+                      </h3>
+                      <p className="text-xs text-muted-foreground mt-0.5">
+                        {item.sub}
+                      </p>
+                      {product?.priceRange?.minVariantPrice && (
+                        <p className="text-sm text-muted-foreground mt-1">
+                          From{' '}
+                          <Money data={product.priceRange.minVariantPrice} />
+                        </p>
+                      )}
+                      <p className="mt-3">
+                        <span className="inline-block px-5 py-1.5 border border-foreground/30 text-foreground text-[10px] uppercase tracking-[0.18em] font-semibold group-hover:bg-foreground group-hover:text-background transition-all duration-500">
+                          View Details
+                        </span>
+                      </p>
+                    </Link>
+                  </motion.div>
+                );
+              })}
+            </div>
+          )}
+        </Await>
+      </Suspense>
+    </section>
+  );
+}
+
 /* ===== SIDE STONE RINGS ===== */
 function SideStoneRings() {
   const shapes = [
@@ -708,6 +847,27 @@ function FinalCTA() {
 }
 
 /* ===== GRAPHQL QUERIES ===== */
+const MOST_LOVED_QUERY = `#graphql
+  fragment MostLovedProduct on Product {
+    id
+    title
+    handle
+    priceRange {
+      minVariantPrice {
+        amount
+        currencyCode
+      }
+    }
+  }
+  query MostLovedProducts($country: CountryCode, $language: LanguageCode)
+    @inContext(country: $country, language: $language) {
+    bracelet: product(handle: "lab-diamond-tennis-bracelet") { ...MostLovedProduct }
+    solitaire: product(handle: "classic-solitaire-lab-diamond-ring") { ...MostLovedProduct }
+    earrings: product(handle: "lab-diamond-stud-earrings") { ...MostLovedProduct }
+    sidestone: product(handle: "side-stone-lab-diamond-ring") { ...MostLovedProduct }
+  }
+` as const;
+
 const RECOMMENDED_PRODUCTS_QUERY = `#graphql
   fragment RecommendedProduct on Product {
     id
