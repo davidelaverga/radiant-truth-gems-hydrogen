@@ -73,8 +73,8 @@ export default function Homepage() {
       <TrustSignals />
       <ShippingReturnsWarranty />
       <Testimonials />
-      <FinalCTA />
       <MomentsThatStay />
+      <FinalCTA />
     </div>
   );
 }
