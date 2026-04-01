@@ -70,7 +70,6 @@ export default function Homepage() {
       <FeaturedShapes />
       <MostLovedPieces products={data.mostLovedProducts} />
       <SideStoneRings />
-      <RecommendedProducts products={data.recommendedProducts} />
       <TrustSignals />
       <ShippingReturnsWarranty />
       <Testimonials />
@@ -853,7 +852,7 @@ function MomentsThatStay() {
             A moment you&apos;ll carry forever.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
           {moments.map((moment, i) => (
             <motion.div
               key={moment.src}
@@ -865,7 +864,7 @@ function MomentsThatStay() {
               <img
                 src={moment.src}
                 alt={moment.alt}
-                className="w-full aspect-[3/4] object-cover hover:scale-105 transition-transform duration-700"
+                className="w-full aspect-[4/5] object-cover hover:scale-105 transition-transform duration-700"
               />
             </motion.div>
           ))}
