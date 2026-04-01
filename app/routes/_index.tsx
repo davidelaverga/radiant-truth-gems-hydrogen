@@ -374,10 +374,13 @@ function HowItWorks() {
 /* ===== FEATURED SHAPES ===== */
 function FeaturedShapes() {
   const shapes = [
-    {name: 'Round', image: '/shape-round-solitaire.jpg', shape: 'Round'},
-    {name: 'Princess', image: '/shape-princess-solitaire.jpg', shape: 'Princess'},
-    {name: 'Oval', image: '/shape-oval-solitaire.jpg', shape: 'Oval'},
-    {name: 'Emerald', image: '/shape-emerald-solitaire.jpg', shape: 'Emerald'},
+    {name: 'Round',    image: '/sol-wg-round.jpg',    shape: 'Round'},
+    {name: 'Princess', image: '/sol-wg-princess.jpg', shape: 'Princess'},
+    {name: 'Oval',     image: '/sol-wg-oval.jpg',     shape: 'Oval'},
+    {name: 'Emerald',  image: '/sol-wg-emerald.jpg',  shape: 'Emerald'},
+    {name: 'Cushion',  image: '/sol-wg-cushion.jpg',  shape: 'Cushion'},
+    {name: 'Pear',     image: '/sol-wg-pear.jpg',     shape: 'Pear'},
+    {name: 'Marquise', image: '/sol-wg-marquise.jpg', shape: 'Marquise'},
   ];
 
   return (
