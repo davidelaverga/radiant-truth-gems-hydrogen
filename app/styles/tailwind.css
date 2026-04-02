@@ -88,8 +88,8 @@
   /* Typography */
   .serif-heading {
     font-family: 'Cormorant Garamond', 'Georgia', serif;
-    letter-spacing: -0.01em;
-    font-weight: 600;
+    letter-spacing: 0.08em;
+    font-weight: 300;
   }
   .serif-italic {
     font-family: 'Cormorant Garamond', 'Georgia', serif;
@@ -97,8 +97,8 @@
     font-weight: 400;
   }
   .caps-label {
-    @apply uppercase text-[10px] font-semibold;
-    letter-spacing: 0.22em;
+    @apply uppercase text-[10px] font-medium text-neutral-400;
+    letter-spacing: 0.25em;
     font-family: 'Inter', system-ui, sans-serif;
   }
   .body-refined {

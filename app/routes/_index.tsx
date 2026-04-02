@@ -64,12 +64,12 @@ export default function Homepage() {
       <Hero />
       <FeaturedCategories />
       <MothersDayBundle />
-      <BrandStory />
       <WhyChooseAstreas />
-      <HowItWorks />
+      <BrandStory />
       <FeaturedShapes />
       <MostLovedPieces products={data.mostLovedProducts} />
       <SideStoneRings />
+      <HowItWorks />
       <MomentsThatStay />
       <TrustSignals />
       <ShippingReturnsWarranty />
@@ -132,8 +132,8 @@ function FeaturedCategories() {
   return (
     <section className="container-wide section-dawn">
       <div className="text-center mb-16">
-        <p className="caps-label text-accent mb-3">Collections</p>
-        <h2 className="serif-heading text-3xl md:text-4xl">Shop by Category</h2>
+        <p className="caps-label mb-3">Collections</p>
+        <h2 className="serif-heading text-3xl md:text-4xl leading-tight">Shop by Category</h2>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {categories.map((cat, i) => (
@@ -195,7 +195,7 @@ function MothersDayBundle() {
             >
               Mother's Day
             </p>
-            <h2 className="serif-heading text-3xl md:text-4xl mb-4 leading-[1.15]">
+            <h2 className="serif-heading text-3xl md:text-4xl mb-4 leading-tight">
               The Complete Signature Set
             </h2>
             <p className="body-refined leading-[2] mb-3">
@@ -239,7 +239,7 @@ function BrandStory() {
             >
               Our Philosophy
             </p>
-            <h2 className="serif-heading text-3xl md:text-4xl mb-8 leading-[1.15]">
+            <h2 className="serif-heading text-3xl md:text-4xl mb-8 leading-tight">
               Transparency Is Our Standard
             </h2>
             <p className="body-refined leading-[2] mb-5">
@@ -300,8 +300,8 @@ function WhyChooseAstreas() {
   return (
     <section className="container-wide section-dawn">
       <div className="text-center mb-16">
-        <p className="caps-label text-accent mb-3">Why Astreas</p>
-        <h2 className="serif-heading text-3xl md:text-4xl">
+        <p className="caps-label mb-3">Why Astreas</p>
+        <h2 className="serif-heading text-3xl md:text-4xl leading-tight">
           What Sets Us Apart
         </h2>
       </div>
@@ -314,11 +314,11 @@ function WhyChooseAstreas() {
             transition={{duration: 0.5, delay: i * 0.1}}
             className="text-center"
           >
-            <div className="w-14 h-14 rounded-full border border-border/40 flex items-center justify-center mx-auto mb-5">
-              <v.icon className="w-5 h-5 text-accent" />
+            <div className="w-12 h-12 rounded-full border border-neutral-200 flex items-center justify-center mx-auto mb-5">
+              <v.icon className="w-4 h-4 text-neutral-400" />
             </div>
-            <h3 className="text-sm font-medium mb-2">{v.title}</h3>
-            <p className="text-xs text-muted-foreground leading-relaxed">
+            <h3 className="text-[13px] font-normal tracking-[0.05em] mb-2">{v.title}</h3>
+            <p className="text-[13px] text-neutral-500 leading-relaxed">
               {v.desc}
             </p>
           </motion.div>
@@ -354,21 +354,23 @@ function HowItWorks() {
   ];
 
   return (
-    <section className="bg-ivory">
+    <section style={{backgroundColor: '#faf9f7'}}>
       <div className="container-wide section-dawn">
         <div className="text-center mb-16">
-          <p className="caps-label text-accent mb-3">Process</p>
-          <h2 className="serif-heading text-3xl md:text-4xl">How It Works</h2>
+          <p className="caps-label mb-3">Process</p>
+          <h2 className="serif-heading text-3xl md:text-4xl leading-tight">
+            How It Works
+          </h2>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 relative">
           {steps.map((step, i) => (
             <div key={step.title} className="text-center">
-              <div className="caps-label text-accent/40 text-[10px] mb-4">
+              <div className="text-[10px] uppercase tracking-[0.25em] text-neutral-300 mb-4">
                 {String(i + 1).padStart(2, '0')}
               </div>
-              <step.icon className="w-6 h-6 text-accent mx-auto mb-4" />
-              <h3 className="text-sm font-medium mb-2">{step.title}</h3>
-              <p className="text-xs text-muted-foreground leading-relaxed">
+              <step.icon className="w-5 h-5 text-neutral-400 mx-auto mb-4" />
+              <h3 className="text-sm font-normal tracking-[0.05em] mb-2">{step.title}</h3>
+              <p className="text-[13px] text-neutral-500 leading-relaxed">
                 {step.desc}
               </p>
             </div>
@@ -394,11 +396,11 @@ function FeaturedShapes() {
   return (
     <section className="container-wide section-dawn">
       <div className="text-center mb-16">
-        <p className="caps-label text-accent mb-3">Signature Solitaire</p>
-        <h2 className="serif-heading text-3xl md:text-4xl mb-3">
+        <p className="caps-label mb-3">Signature Solitaire</p>
+        <h2 className="serif-heading text-3xl md:text-4xl leading-tight mb-3">
           Choose Your Diamond Shape
         </h2>
-        <p className="text-sm text-muted-foreground">
+        <p className="text-[13px] text-neutral-500 leading-relaxed">
           Each shape brings its own character and brilliance
         </p>
       </div>
@@ -492,11 +494,11 @@ function MostLovedPieces({products}: {products: Promise<MostLovedData> | null}) 
   return (
     <section className="container-wide section-dawn">
       <div className="text-center mb-16">
-        <p className="caps-label text-accent mb-3">Most Loved Pieces</p>
-        <h2 className="serif-heading text-3xl md:text-4xl mb-3">
+        <p className="caps-label mb-3">Most Loved Pieces</p>
+        <h2 className="serif-heading text-3xl md:text-4xl leading-tight mb-3">
           A Curated Selection
         </h2>
-        <p className="text-sm text-muted-foreground max-w-lg mx-auto">
+        <p className="text-[13px] text-neutral-500 leading-relaxed max-w-lg mx-auto">
           Timeless pieces chosen for their beauty, versatility, and lasting
           appeal.
         </p>
@@ -583,11 +585,11 @@ function SideStoneRings() {
     <section className="bg-ivory">
       <div className="container-wide section-dawn">
         <div className="text-center mb-16">
-          <p className="caps-label text-accent mb-3">Side Stone Rings</p>
-          <h2 className="serif-heading text-3xl md:text-4xl mb-3">
+          <p className="caps-label mb-3">Side Stone Rings</p>
+          <h2 className="serif-heading text-3xl md:text-4xl leading-tight mb-3">
             Choose Your Diamond Shape
           </h2>
-          <p className="text-sm text-muted-foreground max-w-lg mx-auto">
+          <p className="text-[13px] text-neutral-500 leading-relaxed max-w-lg mx-auto">
             Elegant designs that highlight the center stone with refined side
             details. Crafted to enhance brilliance while maintaining a timeless
             look.
@@ -784,8 +786,8 @@ function Testimonials() {
   return (
     <section className="container-wide section-dawn">
       <div className="text-center mb-16">
-        <p className="caps-label text-accent mb-3">Testimonials</p>
-        <h2 className="serif-heading text-3xl md:text-4xl">
+        <p className="caps-label mb-3">Testimonials</p>
+        <h2 className="serif-heading text-3xl md:text-4xl leading-tight">
           What Our Customers Say
         </h2>
       </div>
@@ -844,11 +846,11 @@ function MomentsThatStay() {
     <section className="bg-ivory">
       <div className="container-wide section-dawn">
         <div className="text-center mb-16">
-          <p className="caps-label text-accent mb-3">Moments That Stay</p>
-          <h2 className="serif-heading text-3xl md:text-4xl mb-4 font-normal leading-[1.15]">
+          <p className="caps-label mb-3">Moments That Stay</p>
+          <h2 className="serif-heading text-3xl md:text-4xl leading-tight mb-4">
             Not just jewelry.
           </h2>
-          <p className="text-sm text-muted-foreground max-w-xs mx-auto leading-relaxed">
+          <p className="text-[13px] text-neutral-500 leading-relaxed max-w-xs mx-auto">
             A moment you&apos;ll carry forever.
           </p>
         </div>
@@ -879,13 +881,13 @@ function FinalCTA() {
   return (
     <section className="bg-foreground text-background">
       <div className="container-wide section-dawn text-center">
-        <p className="caps-label text-background/40 mb-6 text-[9px]">
+        <p className="caps-label text-background/40 mb-6">
           Begin Your Journey
         </p>
-        <h2 className="serif-heading text-3xl md:text-5xl text-background/90 mb-6 font-normal">
+        <h2 className="serif-heading text-3xl md:text-5xl text-background/90 mb-6 leading-tight">
           Find Your Perfect Piece
         </h2>
-        <p className="text-sm text-background/50 max-w-md mx-auto mb-10 leading-relaxed">
+        <p className="text-[13px] text-background/50 max-w-md mx-auto mb-10 leading-relaxed">
           Every Astreas piece is made to order — crafted specifically for you,
           with the diamond shape, gold color, and size you choose.
         </p>
