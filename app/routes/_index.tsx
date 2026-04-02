@@ -70,10 +70,10 @@ export default function Homepage() {
       <FeaturedShapes />
       <MostLovedPieces products={data.mostLovedProducts} />
       <SideStoneRings />
+      <MomentsThatStay />
       <TrustSignals />
       <ShippingReturnsWarranty />
       <Testimonials />
-      <MomentsThatStay />
       <FinalCTA />
     </div>
   );
