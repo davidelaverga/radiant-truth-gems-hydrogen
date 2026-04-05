@@ -178,9 +178,9 @@ function MothersDayBundle() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <div className="relative">
             <img
-              src="/mothers-day-bundle-white.jpg"
+              src="/mothers-day-bundle.jpg"
               alt="Mother's Day Signature Set"
-              className="w-full aspect-[4/5] object-cover"
+              className="w-full aspect-square object-cover"
             />
             <div className="absolute top-6 left-6">
               <span className="caps-label text-[9px] bg-accent text-background px-3 py-1.5">
