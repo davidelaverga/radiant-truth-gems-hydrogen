@@ -61,13 +61,13 @@ export const DESIGN_FAMILIES: DesignFamily[] = [
       {name: 'Rose Gold', value: 'rose', color: 'hsl(10 50% 70%)', image: '/solitaire-rose-gold.jpg'},
     ],
     shapeImages: {
-      Round: '/shape-round-solitaire.jpg',
-      Princess: '/shape-princess-solitaire.jpg',
-      Oval: '/shape-oval-solitaire.jpg',
-      Emerald: '/shape-emerald-solitaire.jpg',
-      Pear: '/shape-pear-solitaire.jpg',
-      Cushion: '/shape-cushion-solitaire.jpg',
-      Marquise: '/shape-marquise-solitaire.jpg',
+      Round: '/sol-wg-round.jpg',
+      Princess: '/sol-wg-princess.jpg',
+      Oval: '/sol-wg-oval.jpg',
+      Emerald: '/sol-wg-emerald.jpg',
+      Pear: '/sol-wg-pear.jpg',
+      Cushion: '/sol-wg-cushion.jpg',
+      Marquise: '/sol-wg-marquise.jpg',
     },
     shapeImagesByColor: {
       white: {
