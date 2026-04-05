@@ -572,9 +572,9 @@ function MostLovedPieces({products}: {products: Promise<MostLovedData> | null}) 
 /* ===== SIDE STONE RINGS ===== */
 function SideStoneRings() {
   const shapes = [
-    {name: 'Round', image: '/shape-round-sidestone.jpg', shape: 'Round'},
+    {name: 'Round', image: '/shape-oval-sidestone.jpg', shape: 'Round'},
     {name: 'Princess', image: '/shape-princess-sidestone.jpg', shape: 'Princess'},
-    {name: 'Oval', image: '/shape-oval-sidestone.jpg', shape: 'Oval'},
+    {name: 'Oval', image: '/shape-round-sidestone.jpg', shape: 'Oval'},
     {name: 'Emerald', image: '/shape-emerald-sidestone.jpg', shape: 'Emerald'},
     {name: 'Cushion', image: '/shape-cushion-sidestone.jpg', shape: 'Cushion'},
     {name: 'Pear', image: '/shape-pear-sidestone.jpg', shape: 'Pear'},

@@ -99,8 +99,8 @@ export const DESIGN_FAMILIES: DesignFamily[] = [
       {name: 'Rose Gold', value: 'rose', color: 'hsl(10 50% 70%)', image: '/sidestone-rose-gold.jpg'},
     ],
     shapeImages: {
-      Round: '/shape-round-sidestone.jpg', Princess: '/shape-princess-sidestone.jpg',
-      Oval: '/shape-oval-sidestone.jpg', Emerald: '/shape-emerald-sidestone.jpg',
+      Round: '/shape-oval-sidestone.jpg', Princess: '/shape-princess-sidestone.jpg',
+      Oval: '/shape-round-sidestone.jpg', Emerald: '/shape-emerald-sidestone.jpg',
       Pear: '/shape-pear-sidestone.jpg', Cushion: '/shape-cushion-sidestone.jpg',
       Marquise: '/shape-marquise-sidestone.jpg',
     },
