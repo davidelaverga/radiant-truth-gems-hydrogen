@@ -54,7 +54,14 @@ function loadDeferredData({context}: Route.LoaderArgs) {
       return null;
     });
 
-  return {recommendedProducts, mostLovedProducts};
+  const signaturePieces = context.storefront
+    .query(SIGNATURE_PIECES_QUERY)
+    .catch((error: Error) => {
+      console.error(error);
+      return null;
+    });
+
+  return {recommendedProducts, mostLovedProducts, signaturePieces};
 }
 
 export default function Homepage() {
@@ -74,6 +81,7 @@ export default function Homepage() {
       <TrustSignals />
       <ShippingReturnsWarranty />
       <Testimonials />
+      <SignaturePieces products={data.signaturePieces} />
       <FinalCTA />
     </div>
   );
@@ -876,6 +884,144 @@ function MomentsThatStay() {
   );
 }
 
+/* ===== SIGNATURE PIECES ===== */
+type SignatureProduct = {
+  title: string;
+  handle: string;
+  priceRange: {minVariantPrice: {amount: string; currencyCode: string}};
+} | null;
+
+type SignaturePiecesData = {
+  vRing: SignatureProduct;
+  romanticOval: SignatureProduct;
+} | null;
+
+/**
+ * Frontend-controlled editorial config.
+ * Update `handle` to match your exact Shopify product handles.
+ * Images, titles, and descriptions are intentionally kept in frontend code
+ * and do NOT depend on Shopify product media.
+ */
+const SIGNATURE_CONFIG = [
+  {
+    key: 'vRing' as const,
+    // ⚠️  Update this handle to match the exact Shopify product handle
+    handle: 'v-ring',
+    image: '/signature-v-ring.jpg',
+    title: 'V Ring',
+    description:
+      'A bold yet refined silhouette designed to feel sculptural, luminous, and unmistakably Astreas.',
+    note: 'Signature presentation: 2.50 ct center stone',
+    href: '/products/v-ring',
+  },
+  {
+    key: 'romanticOval' as const,
+    // ⚠️  Update this handle to match the exact Shopify product handle
+    handle: 'romantic-oval',
+    image: '/signature-romantic-oval.jpg',
+    title: 'Romantic Oval',
+    description:
+      'A graceful oval design with soft presence and enduring beauty, created to feel deeply personal and timeless.',
+    note: 'Signature presentation: 3.00 ct center stone',
+    href: '/products/romantic-oval',
+  },
+] as const;
+
+function SignaturePieces({
+  products,
+}: {
+  products: Promise<SignaturePiecesData> | null;
+}) {
+  return (
+    <section className="container-wide section-dawn">
+      {/* Heading */}
+      <div className="text-center mb-16">
+        <p className="caps-label mb-3">Signature Pieces</p>
+        <h2 className="serif-heading text-3xl md:text-4xl leading-tight mb-4">
+          Two rings. One unmistakable presence.
+        </h2>
+        <p className="text-[13px] text-neutral-500 leading-relaxed max-w-md mx-auto">
+          Two distinctive rings chosen for their elegance, presence, and timeless
+          femininity.
+        </p>
+      </div>
+
+      {/* Cards */}
+      <Suspense
+        fallback={
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+            {SIGNATURE_CONFIG.map((_, i) => (
+              <div key={i} className="animate-pulse">
+                <div className="aspect-[4/5] bg-muted mb-6" />
+                <div className="h-4 bg-muted rounded w-1/2 mb-3" />
+                <div className="h-3 bg-muted rounded w-3/4 mb-2" />
+                <div className="h-3 bg-muted rounded w-2/3" />
+              </div>
+            ))}
+          </div>
+        }
+      >
+        <Await resolve={products}>
+          {(data) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
+              {SIGNATURE_CONFIG.map((piece, i) => {
+                const product = data?.[piece.key] ?? null;
+                const href = product
+                  ? `/products/${product.handle}`
+                  : piece.href;
+
+                return (
+                  <motion.div
+                    key={piece.key}
+                    initial={{opacity: 0, y: 24}}
+                    animate={{opacity: 1, y: 0}}
+                    transition={{duration: 0.7, delay: i * 0.15}}
+                  >
+                    <Link to={href} prefetch="intent" className="group block">
+                      {/* Image */}
+                      <div className="aspect-[4/5] overflow-hidden mb-6">
+                        <img
+                          src={piece.image}
+                          alt={piece.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        />
+                      </div>
+
+                      {/* Text */}
+                      <div className="px-1">
+                        <p className="caps-label mb-2">{piece.note}</p>
+                        <h3 className="serif-heading text-2xl md:text-3xl leading-tight mb-3">
+                          {piece.title}
+                        </h3>
+                        <p className="text-[13px] text-neutral-500 leading-relaxed mb-4">
+                          {piece.description}
+                        </p>
+
+                        {/* Price from Shopify */}
+                        {product?.priceRange?.minVariantPrice && (
+                          <p className="text-[13px] text-neutral-400 mb-5">
+                            From{' '}
+                            <Money data={product.priceRange.minVariantPrice} />
+                          </p>
+                        )}
+
+                        {/* CTA */}
+                        <span className="inline-block px-6 py-2 border border-foreground/30 text-foreground text-[10px] uppercase tracking-[0.18em] font-semibold group-hover:bg-foreground group-hover:text-background transition-all duration-500">
+                          Discover Piece
+                        </span>
+                      </div>
+                    </Link>
+                  </motion.div>
+                );
+              })}
+            </div>
+          )}
+        </Await>
+      </Suspense>
+    </section>
+  );
+}
+
 /* ===== FINAL CTA ===== */
 function FinalCTA() {
   return (
@@ -922,6 +1068,25 @@ const MOST_LOVED_QUERY = `#graphql
     solitaire: product(handle: "classic-solitaire-lab-diamond-ring") { ...MostLovedProduct }
     earrings: product(handle: "lab-diamond-stud-earrings") { ...MostLovedProduct }
     sidestone: product(handle: "side-stone-lab-diamond-ring") { ...MostLovedProduct }
+  }
+` as const;
+
+const SIGNATURE_PIECES_QUERY = `#graphql
+  fragment SignatureProduct on Product {
+    id
+    title
+    handle
+    priceRange {
+      minVariantPrice {
+        amount
+        currencyCode
+      }
+    }
+  }
+  query SignaturePieces($country: CountryCode, $language: LanguageCode)
+    @inContext(country: $country, language: $language) {
+    vRing: product(handle: "v-ring") { ...SignatureProduct }
+    romanticOval: product(handle: "romantic-oval") { ...SignatureProduct }
   }
 ` as const;
 
