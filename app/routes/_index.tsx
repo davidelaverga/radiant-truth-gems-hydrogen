@@ -78,10 +78,10 @@ export default function Homepage() {
       <SideStoneRings />
       <HowItWorks />
       <MomentsThatStay />
+      <SignaturePieces products={data.signaturePieces} />
       <TrustSignals />
       <ShippingReturnsWarranty />
       <Testimonials />
-      <SignaturePieces products={data.signaturePieces} />
       <FinalCTA />
     </div>
   );
@@ -947,10 +947,10 @@ function SignaturePieces({
       {/* Cards */}
       <Suspense
         fallback={
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
             {SIGNATURE_CONFIG.map((_, i) => (
               <div key={i} className="animate-pulse">
-                <div className="aspect-[4/5] bg-muted mb-6" />
+                <div className="h-[440px] bg-muted mb-6" />
                 <div className="h-4 bg-muted rounded w-1/2 mb-3" />
                 <div className="h-3 bg-muted rounded w-3/4 mb-2" />
                 <div className="h-3 bg-muted rounded w-2/3" />
@@ -960,13 +960,53 @@ function SignaturePieces({
         }
       >
         <Await resolve={products}>
-          {(data) => (
+          {(resolvedData) => (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
               {SIGNATURE_CONFIG.map((piece, i) => {
-                const product = data?.[piece.key] ?? null;
-                const href = product
-                  ? `/products/${product.handle}`
-                  : piece.href;
+                const product = resolvedData?.[piece.key] ?? null;
+                // Always derive the link from the live Shopify handle.
+                // If the product is null (handle mismatch or unpublished),
+                // the card renders without a link rather than pointing to a 404.
+                const href = product ? `/products/${product.handle}` : null;
+
+                const CardInner = (
+                  <>
+                    {/* Image — fixed-height frame, ring centred with breathing room */}
+                    <div className="h-[440px] bg-[#f8f6f3] flex items-center justify-center overflow-hidden mb-6">
+                      <img
+                        src={piece.image}
+                        alt={piece.title}
+                        className="h-[360px] w-auto max-w-[80%] object-contain transition-transform duration-700 group-hover:scale-[1.04]"
+                      />
+                    </div>
+
+                    {/* Text block */}
+                    <div className="px-1">
+                      <p className="caps-label mb-2">{piece.note}</p>
+                      <h3 className="serif-heading text-2xl md:text-3xl leading-tight mb-3">
+                        {piece.title}
+                      </h3>
+                      <p className="text-[13px] text-neutral-500 leading-relaxed mb-4">
+                        {piece.description}
+                      </p>
+
+                      {/* Price — only shown when Shopify returns the product */}
+                      {product?.priceRange?.minVariantPrice && (
+                        <p className="text-[13px] text-neutral-400 mb-5">
+                          From{' '}
+                          <Money data={product.priceRange.minVariantPrice} />
+                        </p>
+                      )}
+
+                      {/* CTA */}
+                      {href && (
+                        <span className="inline-block px-6 py-2 border border-foreground/30 text-foreground text-[10px] uppercase tracking-[0.18em] font-semibold group-hover:bg-foreground group-hover:text-background transition-all duration-500">
+                          Discover Piece
+                        </span>
+                      )}
+                    </div>
+                  </>
+                );
 
                 return (
                   <motion.div
@@ -975,40 +1015,13 @@ function SignaturePieces({
                     animate={{opacity: 1, y: 0}}
                     transition={{duration: 0.7, delay: i * 0.15}}
                   >
-                    <Link to={href} prefetch="intent" className="group block">
-                      {/* Image */}
-                      <div className="aspect-[4/5] overflow-hidden mb-6">
-                        <img
-                          src={piece.image}
-                          alt={piece.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                        />
-                      </div>
-
-                      {/* Text */}
-                      <div className="px-1">
-                        <p className="caps-label mb-2">{piece.note}</p>
-                        <h3 className="serif-heading text-2xl md:text-3xl leading-tight mb-3">
-                          {piece.title}
-                        </h3>
-                        <p className="text-[13px] text-neutral-500 leading-relaxed mb-4">
-                          {piece.description}
-                        </p>
-
-                        {/* Price from Shopify */}
-                        {product?.priceRange?.minVariantPrice && (
-                          <p className="text-[13px] text-neutral-400 mb-5">
-                            From{' '}
-                            <Money data={product.priceRange.minVariantPrice} />
-                          </p>
-                        )}
-
-                        {/* CTA */}
-                        <span className="inline-block px-6 py-2 border border-foreground/30 text-foreground text-[10px] uppercase tracking-[0.18em] font-semibold group-hover:bg-foreground group-hover:text-background transition-all duration-500">
-                          Discover Piece
-                        </span>
-                      </div>
-                    </Link>
+                    {href ? (
+                      <Link to={href} prefetch="intent" className="group block">
+                        {CardInner}
+                      </Link>
+                    ) : (
+                      <div className="group block">{CardInner}</div>
+                    )}
                   </motion.div>
                 );
               })}
