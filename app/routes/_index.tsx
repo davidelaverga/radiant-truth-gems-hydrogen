@@ -905,25 +905,23 @@ type SignaturePiecesData = {
 const SIGNATURE_CONFIG = [
   {
     key: 'vRing' as const,
-    // ⚠️  Update this handle to match the exact Shopify product handle
-    handle: 'v-ring',
+    handle: 'signature-pear-diamond-v-band-ring',
     image: '/signature-v-ring.jpg',
     title: 'V Ring',
     description:
       'A bold yet refined silhouette designed to feel sculptural, luminous, and unmistakably Astreas.',
     note: 'Signature presentation: 2.50 ct center stone',
-    href: '/products/v-ring',
+    href: '/products/signature-pear-diamond-v-band-ring',
   },
   {
     key: 'romanticOval' as const,
-    // ⚠️  Update this handle to match the exact Shopify product handle
-    handle: 'romantic-oval',
+    handle: 'romantic-oval-diamond-ring',
     image: '/signature-romantic-oval.jpg',
     title: 'Romantic Oval',
     description:
       'A graceful oval design with soft presence and enduring beauty, created to feel deeply personal and timeless.',
     note: 'Signature presentation: 3.00 ct center stone',
-    href: '/products/romantic-oval',
+    href: '/products/romantic-oval-diamond-ring',
   },
 ] as const;
 
@@ -1085,8 +1083,8 @@ const SIGNATURE_PIECES_QUERY = `#graphql
   }
   query SignaturePieces($country: CountryCode, $language: LanguageCode)
     @inContext(country: $country, language: $language) {
-    vRing: product(handle: "v-ring") { ...SignatureProduct }
-    romanticOval: product(handle: "romantic-oval") { ...SignatureProduct }
+    vRing: product(handle: "signature-pear-diamond-v-band-ring") { ...SignatureProduct }
+    romanticOval: product(handle: "romantic-oval-diamond-ring") { ...SignatureProduct }
   }
 ` as const;
 
