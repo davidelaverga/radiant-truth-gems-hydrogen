@@ -905,23 +905,21 @@ type SignaturePiecesData = {
 const SIGNATURE_CONFIG = [
   {
     key: 'vRing' as const,
-    handle: 'signature-pear-diamond-v-band-ring',
+    handle: 'the-eclat-solitaire-ring',
     image: '/signature-v-ring.jpg',
     title: 'V Ring',
     description:
       'A bold yet refined silhouette designed to feel sculptural, luminous, and unmistakably Astreas.',
     note: 'Signature presentation: 2.50 ct center stone',
-    href: '/products/signature-pear-diamond-v-band-ring',
   },
   {
     key: 'romanticOval' as const,
-    handle: 'romantic-oval-diamond-ring',
+    handle: 'romantic-lab-diamond-ring',
     image: '/signature-romantic-oval.jpg',
     title: 'Romantic Oval',
     description:
       'A graceful oval design with soft presence and enduring beauty, created to feel deeply personal and timeless.',
     note: 'Signature presentation: 3.00 ct center stone',
-    href: '/products/romantic-oval-diamond-ring',
   },
 ] as const;
 
@@ -964,12 +962,9 @@ function SignaturePieces({
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16">
               {SIGNATURE_CONFIG.map((piece, i) => {
                 const product = resolvedData?.[piece.key] ?? null;
-                // Always derive the link from the live Shopify handle.
-                // If the product is null (handle mismatch or unpublished),
-                // the card renders without a link rather than pointing to a 404.
                 const href = product ? `/products/${product.handle}` : null;
 
-                const CardInner = (
+                const inner = (
                   <>
                     {/* Image — fixed-height frame, ring centred with breathing room */}
                     <div className="h-[440px] bg-[#f8f6f3] flex items-center justify-center overflow-hidden mb-6">
@@ -999,11 +994,9 @@ function SignaturePieces({
                       )}
 
                       {/* CTA */}
-                      {href && (
-                        <span className="inline-block px-6 py-2 border border-foreground/30 text-foreground text-[10px] uppercase tracking-[0.18em] font-semibold group-hover:bg-foreground group-hover:text-background transition-all duration-500">
-                          Discover Piece
-                        </span>
-                      )}
+                      <span className="inline-block px-6 py-2 border border-foreground/30 text-foreground text-[10px] uppercase tracking-[0.18em] font-semibold group-hover:bg-foreground group-hover:text-background transition-all duration-500">
+                        Discover Piece
+                      </span>
                     </div>
                   </>
                 );
@@ -1016,11 +1009,11 @@ function SignaturePieces({
                     transition={{duration: 0.7, delay: i * 0.15}}
                   >
                     {href ? (
-                      <Link to={href} prefetch="intent" className="group block">
-                        {CardInner}
+                      <Link to={href} prefetch="intent" className="group block cursor-pointer">
+                        {inner}
                       </Link>
                     ) : (
-                      <div className="group block">{CardInner}</div>
+                      <div className="group block">{inner}</div>
                     )}
                   </motion.div>
                 );
@@ -1096,8 +1089,8 @@ const SIGNATURE_PIECES_QUERY = `#graphql
   }
   query SignaturePieces($country: CountryCode, $language: LanguageCode)
     @inContext(country: $country, language: $language) {
-    vRing: product(handle: "signature-pear-diamond-v-band-ring") { ...SignatureProduct }
-    romanticOval: product(handle: "romantic-oval-diamond-ring") { ...SignatureProduct }
+    vRing: product(handle: "the-eclat-solitaire-ring") { ...SignatureProduct }
+    romanticOval: product(handle: "romantic-lab-diamond-ring") { ...SignatureProduct }
   }
 ` as const;
 
