@@ -45,13 +45,6 @@ const rings: EditorialItem[] = [
     image: '/signature-sidestone-ring.jpg',
     link: '/design/side-stone-ring',
   },
-  {
-    name: 'Romantic Diamond Ring',
-    sub: 'Round · Oval · Princess · Pear · Emerald · Cushion · Marquise',
-    description: 'A romantic vintage-inspired design with intricate detail work.',
-    image: '/signature-romantic-ring.jpg',
-    link: '/design/romantic-ring',
-  },
 ];
 
 /** Stud earrings — display by carat weight. Prices removed. */
@@ -137,6 +130,8 @@ function SectionBlock({
   const gridCols =
     items.length === 1
       ? 'max-w-md mx-auto'
+      : items.length === 2
+      ? 'grid-cols-1 sm:grid-cols-2 max-w-3xl mx-auto'
       : items.length === 3
       ? 'grid-cols-1 sm:grid-cols-3'
       : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4';
