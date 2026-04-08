@@ -264,6 +264,15 @@ export function getDesignFamily(id: string): DesignFamily | undefined {
 }
 
 /**
+ * Look up a design family by its Shopify product handle.
+ * Used to determine whether a collection-page product card
+ * should link to the custom /design/[id] configurator route.
+ */
+export function getDesignFamilyByHandle(shopifyHandle: string): DesignFamily | undefined {
+  return DESIGN_FAMILIES.find((f) => f.shopifyHandle === shopifyHandle);
+}
+
+/**
  * Get the best image for the current configuration.
  * Priority: color-specific shape → default shape → gold color fallback
  */

@@ -10,21 +10,25 @@ import {useVariantUrl} from '~/lib/variants';
 export function ProductItem({
   product,
   loading,
+  to: toProp,
 }: {
   product:
     | CollectionItemFragment
     | ProductItemFragment
     | RecommendedProductFragment;
   loading?: 'eager' | 'lazy';
+  /** Optional link destination — overrides the default variant URL. */
+  to?: string;
 }) {
   const variantUrl = useVariantUrl(product.handle);
+  const linkTo = toProp ?? variantUrl;
   const image = product.featuredImage;
 
   return (
     <Link
       key={product.id}
       prefetch="intent"
-      to={variantUrl}
+      to={linkTo}
       className="group block"
     >
       {image && (
