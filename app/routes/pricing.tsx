@@ -1,5 +1,4 @@
 import {Link} from 'react-router';
-import {motion} from 'framer-motion';
 import type {Route} from './+types/pricing';
 
 export function meta({}: Route.MetaArgs) {
@@ -13,88 +12,28 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
-const engagementRings = [
-  {name: '1 Carat Lab Diamond Ring', carat: '1.00 ct Round Brilliant', retailPrice: 2400, ourPrice: 1590, description: 'Timeless brilliance with a refined silhouette.', bestSeller: true, image: '/pricing-ring-1ct.jpg'},
-  {name: '1.5 Carat Lab Diamond Ring', carat: '1.50 ct Round Brilliant', retailPrice: 3000, ourPrice: 2200, description: 'A perfect balance of presence and sophistication.', image: '/pricing-ring-1.5ct.jpg'},
-  {name: '2 Carat Lab Diamond Ring', carat: '2.00 ct Round Brilliant', retailPrice: 4000, ourPrice: 2690, description: 'Bold brilliance crafted for unforgettable moments.', image: '/pricing-ring-2ct.jpg'},
-  {name: '3 Carat Lab Diamond Ring', carat: '3.00 ct Round Brilliant', retailPrice: 5500, ourPrice: 3890, description: 'Statement luxury with exceptional fire and clarity.', image: '/pricing-ring-3ct.jpg'},
+const pricingFactors = [
+  {
+    label: 'Diamond',
+    title: 'Lab-Grown Diamond Quality',
+    body: 'Every stone is IGI-certified and selected for exceptional cut, clarity, and brilliance. Carat weight is the primary variable in diamond pricing — and with lab-grown, you receive significantly more stone for your investment.',
+  },
+  {
+    label: 'Metal',
+    title: 'Solid Gold Setting',
+    body: 'All Astreas pieces are crafted in solid 14K or 18K gold — never plated, never hollow. The gold karat and colour you choose (yellow, white, or rose) factor into the final price alongside the diamond.',
+  },
+  {
+    label: 'Craft',
+    title: 'Made to Order',
+    body: 'Each piece is made to order in our Italian atelier. There is no mass production, no middlemen, and no retail markup. You pay for the materials and the craftsmanship — nothing else.',
+  },
 ];
-
-const studEarrings = [
-  {name: 'Diamond Stud Earrings', carat: '1.00 ct Total Weight', retailPrice: 1200, ourPrice: 890, description: 'Classic sparkle for everyday refinement.', image: '/pricing-earrings-1ct.jpg'},
-  {name: 'Diamond Stud Earrings', carat: '2.00 ct Total Weight', retailPrice: 1800, ourPrice: 1290, description: 'Elevated brilliance with timeless appeal.', bestSeller: true, image: '/pricing-earrings-2ct.jpg'},
-  {name: 'Diamond Stud Earrings', carat: '4.00 ct Total Weight', retailPrice: 3200, ourPrice: 2190, description: 'Radiant presence with luxurious impact.', image: '/pricing-earrings-4ct.jpg'},
-  {name: 'Diamond Stud Earrings', carat: '6.00 ct Total Weight', retailPrice: 4800, ourPrice: 3190, description: 'Bold and luminous, designed to stand out.', image: '/pricing-earrings-6ct.jpg'},
-];
-
-const tennisBracelet = [
-  {name: 'Lab Diamond Tennis Bracelet', carat: '5.00 ct Total Weight', retailPrice: 8500, ourPrice: 5900, description: 'Continuous brilliance in a seamless line of light.', image: '/pricing-bracelet-5ct.jpg'},
-];
-
-function PricingCard({item, designLink}: {item: typeof engagementRings[0]; designLink: string}) {
-  return (
-    <motion.div
-      initial={{opacity: 0, y: 20}}
-      animate={{opacity: 1, y: 0}}
-      transition={{duration: 0.5}}
-      className="border border-border/30 overflow-hidden group"
-    >
-      <Link to={designLink} prefetch="intent" className="block">
-        {item.image && (
-          <div className="aspect-square overflow-hidden">
-            <img
-              src={item.image}
-              alt={item.name}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-            />
-          </div>
-        )}
-      </Link>
-      <div className="p-6">
-        {item.bestSeller && (
-          <span className="caps-label text-[8px] text-accent mb-2 block">Best Seller</span>
-        )}
-        <h3 className="text-sm font-medium mb-1">{item.name}</h3>
-        <p className="text-xs text-muted-foreground mb-3">{item.carat}</p>
-        <p className="text-xs text-muted-foreground leading-relaxed mb-4">{item.description}</p>
-        <div className="flex items-baseline gap-3">
-          <span className="text-lg font-medium">${item.ourPrice.toLocaleString()}</span>
-          <s className="text-xs text-muted-foreground">${item.retailPrice.toLocaleString()}</s>
-        </div>
-        <p className="text-[10px] text-accent mt-1">
-          Save ${(item.retailPrice - item.ourPrice).toLocaleString()}
-        </p>
-        <Link
-          to={designLink}
-          prefetch="intent"
-          className="block mt-4 text-center btn-dawn text-xs"
-        >
-          Customize &amp; Buy
-        </Link>
-      </div>
-    </motion.div>
-  );
-}
-
-function SectionBlock({label, title, items, designLink}: {label: string; title: string; items: typeof engagementRings; designLink: string}) {
-  return (
-    <div className="mb-28 last:mb-0">
-      <div className="text-center mb-16">
-        <p className="caps-label text-[9px] mb-4" style={{color: 'hsl(var(--gold))'}}>{label}</p>
-        <h2 className="serif-heading text-3xl md:text-4xl">{title}</h2>
-      </div>
-      <div className={`grid gap-6 md:gap-8 ${items.length === 1 ? 'max-w-md mx-auto' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4'}`}>
-        {items.map((item, i) => (
-          <PricingCard key={i} item={item} designLink={designLink} />
-        ))}
-      </div>
-    </div>
-  );
-}
 
 export default function Pricing() {
   return (
     <div className="min-h-screen">
+
       {/* Hero */}
       <section className="section-dawn bg-secondary/30">
         <div className="container-narrow text-center">
@@ -102,21 +41,48 @@ export default function Pricing() {
             Transparent Pricing
           </p>
           <h1 className="serif-heading text-4xl md:text-5xl mb-6 leading-[1.1]">
-            Fine Jewelry, Honestly Priced
+            Exceptional Craftsmanship. Honest Value.
           </h1>
           <p className="body-refined text-muted-foreground max-w-lg mx-auto leading-[2]">
-            IGI-certified lab-grown diamonds set in solid gold. No retail markup
-            — just exceptional craftsmanship at a price that makes sense.
+            At Astreas, every piece is crafted with IGI-certified lab-grown diamonds and solid gold,
+            then offered with the clarity and fairness luxury should have always had.
           </p>
         </div>
       </section>
 
-      {/* Pricing Sections */}
+      {/* What shapes the price */}
       <section className="section-dawn">
         <div className="container-wide">
-          <SectionBlock label="Engagement" title="Engagement Rings" items={engagementRings} designLink="/design/classic-solitaire-ring" />
-          <SectionBlock label="Studs" title="Diamond Stud Earrings" items={studEarrings} designLink="/design/diamond-stud-earrings" />
-          <SectionBlock label="Bracelets" title="Tennis Bracelet" items={tennisBracelet} designLink="/design/tennis-bracelet" />
+          <div className="text-center mb-16">
+            <p className="caps-label text-[9px] mb-4" style={{color: 'hsl(var(--gold))'}}>How We Price</p>
+            <h2 className="serif-heading text-3xl md:text-4xl">What Goes Into Every Price</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16">
+            {pricingFactors.map((factor) => (
+              <div key={factor.label} className="text-center">
+                <p className="caps-label text-[9px] mb-4 text-accent">{factor.label}</p>
+                <h3 className="serif-heading text-xl mb-4">{factor.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{factor.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Editorial note */}
+      <section className="section-dawn-sm bg-secondary/30">
+        <div className="container-narrow text-center">
+          <p className="caps-label text-[9px] mb-5 tracking-[0.3em]" style={{color: 'hsl(var(--gold))'}}>
+            No Guesswork
+          </p>
+          <h2 className="serif-heading text-2xl md:text-3xl mb-6 leading-[1.2]">
+            Your price is built around your piece
+          </h2>
+          <p className="text-sm text-muted-foreground max-w-md mx-auto leading-relaxed">
+            When you customise a ring, earring, or bracelet, the final price reflects
+            your exact choices — diamond carat, gold karat, and metal colour. No
+            hidden fees. No surprise charges.
+          </p>
         </div>
       </section>
 
@@ -136,13 +102,14 @@ export default function Pricing() {
         <div className="container-narrow text-center">
           <h2 className="serif-heading text-3xl mb-6">Ready to Start?</h2>
           <p className="text-sm text-muted-foreground mb-8">
-            Every piece is customizable — choose your carat, metal, and diamond shape.
+            Every piece is customisable — choose your carat, metal, and diamond shape.
           </p>
           <Link to="/collections" prefetch="intent" className="btn-dawn-filled inline-block">
             Explore the Collection
           </Link>
         </div>
       </section>
+
     </div>
   );
 }
