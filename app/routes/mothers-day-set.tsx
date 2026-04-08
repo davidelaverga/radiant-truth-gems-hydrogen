@@ -1,8 +1,9 @@
 import {useState, useMemo} from 'react';
-import {Link} from 'react-router';
+import {Link, useLoaderData} from 'react-router';
 import {motion} from 'framer-motion';
 import type {Route} from './+types/mothers-day-set';
 import {Gift, Clock} from 'lucide-react';
+import {AddToCartButton} from '~/components/AddToCartButton';
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -13,6 +14,13 @@ export function meta({}: Route.MetaArgs) {
         "The complete Mother's Day diamond jewelry set: tennis bracelet, necklace, stud earrings, and solitaire ring in solid gold.",
     },
   ];
+}
+
+/* ── Loader ─────────────────────────────────────────────── */
+export async function loader({context}: Route.LoaderArgs) {
+  const {storefront} = context;
+  const {product} = await storefront.query(BUNDLE_PRODUCT_QUERY);
+  return {variants: product?.variants.nodes ?? []};
 }
 
 /* ── Constants ──────────────────────────────────────────── */
@@ -58,6 +66,8 @@ function eur(amount: number): string {
 
 /* ── Component ───────────────────────────────────────────── */
 export default function MothersDaySet() {
+  const {variants} = useLoaderData<typeof loader>();
+
   const [selectedColor,    setSelectedColor]    = useState('white');
   const [selectedPurity,   setSelectedPurity]   = useState('14k');
   const [selectedBracelet, setSelectedBracelet] = useState('7');
@@ -83,6 +93,27 @@ export default function MothersDaySet() {
 
   const finalRounded = Math.round(finalPrice);
   const savings      = RETAIL_PRICE - finalRounded;
+
+  /* Match the current selection to a Shopify variant ID */
+  const selectedVariantId = useMemo(() => {
+    const purity = selectedPurity === '18k' ? '18K' : '14K';
+    const color  = selectedColor.charAt(0).toUpperCase() + selectedColor.slice(1);
+    const goldVal = `${purity} ${color}`;
+    return (
+      variants.find(
+        (v: {id: string; selectedOptions: {name: string; value: string}[]}) =>
+          v.selectedOptions.some(
+            (o) => o.name === 'Gold' && o.value === goldVal,
+          ) &&
+          v.selectedOptions.some(
+            (o) => o.name === 'Bracelet' && o.value === selectedBracelet,
+          ) &&
+          v.selectedOptions.some(
+            (o) => o.name === 'Ring Size' && o.value === selectedRingSize,
+          ),
+      )?.id ?? null
+    );
+  }, [variants, selectedPurity, selectedColor, selectedBracelet, selectedRingSize]);
 
   /* Selector helper */
   function SelectorRow({
@@ -267,14 +298,24 @@ export default function MothersDaySet() {
               </p>
             </div>
 
-            {/* CTA — passes full configuration as URL params */}
-            <Link
-              to={`/contact?set=mothers-day-signature&gold=${selectedColor}&purity=${selectedPurity}&bracelet=${selectedBracelet}&ring=${selectedRingSize}&price=${finalRounded}`}
-              prefetch="intent"
-              className="block w-full btn-dawn-filled text-center mb-4"
-            >
-              Select This Set — {eur(finalRounded)}
-            </Link>
+            {/* Primary CTA — adds selected variant to cart */}
+            <div className="mb-4">
+              <AddToCartButton
+                lines={
+                  selectedVariantId
+                    ? [{merchandiseId: selectedVariantId, quantity: 1}]
+                    : []
+                }
+                disabled={!selectedVariantId}
+              >
+                Add to Cart — {eur(finalRounded)}
+              </AddToCartButton>
+              {!selectedVariantId && (
+                <p className="text-xs text-muted-foreground text-center mt-2">
+                  This combination is currently unavailable. Please adjust your selections or inquire below.
+                </p>
+              )}
+            </div>
             <Link
               to="/contact"
               prefetch="intent"
@@ -307,3 +348,25 @@ export default function MothersDaySet() {
     </div>
   );
 }
+
+/* ── Storefront query ────────────────────────────────────── */
+const BUNDLE_PRODUCT_QUERY = `#graphql
+  query MothersDayBundle(
+    $country: CountryCode
+    $language: LanguageCode
+  ) @inContext(country: $country, language: $language) {
+    product(handle: "mothers-day-signature-set") {
+      id
+      variants(first: 100) {
+        nodes {
+          id
+          availableForSale
+          selectedOptions {
+            name
+            value
+          }
+        }
+      }
+    }
+  }
+` as const;
