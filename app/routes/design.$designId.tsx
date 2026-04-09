@@ -16,6 +16,8 @@ import {useNavigate, useSearchParams} from 'react-router';
 import {getDesignFamily, getConfiguratorImage} from '~/lib/design-families';
 import {computeSizeAdder, getSurchargeVariantId, RING_SIZE_SURCHARGE_VARIANTS} from '~/lib/ring-size-surcharge';
 import {useAside} from '~/components/Aside';
+import {ProductMediaGallery} from '~/components/ProductMediaGallery';
+import {ProductReviews} from '~/components/ProductReviews';
 import {ShieldCheck, Truck, Package} from 'lucide-react';
 
 export const meta: Route.MetaFunction = ({data}) => {
@@ -160,14 +162,12 @@ export default function ConfigurableProduct() {
         </nav>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
-          {/* Product Image */}
-          <div className="aspect-square overflow-hidden bg-muted">
-            <img
-              src={currentImage}
-              alt={`${family.name} in ${selectedColor} gold${selectedShape ? ` - ${selectedShape} cut` : ''}`}
-              className="w-full h-full object-cover"
-            />
-          </div>
+          {/* Product media: main hero + thumbnail strip */}
+          <ProductMediaGallery
+            items={family.media ?? []}
+            fallbackSrc={currentImage}
+            fallbackAlt={`${family.name} in ${selectedColor} gold${selectedShape ? ` - ${selectedShape} cut` : ''}`}
+          />
 
           {/* Configuration Panel */}
           <div className="lg:py-4">
@@ -430,6 +430,10 @@ export default function ConfigurableProduct() {
             </div>
           </div>
         </div>
+        {/* Customer reviews */}
+        {family.reviews && (
+          <ProductReviews reviews={family.reviews} productName={family.name} />
+        )}
       </div>
 
       <Analytics.ProductView
