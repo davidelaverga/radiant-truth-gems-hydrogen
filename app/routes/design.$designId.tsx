@@ -14,7 +14,7 @@ import {
 } from '@shopify/hydrogen';
 import {useNavigate, useSearchParams} from 'react-router';
 import {getDesignFamily, getConfiguratorImage} from '~/lib/design-families';
-import {computeSizeAdder, getSurchargeVariantId} from '~/lib/ring-size-surcharge';
+import {computeSizeAdder, getSurchargeVariantId, RING_SIZE_SURCHARGE_VARIANTS} from '~/lib/ring-size-surcharge';
 import {useAside} from '~/components/Aside';
 import {ShieldCheck, Truck, Package} from 'lucide-react';
 
@@ -36,24 +36,42 @@ export async function loader({context, params, request}: Route.LoaderArgs) {
   const family = getDesignFamily(designId);
   if (!family) throw new Response(`Design family ${designId} not found`, {status: 404});
 
-  const [{product}] = await Promise.all([
+  // Fetch surcharge variant prices in the buyer's currency when this family uses
+  // ring size as a line item property (hasRingSize: true).
+  const surchargeIds = family.hasRingSize
+    ? (Object.values(RING_SIZE_SURCHARGE_VARIANTS).filter(Boolean) as string[])
+    : [];
+
+  const [{product}, surchargeData] = await Promise.all([
     context.storefront.query(PRODUCT_QUERY, {
       variables: {
         handle: family.shopifyHandle,
         selectedOptions: getSelectedProductOptions(request),
       },
     }),
+    surchargeIds.length > 0
+      ? context.storefront.query(SURCHARGE_PRICES_QUERY, {
+          variables: {ids: surchargeIds},
+        })
+      : Promise.resolve({nodes: []}),
   ]);
 
   if (!product?.id) {
     throw new Response(`Product for ${family.shopifyHandle} not found`, {status: 404});
   }
 
-  return {product, family};
+  // Build map: sizeAdder (number) → price in buyer's currency
+  const surchargeAdderPrices: Partial<Record<number, {amount: string; currencyCode: string}>> = {};
+  for (const [adder, id] of Object.entries(RING_SIZE_SURCHARGE_VARIANTS)) {
+    const node = (surchargeData as any).nodes?.find((n: any) => n?.id === id);
+    if (node?.price) surchargeAdderPrices[Number(adder)] = node.price;
+  }
+
+  return {product, family, surchargeAdderPrices};
 }
 
 export default function ConfigurableProduct() {
-  const {product, family} = useLoaderData<typeof loader>();
+  const {product, family, surchargeAdderPrices} = useLoaderData<typeof loader>();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const {open} = useAside();
@@ -115,15 +133,17 @@ export default function ConfigurableProduct() {
   );
   const surchargeVariantId = sizeAdder > 0 ? getSurchargeVariantId(sizeAdder) : undefined;
 
-  // Displayed price = variant base price + size surcharge (if any)
+  // Displayed price = variant base price + surcharge price in buyer's currency (if any)
   const displayPrice = useMemo(() => {
     if (!selectedVariant?.price) return null;
     if (sizeAdder === 0) return null; // render <Money> directly
+    const surchargePrice = surchargeAdderPrices[sizeAdder];
+    if (!surchargePrice) return null;
     return {
-      amount: (parseFloat(selectedVariant.price.amount) + sizeAdder).toFixed(2),
+      amount: (parseFloat(selectedVariant.price.amount) + parseFloat(surchargePrice.amount)).toFixed(2),
       currencyCode: selectedVariant.price.currencyCode,
     };
-  }, [selectedVariant, sizeAdder]);
+  }, [selectedVariant, sizeAdder, surchargeAdderPrices]);
 
   return (
     <div className="min-h-screen">
@@ -170,9 +190,9 @@ export default function ConfigurableProduct() {
                     <Money data={selectedVariant.compareAtPrice} />
                   </s>
                 )}
-                {sizeAdder > 0 && (
+                {sizeAdder > 0 && surchargeAdderPrices[sizeAdder] && (
                   <p className="text-xs text-muted-foreground mt-1">
-                    Includes +${sizeAdder} for ring size {selectedRingSize}
+                    Includes <Money data={surchargeAdderPrices[sizeAdder]!} /> for ring size {selectedRingSize}
                   </p>
                 )}
               </div>
@@ -350,7 +370,7 @@ export default function ConfigurableProduct() {
                                 merchandiseId: surchargeVariantId,
                                 quantity: 1,
                                 attributes: [
-                                  {key: 'Ring Size Surcharge', value: `Size ${selectedRingSize} (+$${sizeAdder})`},
+                                  {key: 'Ring Size Surcharge', value: `Size ${selectedRingSize}`},
                                 ],
                               },
                             ]
@@ -483,4 +503,19 @@ const PRODUCT_QUERY = `#graphql
     }
   }
   ${PRODUCT_VARIANT_FRAGMENT}
+` as const;
+
+const SURCHARGE_PRICES_QUERY = `#graphql
+  query SurchargePrices(
+    $country: CountryCode
+    $language: LanguageCode
+    $ids: [ID!]!
+  ) @inContext(country: $country, language: $language) {
+    nodes(ids: $ids) {
+      ... on ProductVariant {
+        id
+        price { amount currencyCode }
+      }
+    }
+  }
 ` as const;
