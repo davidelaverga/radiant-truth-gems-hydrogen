@@ -14,6 +14,7 @@ import {
 } from '@shopify/hydrogen';
 import {useNavigate, useSearchParams} from 'react-router';
 import {getDesignFamily, getConfiguratorImage} from '~/lib/design-families';
+import {computeSizeAdder, getSurchargeVariantId} from '~/lib/ring-size-surcharge';
 import {useAside} from '~/components/Aside';
 import {ShieldCheck, Truck, Package} from 'lucide-react';
 
@@ -106,6 +107,24 @@ export default function ConfigurableProduct() {
     return props;
   }, [family, selectedColor, selectedShape, selectedRingSize, selectedLength]);
 
+  // Ring size surcharge (only for hasRingSize families — size is a line item
+  // property, not a Shopify variant, so the surcharge is a separate cart line)
+  const sizeAdder = useMemo(
+    () => (family.hasRingSize ? computeSizeAdder(selectedRingSize) : 0),
+    [family.hasRingSize, selectedRingSize],
+  );
+  const surchargeVariantId = sizeAdder > 0 ? getSurchargeVariantId(sizeAdder) : undefined;
+
+  // Displayed price = variant base price + size surcharge (if any)
+  const displayPrice = useMemo(() => {
+    if (!selectedVariant?.price) return null;
+    if (sizeAdder === 0) return null; // render <Money> directly
+    return {
+      amount: (parseFloat(selectedVariant.price.amount) + sizeAdder).toFixed(2),
+      currencyCode: selectedVariant.price.currencyCode,
+    };
+  }, [selectedVariant, sizeAdder]);
+
   return (
     <div className="min-h-screen">
       <div className="container-wide py-8 md:py-16">
@@ -136,16 +155,25 @@ export default function ConfigurableProduct() {
             <h1 className="serif-heading text-3xl md:text-4xl mb-3">{family.name}</h1>
             <p className="text-sm text-muted-foreground mb-4">{family.description}</p>
 
-            {/* Price from selected Shopify variant */}
+            {/* Price from selected Shopify variant + ring size surcharge */}
             {selectedVariant?.price && (
               <div className="mb-6">
                 <span className="text-2xl font-medium">
-                  <Money data={selectedVariant.price} />
+                  {displayPrice ? (
+                    <Money data={displayPrice} />
+                  ) : (
+                    <Money data={selectedVariant.price} />
+                  )}
                 </span>
                 {selectedVariant.compareAtPrice && (
                   <s className="text-sm text-muted-foreground ml-3">
                     <Money data={selectedVariant.compareAtPrice} />
                   </s>
+                )}
+                {sizeAdder > 0 && (
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Includes +${sizeAdder} for ring size {selectedRingSize}
+                  </p>
                 )}
               </div>
             )}
@@ -306,14 +334,28 @@ export default function ConfigurableProduct() {
                 route="/cart"
                 inputs={{
                   lines: selectedVariant
-                    ? [
+                    ? ([
                         {
                           merchandiseId: selectedVariant.id,
                           quantity: 1,
                           selectedVariant,
                           attributes: lineItemProperties,
-                        } as OptimisticCartLineInput,
-                      ]
+                        },
+                        // Surcharge line for ring sizes above 7 (hasRingSize families only).
+                        // Only added when the surcharge product variant ID is configured in
+                        // app/lib/ring-size-surcharge.ts.
+                        ...(surchargeVariantId
+                          ? [
+                              {
+                                merchandiseId: surchargeVariantId,
+                                quantity: 1,
+                                attributes: [
+                                  {key: 'Ring Size Surcharge', value: `Size ${selectedRingSize} (+$${sizeAdder})`},
+                                ],
+                              },
+                            ]
+                          : []),
+                      ] as OptimisticCartLineInput[])
                     : [],
                 }}
                 action={CartForm.ACTIONS.LinesAdd}
