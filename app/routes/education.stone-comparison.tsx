@@ -53,7 +53,7 @@ export default function StoneComparison() {
                   {prop: 'Brilliance', lab: 'Exceptional', mois: 'Very High (more fire)', nat: 'Exceptional'},
                   {prop: 'Sparkle Type', lab: 'White light return', mois: 'Rainbow fire', nat: 'White light return'},
                   {prop: 'Durability', lab: 'Lifetime', mois: 'Lifetime', nat: 'Lifetime'},
-                  {prop: 'Price (1ct equiv.)', lab: '$1,000–$3,000', mois: '$300–$600', nat: '$4,000–$10,000+'},
+                  {prop: 'Price (1ct equiv.)', lab: '€1,000–€3,000', mois: '€300–€600', nat: '€4,000–€10,000+'},
                   {prop: 'Certification', lab: 'IGI / GIA', mois: 'Limited', nat: 'GIA / IGI'},
                   {prop: 'Visual Identity', lab: 'Identical to mined', mois: 'Distinct rainbow effect', nat: 'Traditional benchmark'},
                 ].map((row) => (
