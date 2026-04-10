@@ -28,10 +28,10 @@ const BASE_PRICE = 4190;   // EUR — single source of truth
 const RETAIL_PRICE = 6700; // EUR
 
 const bundleItems = [
-  {name: 'Tennis Bracelet',       detail: '~4ct total weight', icon: '💎'},
-  {name: 'Solitaire Necklace',    detail: '1ct pendant',       icon: '✨'},
-  {name: 'Diamond Stud Earrings', detail: '2ct total weight',  icon: '💫'},
-  {name: 'Classic Solitaire Ring',detail: '1ct center stone',  icon: '💍'},
+  {name: 'Tennis Bracelet',       detail: '~4.00 CTTW',               icon: '💎'},
+  {name: 'Solitaire Necklace',    detail: '1.00 ct center stone',      icon: '✨'},
+  {name: 'Diamond Stud Earrings', detail: '2.00 CTTW (1.00 ct each)',  icon: '💫'},
+  {name: 'Classic Solitaire Ring',detail: '1.00 ct center stone',      icon: '💍'},
 ];
 
 const colorOptions = [

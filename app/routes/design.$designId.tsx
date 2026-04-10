@@ -232,7 +232,13 @@ export default function ConfigurableProduct() {
                 return (
                   <div key={option.name}>
                     <h3 className="caps-label text-[10px] text-foreground mb-3">
-                      {option.name}
+                      {option.name === 'Carat' && family.category === 'earring'
+                        ? 'Carat Weight (CTTW)'
+                        : option.name === 'Carat' && family.category === 'bracelet'
+                        ? 'Carat Weight (CTTW)'
+                        : option.name === 'Carat' && family.category === 'ring'
+                        ? 'Center Stone'
+                        : option.name}
                     </h3>
                     <div className="flex flex-wrap gap-2">
                       {option.optionValues.map((value) => {
@@ -277,6 +283,17 @@ export default function ConfigurableProduct() {
                         );
                       })}
                     </div>
+                    {/* Carat weight clarification for multi-stone pieces */}
+                    {option.name === 'Carat' && family.category === 'earring' && (
+                      <p className="text-[10px] text-muted-foreground mt-2">
+                        Total weight for the pair. Each earring is half the CTTW shown.
+                      </p>
+                    )}
+                    {option.name === 'Carat' && family.category === 'bracelet' && (
+                      <p className="text-[10px] text-muted-foreground mt-2">
+                        Total diamond weight across all stones in the bracelet.
+                      </p>
+                    )}
                   </div>
                 );
               })}

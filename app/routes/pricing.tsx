@@ -51,28 +51,28 @@ const rings: EditorialItem[] = [
 const studEarrings: EditorialItem[] = [
   {
     name: 'Diamond Stud Earrings',
-    sub: '1.00 ct Total Weight',
+    sub: '1.00 CTTW (0.50 ct each)',
     description: 'Classic sparkle for everyday refinement.',
     image: '/pricing-earrings-1ct.jpg',
     link: '/design/diamond-stud-earrings',
   },
   {
     name: 'Diamond Stud Earrings',
-    sub: '2.00 ct Total Weight',
+    sub: '2.00 CTTW (1.00 ct each)',
     description: 'Elevated brilliance with timeless appeal.',
     image: '/pricing-earrings-2ct.jpg',
     link: '/design/diamond-stud-earrings',
   },
   {
     name: 'Diamond Stud Earrings',
-    sub: '4.00 ct Total Weight',
+    sub: '4.00 CTTW (2.00 ct each)',
     description: 'Radiant presence with luxurious impact.',
     image: '/pricing-earrings-4ct.jpg',
     link: '/design/diamond-stud-earrings',
   },
   {
     name: 'Diamond Stud Earrings',
-    sub: '6.00 ct Total Weight',
+    sub: '6.00 CTTW (3.00 ct each)',
     description: 'Bold and luminous, designed to stand out.',
     image: '/pricing-earrings-6ct.jpg',
     link: '/design/diamond-stud-earrings',
@@ -83,7 +83,7 @@ const studEarrings: EditorialItem[] = [
 const tennisBracelet: EditorialItem[] = [
   {
     name: 'Lab Diamond Tennis Bracelet',
-    sub: '5.00 ct Total Weight',
+    sub: '5.00 CTTW',
     description: 'Continuous brilliance in a seamless line of light.',
     image: '/pricing-bracelet-5ct.jpg',
     link: '/design/tennis-bracelet',

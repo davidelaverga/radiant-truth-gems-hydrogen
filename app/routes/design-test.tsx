@@ -521,19 +521,19 @@ export default function DesignTest() {
               <TableRow>
                 <TableCell>Classic Solitaire Ring</TableCell>
                 <TableCell>14K Yellow Gold</TableCell>
-                <TableCell>1.0 ct</TableCell>
+                <TableCell>1.00 ct center stone</TableCell>
                 <TableCell className="text-right">€1,295</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Diamond Stud Earrings</TableCell>
                 <TableCell>14K White Gold</TableCell>
-                <TableCell>2.0 ct</TableCell>
+                <TableCell>2.00 CTTW</TableCell>
                 <TableCell className="text-right">€2,195</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>Tennis Bracelet</TableCell>
                 <TableCell>18K Rose Gold</TableCell>
-                <TableCell>5.0 ct</TableCell>
+                <TableCell>5.00 CTTW</TableCell>
                 <TableCell className="text-right">€4,850</TableCell>
               </TableRow>
             </TableBody>
