@@ -6,13 +6,12 @@
  * prices in the correct currency.
  *
  * Current markets:
- *   - Italy (primary): EUR, language IT/EN
+ *   - Italy (primary, default): EUR, language EN
  *   - United States: USD, language EN
  *
  * URL strategy:
  *   - /en-us/products/... → US market, English, USD
- *   - /it/products/...    → Italy market, Italian, EUR
- *   - /products/...       → Default (US market, English, USD)
+ *   - /products/...       → Default (Italy/primary market, English, EUR)
  */
 
 import type {I18nLocale} from '@shopify/hydrogen';
@@ -24,9 +23,9 @@ export type Locale = I18nLocale & {
 
 export const DEFAULT_LOCALE: Locale = {
   language: 'EN',
-  country: 'US',
+  country: 'IT',
   pathPrefix: '',
-  label: 'United States (USD)',
+  label: 'Italia (EUR)',
 };
 
 export const SUPPORTED_LOCALES: Locale[] = [
