@@ -15,6 +15,7 @@ import favicon from '~/assets/favicon.svg';
 import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
 import tailwindStyles from '~/styles/tailwind.css?url';
 import {PageLayout} from './components/PageLayout';
+import {ConsentBanner} from './components/ConsentBanner';
 
 export type RootLoader = typeof loader;
 
@@ -186,6 +187,7 @@ export default function App() {
       <PageLayout {...data}>
         <Outlet />
       </PageLayout>
+      <ConsentBanner />
     </Analytics.Provider>
   );
 }

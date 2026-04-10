@@ -149,6 +149,16 @@ export function Footer() {
             <span className="text-[10px] text-background/20 tracking-wide">
               Made to Order
             </span>
+            <span className="text-background/10">&middot;</span>
+            <button
+              type="button"
+              onClick={() =>
+                window.dispatchEvent(new Event('astreas:open-cookie-settings'))
+              }
+              className="text-[10px] text-background/20 tracking-wide hover:text-background/40 transition-colors duration-300"
+            >
+              Cookie Settings
+            </button>
           </div>
         </div>
       </div>
