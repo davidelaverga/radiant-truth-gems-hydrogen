@@ -112,6 +112,7 @@ export function Footer() {
                 {name: 'Contact', href: '/contact'},
                 {name: 'About Astreas', href: '/about'},
                 {name: 'Shipping & Returns', href: '/faq'},
+                {name: 'Terms & Conditions', href: '/terms'},
               ].map((item) => (
                 <Link
                   key={item.name}
