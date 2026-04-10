@@ -6,373 +6,249 @@ export function meta({}: Route.MetaArgs) {
     {
       name: 'description',
       content:
-        'Terms and conditions for purchasing from Astreas, including made-to-order production, returns, warranty, and shipping.',
+        'Terms and conditions for Astreas Jewelry — covering made-to-order production, customization, returns, warranty, shipping, and more.',
     },
   ];
 }
 
 const LAST_UPDATED = 'April 2025';
 
+type Section = {
+  id: string;
+  title: string;
+  paragraphs: string[];
+  list?: string[];
+  listAfter?: string;
+};
+
+const sections: Section[] = [
+  {
+    id: 'introduction',
+    title: 'Introduction',
+    paragraphs: [
+      'Welcome to Astreas Jewelry. By accessing our website or placing an order with us, you agree to the following Terms & Conditions. These terms are intended to provide clarity around how we operate, what you can expect from us, and what we ask from our customers in return.',
+      'Please read them carefully before making a purchase.',
+    ],
+  },
+  {
+    id: 'general',
+    title: 'General Information',
+    paragraphs: [
+      'Astreas Jewelry offers fine jewelry made with lab-grown diamonds and solid gold. Our pieces are designed with care, made to order, and presented with a commitment to quality, transparency, and trust.',
+      'We reserve the right to update or revise these Terms & Conditions at any time. Any changes will take effect once published on this website.',
+    ],
+  },
+  {
+    id: 'product-information',
+    title: 'Product Information',
+    paragraphs: [
+      'We make every effort to present our jewelry as accurately as possible through product descriptions, images, videos, and specifications. However, slight differences may occur due to screen settings, lighting, photography, hand-finishing, and the natural variation of materials.',
+      'Carat weight, dimensions, proportions, and final appearance may vary slightly within accepted industry tolerances.',
+    ],
+  },
+  {
+    id: 'made-to-order',
+    title: 'Made-to-Order Production',
+    paragraphs: [
+      'Many Astreas pieces are made to order. This means your jewelry is created specifically for you after purchase rather than held as ready-made stock.',
+      'Because of this made-to-order process, production times may vary depending on the design, selected specifications, and order volume. Estimated timelines are provided as guidance and are not guaranteed delivery dates.',
+    ],
+  },
+  {
+    id: 'customization',
+    title: 'Customization',
+    paragraphs: [
+      'Some Astreas pieces can be customized by selecting options such as metal type, carat weight, ring size, or other available specifications.',
+      'Once an order for a customized or made-to-order piece has entered production, changes may no longer be possible. Please review your selections carefully before completing your purchase.',
+    ],
+  },
+  {
+    id: 'sizing',
+    title: 'Ring Sizing Responsibility',
+    paragraphs: [
+      'Customers are responsible for selecting the correct ring size when placing an order. If you are unsure of your size, we recommend confirming it before purchasing.',
+      'Astreas is not responsible for sizing issues caused by incorrect size selection at checkout. If resizing is possible for a particular piece, it may involve additional time and cost.',
+    ],
+  },
+  {
+    id: 'pricing',
+    title: 'Pricing and Payment',
+    paragraphs: [
+      'All prices are shown in the currency displayed on the website at the time of purchase. We reserve the right to update prices, product details, or availability at any time without prior notice.',
+      'Payment must be completed in full before an order enters production or is prepared for shipment.',
+      'In the event of a pricing error, technical issue, or incorrect listing, we reserve the right to cancel or decline the order and issue a refund if payment has already been made.',
+    ],
+  },
+  {
+    id: 'certification',
+    title: 'Certification',
+    paragraphs: [
+      'Where stated on the product page, diamonds may include certification such as IGI certification. Certification details, when applicable, are provided according to the specific piece purchased.',
+      'Not every item may include an individual certificate unless clearly stated in the product description.',
+    ],
+  },
+  {
+    id: 'shipping',
+    title: 'Shipping and Delivery',
+    paragraphs: [
+      'We aim to prepare and ship all orders within the estimated timeframe shown on the website or shared during the ordering process. Delivery times may vary depending on destination, customs clearance, courier performance, and other factors outside our control.',
+      'Astreas is not responsible for delays caused by shipping carriers, customs processes, force majeure events, or incorrect shipping details provided by the customer.',
+      'Customers are responsible for providing complete and accurate shipping information.',
+    ],
+  },
+  {
+    id: 'duties',
+    title: 'Duties, Taxes, and Import Fees',
+    paragraphs: [
+      'Depending on the destination country, your order may be subject to import duties, taxes, or customs charges. These charges are the responsibility of the customer unless otherwise stated by Astreas.',
+      'We recommend checking local import rules before placing an international order.',
+    ],
+  },
+  {
+    id: 'returns',
+    title: 'Returns and Exchanges',
+    paragraphs: [
+      'Please refer to our Shipping & Returns policy for the most current return and exchange terms.',
+      'Because many Astreas pieces are made to order or customized, certain items may not be eligible for return or exchange unless they arrive damaged, defective, or materially different from what was ordered.',
+      'Returned items must be sent back in original condition and packaging, subject to our return approval process where applicable.',
+    ],
+  },
+  {
+    id: 'warranty',
+    title: 'Warranty and Aftercare',
+    paragraphs: [
+      'Astreas stands behind the quality of its jewelry and aims to provide a supportive aftercare experience. Please refer to our warranty policy or contact us directly for questions related to wear, care, or possible manufacturing issues.',
+      'Our warranty does not cover damage resulting from misuse, accidental impact, improper storage, unauthorized repairs, normal wear and tear, or loss of stones caused by improper handling after delivery.',
+    ],
+  },
+  {
+    id: 'care',
+    title: 'Care of Jewelry',
+    paragraphs: [
+      'Fine jewelry should be treated with care. We recommend removing jewelry before activities that may expose it to impact, chemicals, abrasion, or excessive force.',
+      'Astreas is not responsible for damage caused by improper care, neglect, or everyday use outside normal jewelry wear expectations.',
+    ],
+  },
+  {
+    id: 'cancellation',
+    title: 'Order Refusal and Cancellation',
+    paragraphs: [
+      'We reserve the right to refuse, limit, or cancel any order at our discretion. This may include cases involving suspected fraud, payment issues, product availability errors, or situations where accurate fulfillment is not possible.',
+      'If an order is cancelled after payment, the customer will receive a refund for the amount paid.',
+    ],
+  },
+  {
+    id: 'ip',
+    title: 'Intellectual Property',
+    paragraphs: [
+      'All content on this website, including text, branding, images, videos, graphics, and design elements, belongs to Astreas Jewelry unless otherwise stated.',
+      'This content may not be copied, reproduced, distributed, or used without prior written permission.',
+    ],
+  },
+  {
+    id: 'liability',
+    title: 'Limitation of Liability',
+    paragraphs: [
+      'To the fullest extent permitted by law, Astreas Jewelry shall not be liable for indirect, incidental, consequential, or special damages arising from the use of this website, the purchase of our products, or delays and issues outside our reasonable control.',
+      'Our total liability in connection with any order shall not exceed the amount paid by the customer for the product in question.',
+    ],
+  },
+  {
+    id: 'privacy',
+    title: 'Privacy',
+    paragraphs: [
+      'Your use of this website is also subject to our Privacy Policy and Cookie Policy, which explain how your information is collected, stored, and used.',
+    ],
+  },
+  {
+    id: 'contact',
+    title: 'Contact',
+    paragraphs: [
+      'If you have any questions regarding these Terms & Conditions, please contact us through the contact information provided on our website.',
+    ],
+  },
+];
+
 export default function Terms() {
   return (
     <div className="min-h-screen">
 
-      {/* Hero */}
+      {/* ── Hero ──────────────────────────────────────────────── */}
       <section className="section-dawn bg-secondary/30">
         <div className="container-narrow text-center">
-          <p className="caps-label text-[9px] mb-5" style={{color: 'hsl(var(--gold))'}}>
+          <p
+            className="caps-label text-[9px] mb-5 tracking-[0.3em]"
+            style={{color: 'hsl(var(--gold))'}}
+          >
             Legal
           </p>
-          <h1 className="serif-heading text-4xl md:text-5xl mb-6 leading-[1.1]">
+          <h1 className="serif-heading text-4xl md:text-5xl mb-5 leading-[1.1]">
             Terms &amp; Conditions
           </h1>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-xs text-muted-foreground">
             Last updated: {LAST_UPDATED}
           </p>
         </div>
       </section>
 
-      {/* Body */}
+      {/* ── Body ──────────────────────────────────────────────── */}
       <section className="section-dawn">
         <div className="container-narrow">
-          <div className="max-w-2xl mx-auto space-y-14 text-sm text-muted-foreground leading-relaxed">
+          <div className="max-w-2xl mx-auto">
 
-            <div id="introduction">
-              <h2 className="caps-label text-[10px] text-foreground mb-5 pb-3 border-b border-border/30">
-                Introduction
-              </h2>
-              <div className="space-y-4">
-                <p>
-                  These Terms and Conditions govern all purchases made through astreasjewelry.com
-                  (the &ldquo;Site&rdquo;). By placing an order with Astreas, you confirm that you
-                  have read, understood, and agreed to these terms in full.
-                </p>
-                <p>
-                  Astreas is a fine jewelry brand offering IGI-certified lab-grown diamond jewelry
-                  in solid gold, designed in Italy and made to order. Our goal is to provide an
-                  experience that is as clear and trustworthy as the jewelry itself.
-                </p>
-                <p>
-                  If you have any questions before or after your purchase, please contact us at{' '}
-                  <a
-                    href="mailto:support@astreasjewelry.com"
-                    className="text-foreground/60 underline underline-offset-2 hover:text-foreground transition-colors"
-                  >
-                    support@astreasjewelry.com
-                  </a>
-                  .
-                </p>
-              </div>
-            </div>
-
-            <div id="made-to-order">
-              <h2 className="caps-label text-[10px] text-foreground mb-5 pb-3 border-b border-border/30">
-                Made-to-Order Production
-              </h2>
-              <div className="space-y-4">
-                <p>
-                  All Astreas pieces are made to order. Your jewelry is crafted specifically for
-                  you after your purchase is confirmed, rather than dispatched from existing stock.
-                </p>
-                <p>
-                  Production typically takes <strong className="text-foreground">15 to 20 business days</strong> from
-                  the date of confirmed payment, depending on the complexity of the piece and
-                  your selected specifications. This timeline is an estimate and may vary during
-                  periods of high demand or due to circumstances outside our control.
-                </p>
-                <p>
-                  We will notify you by email when your order has been confirmed and again when
-                  it has been dispatched. If there is any significant delay, we will communicate
-                  this to you promptly.
-                </p>
-              </div>
-            </div>
-
-            <div id="customization">
-              <h2 className="caps-label text-[10px] text-foreground mb-5 pb-3 border-b border-border/30">
-                Customization
-              </h2>
-              <div className="space-y-4">
-                <p>
-                  Many Astreas pieces can be configured with your choice of diamond shape, carat
-                  weight, metal type, gold purity, and where applicable, ring size or bracelet
-                  length. These selections are confirmed at the time of purchase and form part of
-                  your order.
-                </p>
-                <p>
-                  Because each piece is created to your individual specifications, customized or
-                  made-to-order items may have limited return eligibility. Please refer to the
-                  Returns and Exchanges section below for full details.
-                </p>
-                <p>
-                  We are not able to accept changes to your order after production has begun.
-                  Please review your configuration carefully before completing your purchase.
-                </p>
-              </div>
-            </div>
-
-            <div id="sizing">
-              <h2 className="caps-label text-[10px] text-foreground mb-5 pb-3 border-b border-border/30">
-                Sizing Responsibility
-              </h2>
-              <div className="space-y-4">
-                <p>
-                  Ring sizes and bracelet lengths are selected by the customer at the time of
-                  purchase. Astreas provides guidance on our site to help you determine your
-                  correct size, but the final selection remains your responsibility.
-                </p>
-                <p>
-                  We strongly recommend verifying your size carefully before placing your order.
-                  If you are uncertain, we recommend consulting a local jeweler for a professional
-                  sizing before completing your purchase.
-                </p>
-                <p>
-                  Astreas is not responsible for pieces that do not fit due to an incorrect size
-                  being selected. Resizing services may be available on a case-by-case basis;
-                  please contact us to discuss your options.
-                </p>
-              </div>
-            </div>
-
-            <div id="pricing-payment">
-              <h2 className="caps-label text-[10px] text-foreground mb-5 pb-3 border-b border-border/30">
-                Pricing and Payment
-              </h2>
-              <div className="space-y-4">
-                <p>
-                  All prices are displayed in <strong className="text-foreground">Euros (EUR)</strong> and
-                  are inclusive of any applicable taxes where stated. Prices are subject to change
-                  without prior notice, but any price change will not affect an order that has
-                  already been confirmed.
-                </p>
-                <p>
-                  Payment is required in full at the time of purchase. We accept all major payment
-                  methods as displayed at checkout. Your order will not enter production until
-                  payment has been successfully received and confirmed.
-                </p>
-                <p>
-                  In the event of a pricing error on our Site, we reserve the right to cancel an
-                  order and offer a full refund. We will always communicate any such error before
-                  proceeding.
-                </p>
-              </div>
-            </div>
-
-            <div id="shipping">
-              <h2 className="caps-label text-[10px] text-foreground mb-5 pb-3 border-b border-border/30">
-                Shipping and Delivery
-              </h2>
-              <div className="space-y-4">
-                <p>
-                  Astreas offers complimentary insured shipping on all orders. Delivery timelines
-                  begin once your piece has been completed and dispatched, following the production
-                  period described above.
-                </p>
-                <p>
-                  Estimated delivery times after dispatch are typically{' '}
-                  <strong className="text-foreground">3 to 7 business days</strong> within Europe,
-                  and <strong className="text-foreground">7 to 14 business days</strong> for
-                  international destinations, depending on the destination country and local
-                  customs procedures.
-                </p>
-                <p>
-                  International orders may be subject to import duties, taxes, or customs fees
-                  levied by the destination country. These charges are the responsibility of the
-                  recipient and are not included in the purchase price. Astreas is not responsible
-                  for delays caused by customs clearance processes.
-                </p>
-                <p>
-                  A tracking number will be provided once your order has been dispatched.
-                </p>
-              </div>
-            </div>
-
-            <div id="returns">
-              <h2 className="caps-label text-[10px] text-foreground mb-5 pb-3 border-b border-border/30">
-                Returns and Exchanges
-              </h2>
-              <div className="space-y-4">
-                <p>
-                  We want you to feel completely confident in your Astreas purchase. If for any
-                  reason you are not satisfied, you may return your item within{' '}
-                  <strong className="text-foreground">30 days</strong> of the delivery date for a
-                  full refund, subject to the conditions below.
-                </p>
-                <p>To be eligible for a return, your item must be:</p>
-                <ul className="list-disc pl-5 space-y-1.5">
-                  <li>Unworn, undamaged, and in its original condition</li>
-                  <li>Returned in the original packaging with all documentation</li>
-                  <li>Accompanied by proof of purchase</li>
-                </ul>
-                <p>
-                  Items that have been resized, engraved, or otherwise altered after delivery are
-                  not eligible for return. Certain made-to-order pieces with highly specific
-                  customizations may also be exempt; this will be communicated clearly at the time
-                  of purchase if applicable.
-                </p>
-                <p>
-                  To initiate a return, please contact us at{' '}
-                  <a
-                    href="mailto:support@astreasjewelry.com"
-                    className="text-foreground/60 underline underline-offset-2 hover:text-foreground transition-colors"
-                  >
-                    support@astreasjewelry.com
-                  </a>{' '}
-                  before sending any item back. Unauthorised returns may not be processed.
-                </p>
-                <p>
-                  Refunds are issued to the original payment method within 7 to 10 business days
-                  of receiving the returned item and confirming its condition.
-                </p>
-              </div>
-            </div>
-
-            <div id="warranty">
-              <h2 className="caps-label text-[10px] text-foreground mb-5 pb-3 border-b border-border/30">
-                Warranty
-              </h2>
-              <div className="space-y-4">
-                <p>
-                  Each Astreas piece comes with a{' '}
-                  <strong className="text-foreground">lifetime craftsmanship warranty</strong>{' '}
-                  against manufacturing defects in materials and workmanship under normal
-                  conditions of wear.
-                </p>
-                <p>
-                  This warranty covers structural defects in the setting, band, or clasp arising
-                  from the manufacturing process. It does not cover damage resulting from
-                  accidents, improper care, normal wear and tear, or modifications made by third
-                  parties.
-                </p>
-                <p>
-                  To make a warranty claim, please contact us with a description of the issue and
-                  photographic evidence. We will assess your claim and advise on the appropriate
-                  course of action, which may include repair, replacement, or a credit at our
-                  discretion.
-                </p>
-              </div>
-            </div>
-
-            <div id="certification">
-              <h2 className="caps-label text-[10px] text-foreground mb-5 pb-3 border-b border-border/30">
-                Certification
-              </h2>
-              <div className="space-y-4">
-                <p>
-                  All Astreas diamonds of{' '}
-                  <strong className="text-foreground">0.30 carats or above</strong> are supplied
-                  with an independent IGI (International Gemological Institute) certificate,
-                  verifying the stone&rsquo;s cut, color, clarity, and carat weight.
-                </p>
-                <p>
-                  The IGI certificate is issued for the diamond itself and travels with your
-                  piece. It is your independent verification of the stone&rsquo;s quality,
-                  provided by a third-party authority with no affiliation to Astreas.
-                </p>
-                <p>
-                  Diamonds below 0.30 carats are carefully selected for quality but may not
-                  include a certificate. If certification is important to you, please contact us
-                  before purchasing and we will confirm the certification status of the specific
-                  piece.
-                </p>
-              </div>
-            </div>
-
-            <div id="appearance">
-              <h2 className="caps-label text-[10px] text-foreground mb-5 pb-3 border-b border-border/30">
-                Product Appearance
-              </h2>
-              <div className="space-y-4">
-                <p>
-                  We take great care to present our jewelry accurately through photography.
-                  However, the appearance of color, scale, and detail may vary depending on your
-                  screen settings, display calibration, and lighting conditions.
-                </p>
-                <p>
-                  Lab-grown diamonds, like all natural and cultivated gemstones, display
-                  individual characteristics. Minor variations in brilliance, tone, and reflection
-                  are natural and do not constitute a defect.
-                </p>
-                <p>
-                  Images showing diamond shapes on ring settings are for illustrative purposes.
-                  The relative scale of the stone to the band may appear larger or smaller
-                  depending on the specific carat weight and shape selected.
-                </p>
-              </div>
-            </div>
-
-            <div id="liability">
-              <h2 className="caps-label text-[10px] text-foreground mb-5 pb-3 border-b border-border/30">
-                Limitation of Liability
-              </h2>
-              <div className="space-y-4">
-                <p>
-                  Astreas&rsquo; liability in connection with any purchase is limited to the
-                  purchase price of the item in question. We are not liable for any indirect,
-                  consequential, or incidental damages arising from the purchase or use of our
-                  products.
-                </p>
-                <p>
-                  Nothing in these terms limits or excludes our liability for fraud, death, or
-                  personal injury caused by our negligence, or any other liability that cannot be
-                  limited or excluded by applicable law.
-                </p>
-                <p>
-                  These Terms and Conditions are governed by and construed in accordance with
-                  Italian law. Any disputes arising from or in connection with these terms shall
-                  be subject to the jurisdiction of the courts of Italy, unless otherwise required
-                  by applicable consumer protection laws in your country of residence.
-                </p>
-              </div>
-            </div>
-
-            <div id="contact">
-              <h2 className="caps-label text-[10px] text-foreground mb-5 pb-3 border-b border-border/30">
-                Contact and Support
-              </h2>
-              <div className="space-y-4">
-                <p>
-                  If you have any questions, concerns, or requests relating to your order or
-                  these Terms and Conditions, our team is available to assist you.
-                </p>
-                <p>
-                  <strong className="text-foreground">Email:</strong>{' '}
-                  <a
-                    href="mailto:support@astreasjewelry.com"
-                    className="text-foreground/60 underline underline-offset-2 hover:text-foreground transition-colors"
-                  >
-                    support@astreasjewelry.com
-                  </a>
-                </p>
-                <p>
-                  We aim to respond to all enquiries within{' '}
-                  <strong className="text-foreground">2 business days</strong>. For urgent matters
-                  relating to an active order, please include your order number in your message.
-                </p>
-                <p>
-                  We value every customer and are committed to making every part of your Astreas
-                  experience feel as considered and reassuring as the jewelry itself.
-                </p>
-              </div>
-            </div>
-
-          </div>
-
-          {/* Footer note */}
-          <div className="max-w-2xl mx-auto mt-20 pt-10 border-t border-border/20 text-center">
-            <p className="text-xs text-muted-foreground">
-              Questions?{' '}
+            {/* Intro note */}
+            <p className="text-sm text-muted-foreground leading-relaxed mb-14 pb-10 border-b border-border/20">
+              These terms govern all purchases made through{' '}
+              <span className="text-foreground/70">astreasjewelry.com</span>.
+              If you have questions at any point, please{' '}
               <a
-                href="mailto:support@astreasjewelry.com"
-                className="text-foreground/60 underline underline-offset-2 hover:text-foreground transition-colors"
+                href="/contact"
+                className="text-foreground/60 underline underline-offset-2 hover:text-foreground transition-colors duration-300"
               >
-                Contact us
+                contact us
               </a>
-              {' '}at any time.
+              {' '}before purchasing.
             </p>
+
+            {/* Sections */}
+            <div className="space-y-12">
+              {sections.map((section) => (
+                <div key={section.id} id={section.id}>
+                  <h2 className="caps-label text-[10px] text-foreground mb-5 tracking-[0.2em]">
+                    {section.title}
+                  </h2>
+                  <div className="space-y-3.5">
+                    {section.paragraphs.map((p, i) => (
+                      <p
+                        key={i}
+                        className="text-sm text-muted-foreground leading-[1.9]"
+                      >
+                        {p}
+                      </p>
+                    ))}
+                  </div>
+                  <div className="mt-10 border-b border-border/15" />
+                </div>
+              ))}
+            </div>
+
+            {/* Footer note */}
+            <div className="mt-16 text-center">
+              <p className="text-xs text-muted-foreground">
+                Questions?{' '}
+                <a
+                  href="mailto:support@astreasjewelry.com"
+                  className="text-foreground/60 underline underline-offset-2 hover:text-foreground transition-colors duration-300"
+                >
+                  support@astreasjewelry.com
+                </a>
+              </p>
+            </div>
+
           </div>
         </div>
       </section>
+
     </div>
   );
 }
