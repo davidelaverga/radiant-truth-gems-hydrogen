@@ -40,6 +40,11 @@ export function ProductForm({
                   swatch,
                 } = value;
 
+                // Hide option values whose variant no longer exists in Shopify
+                // (e.g. a deleted variant). Out-of-stock variants (exists=true,
+                // available=false) are still shown as expected.
+                if (!exists && !isDifferentProduct) return null;
+
                 const baseClasses =
                   'px-4 py-2.5 text-xs tracking-wide transition-all duration-300';
                 const selectedClasses = selected

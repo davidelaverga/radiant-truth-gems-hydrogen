@@ -243,6 +243,11 @@ export default function ConfigurableProduct() {
                     <div className="flex flex-wrap gap-2">
                       {option.optionValues.map((value) => {
                         const {name, variantUriQuery, selected, available, exists, isDifferentProduct, handle} = value;
+
+                        // Hide option values whose variant no longer exists in Shopify.
+                        // Out-of-stock variants (exists=true, available=false) still show.
+                        if (!exists && !isDifferentProduct) return null;
+
                         const baseClasses = 'px-4 py-2.5 text-xs tracking-wide transition-all duration-300';
                         const selectedClasses = selected
                           ? 'border border-foreground text-foreground'
