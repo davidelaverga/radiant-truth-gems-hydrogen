@@ -14,16 +14,17 @@ import {
   Star,
   ChevronDown,
   ArrowRight,
+  Play,
 } from 'lucide-react';
 import {getDesignFamily, getConfiguratorImage} from '~/lib/design-families';
 
 export function meta({}: Route.MetaArgs) {
   return [
-    {title: 'Design The Ring She Will Never Stop Showing | Astreas'},
+    {title: 'The Ring She Will Never Stop Looking At | Astreas'},
     {
       name: 'description',
       content:
-        'Certified lab-grown diamonds handcrafted in 14K or 18K gold. Luxury quality with honest pricing. Design the ring of her dreams.',
+        'Luxury lab-grown diamond rings designed to be worn, admired, and remembered forever. Honest pricing. IGI certified. Handcrafted to order.',
     },
     {name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=5'},
   ];
@@ -45,9 +46,9 @@ const SHAPES = [
 ] as const;
 
 const CARATS = [
-  {value: '1.0 ct', label: '1 ct', sub: 'Delicate & refined'},
+  {value: '1.0 ct', label: '1 ct', sub: 'Delicate & feminine'},
   {value: '1.5 ct', label: '1.5 ct', sub: 'Elegant presence'},
-  {value: '2.0 ct', label: '2 ct', sub: 'Statement sparkle'},
+  {value: '2.0 ct', label: '2 ct', sub: 'Impossible to ignore'},
   {value: '3.0 ct', label: '3 ct', sub: 'Unforgettable'},
 ] as const;
 
@@ -81,14 +82,19 @@ export default function TikTokLanding() {
     <div className="bg-background text-foreground overflow-x-hidden">
       <Hero />
       <TrustBar />
-      <ShapeExploration />
       <Customizer />
+      <ImagineReaction />
+      <ShapeExploration />
+      <DesignedToBeAdmired />
       <EscapePath />
+      <UGCWall />
       <BrandStory />
       <WhyLabDiamonds />
+      <LuxuryValidation />
       <WhyAstreas />
       <SocialProof />
       <FAQ />
+      <SparkleObsession />
       <FinalCTA />
       <StickyMobileCTA />
     </div>
@@ -99,8 +105,7 @@ export default function TikTokLanding() {
 
 function Hero() {
   return (
-    <section className="relative w-full min-h-[100svh] md:min-h-[92vh] flex items-center justify-center overflow-hidden bg-[#1a1410]">
-      {/* Background: cinematic looping video (falls back to poster on mobile data) */}
+    <section className="relative w-full min-h-[100svh] md:min-h-[92vh] flex items-center justify-center overflow-hidden bg-[#140e0a]">
       <video
         autoPlay
         muted
@@ -108,87 +113,101 @@ function Hero() {
         playsInline
         preload="metadata"
         poster="/hero-ring.jpg"
-        className="absolute inset-0 w-full h-full object-cover opacity-90"
+        className="absolute inset-0 w-full h-full object-cover opacity-95"
       >
         <source src="/hero-loop.mp4" type="video/mp4" />
       </video>
 
-      {/* Soft warm gradient overlay for legibility */}
+      {/* Romantic warm overlay */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            'linear-gradient(180deg, rgba(20,15,12,0.15) 0%, rgba(20,15,12,0.35) 55%, rgba(20,15,12,0.75) 100%)',
+            'linear-gradient(180deg, rgba(20,14,10,0.12) 0%, rgba(20,14,10,0.32) 50%, rgba(20,14,10,0.78) 100%)',
         }}
       />
-
-      {/* Subtle gold shimmer */}
+      {/* Gold halo */}
       <motion.div
         aria-hidden
         initial={{opacity: 0}}
-        animate={{opacity: 0.18}}
+        animate={{opacity: 0.22}}
         transition={{duration: 2.4, ease: 'easeOut'}}
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            'radial-gradient(60% 40% at 50% 35%, rgba(212,175,121,0.45) 0%, rgba(0,0,0,0) 70%)',
+            'radial-gradient(55% 38% at 50% 38%, rgba(232,201,138,0.55) 0%, rgba(0,0,0,0) 70%)',
         }}
       />
+
+      {/* Sparkle micro-particles */}
+      <Sparks />
 
       <motion.div
         initial={{opacity: 0, y: 28}}
         animate={{opacity: 1, y: 0}}
-        transition={{duration: 1.1, ease: [0.22, 1, 0.36, 1]}}
-        className="relative z-10 text-center px-6 max-w-[640px] mx-auto pb-24 md:pb-12 pt-20 md:pt-0"
+        transition={{duration: 1.2, ease: [0.22, 1, 0.36, 1]}}
+        className="relative z-10 text-center px-6 max-w-[680px] mx-auto pb-24 md:pb-12 pt-20 md:pt-0"
       >
         <p
-          className="uppercase text-[10px] md:text-[11px] tracking-[0.4em] mb-6 text-white/70"
+          className="uppercase text-[10px] md:text-[11px] tracking-[0.4em] mb-7 text-[#e8c98a]"
           style={{fontFamily: 'Inter, system-ui, sans-serif'}}
         >
-          Lab-Grown Diamond Engagement Rings
+          Designed To Be Worn, Admired, Remembered.
         </p>
 
         <h1
-          className="text-white text-[36px] sm:text-[44px] md:text-[58px] leading-[1.08] font-light mb-5"
+          className="text-white text-[40px] sm:text-[50px] md:text-[68px] leading-[1.05] font-light mb-6"
           style={{
             fontFamily: 'Cormorant Garamond, Georgia, serif',
             letterSpacing: '0.005em',
             textWrap: 'balance',
           }}
         >
-          Design The Ring She Will <em className="italic text-[#e8c98a]">Never Stop</em> Showing
+          The Ring She Will <em className="italic text-[#e8c98a]">Never Stop</em> Looking At.
         </h1>
 
         <p
-          className="text-white/80 text-[14px] md:text-[16px] leading-[1.7] max-w-[480px] mx-auto mb-9"
+          className="text-white/85 text-[15px] md:text-[17px] leading-[1.7] max-w-[500px] mx-auto mb-10"
           style={{fontFamily: 'Inter, system-ui, sans-serif'}}
         >
-          Certified lab-grown diamonds handcrafted in 14K or 18K gold. Luxury quality with honest pricing.
+          Luxury lab-grown diamond rings handcrafted in solid 14K or 18K gold — designed to be the favorite thing she owns.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-center">
           <a
             href="#customize"
-            className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-[11px] font-semibold uppercase tracking-[0.22em] transition-all duration-500"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-9 py-4 text-[11px] font-semibold uppercase transition-all duration-500 hover:scale-[1.02]"
             style={{
               background: 'hsl(var(--gold))',
               color: '#1a1410',
               letterSpacing: '0.22em',
+              boxShadow: '0 0 0 0 rgba(232,201,138,0.0), 0 10px 40px -10px rgba(232,201,138,0.4)',
             }}
           >
-            Design Your Ring
+            Create Her Ring
+            <ArrowRight className="w-3.5 h-3.5" />
           </a>
           <Link
             to="/collections/rings"
             prefetch="intent"
-            className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 text-[11px] font-semibold uppercase border border-white/70 text-white hover:bg-white hover:text-[#1a1410] transition-all duration-500"
+            className="w-full sm:w-auto inline-flex items-center justify-center px-9 py-4 text-[11px] font-semibold uppercase border border-white/60 text-white hover:bg-white hover:text-[#1a1410] transition-all duration-500"
             style={{letterSpacing: '0.22em'}}
           >
             Explore Ring Styles
           </Link>
         </div>
 
-        {/* Scroll hint */}
+        <p
+          className="mt-8 text-[11px] md:text-[12px] text-white/55"
+          style={{
+            letterSpacing: '0.22em',
+            fontFamily: 'Inter, system-ui, sans-serif',
+            textTransform: 'uppercase',
+          }}
+        >
+          IGI Certified · Free Insured Shipping · Lifetime Warranty
+        </p>
+
         <motion.div
           aria-hidden
           initial={{opacity: 0}}
@@ -197,12 +216,48 @@ function Hero() {
             opacity: {delay: 1.6, duration: 1},
             y: {repeat: Infinity, duration: 2.2, ease: 'easeInOut'},
           }}
-          className="hidden md:block mt-14 text-white/55"
+          className="hidden md:block mt-12 text-white/55"
         >
           <ChevronDown className="w-4 h-4 mx-auto" />
         </motion.div>
       </motion.div>
     </section>
+  );
+}
+
+function Sparks() {
+  // Deterministic seeded sparkle positions so SSR matches client
+  const seeds = [
+    [12, 22, 0.0], [78, 30, 0.4], [22, 65, 0.8], [88, 70, 1.2],
+    [42, 18, 1.6], [62, 80, 2.0], [8, 50, 2.4], [92, 45, 2.8],
+    [33, 88, 3.2], [70, 12, 3.6], [50, 55, 4.0], [18, 35, 4.4],
+  ];
+  return (
+    <div aria-hidden className="absolute inset-0 pointer-events-none">
+      {seeds.map(([x, y, delay], i) => (
+        <motion.span
+          key={i}
+          className="absolute block rounded-full"
+          style={{
+            left: `${x}%`,
+            top: `${y}%`,
+            width: 3,
+            height: 3,
+            background: '#fff8e3',
+            boxShadow:
+              '0 0 8px 2px rgba(232,201,138,0.6), 0 0 22px 4px rgba(232,201,138,0.25)',
+          }}
+          initial={{opacity: 0, scale: 0.4}}
+          animate={{opacity: [0, 1, 0], scale: [0.4, 1.4, 0.4]}}
+          transition={{
+            duration: 3.2,
+            delay,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+      ))}
+    </div>
   );
 }
 
@@ -215,7 +270,7 @@ function TrustBar() {
     {Icon: Gem, label: 'VS1 Clarity'},
     {Icon: Truck, label: 'Free Insured Shipping'},
     {Icon: Gift, label: 'Luxury Packaging'},
-    {Icon: Lock, label: 'Secure Checkout'},
+    {Icon: Lock, label: 'Lifetime Warranty'},
   ];
 
   return (
@@ -256,7 +311,79 @@ function TrustBar() {
   );
 }
 
-/* ---------- 2. SHAPE EXPLORATION ---------- */
+/* ---------- 2. STOP-SCROLL — SPARKLE OBSESSION ---------- */
+
+function SparkleObsession() {
+  return (
+    <section
+      className="relative w-full h-[85vh] md:h-[88vh] overflow-hidden bg-black"
+      aria-label="Diamond brilliance"
+    >
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        poster="/sol-wg-round.jpg"
+        className="absolute inset-0 w-full h-full object-cover"
+      >
+        <source src="/sparkle-macro.mp4" type="video/mp4" />
+      </video>
+
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            'radial-gradient(60% 50% at 50% 50%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.45) 75%, rgba(0,0,0,0.75) 100%)',
+        }}
+      />
+
+      <Sparks />
+
+      <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-6">
+        <motion.p
+          initial={{opacity: 0, letterSpacing: '0.5em'}}
+          whileInView={{opacity: 1, letterSpacing: '0.3em'}}
+          viewport={{once: true}}
+          transition={{duration: 1.2, ease: [0.22, 1, 0.36, 1]}}
+          className="text-[10px] md:text-[11px] uppercase mb-7 text-[#e8c98a]"
+          style={{fontFamily: 'Inter, system-ui, sans-serif'}}
+        >
+          The Sparkle People Notice Instantly
+        </motion.p>
+
+        <motion.h2
+          initial={{opacity: 0, y: 18}}
+          whileInView={{opacity: 1, y: 0}}
+          viewport={{once: true}}
+          transition={{duration: 1.1, delay: 0.15, ease: [0.22, 1, 0.36, 1]}}
+          className="text-white text-[36px] sm:text-[48px] md:text-[72px] leading-[1.05] font-light max-w-[820px]"
+          style={{
+            fontFamily: 'Cormorant Garamond, Georgia, serif',
+            letterSpacing: '0.005em',
+            textWrap: 'balance',
+          }}
+        >
+          Impossible <em className="italic text-[#e8c98a]">Not</em> To Stare At.
+        </motion.h2>
+
+        <motion.p
+          initial={{opacity: 0}}
+          whileInView={{opacity: 1}}
+          viewport={{once: true}}
+          transition={{duration: 1, delay: 0.5}}
+          className="mt-8 text-white/65 text-[14px] md:text-[16px] max-w-[440px] leading-[1.75]"
+          style={{fontFamily: 'Inter, system-ui, sans-serif'}}
+        >
+          Made to catch light — and attention. Every facet, every angle, every glance.
+        </motion.p>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- 3. SHAPE EXPLORATION ---------- */
 
 function ShapeExploration() {
   const family = getDesignFamily('classic-solitaire-ring');
@@ -277,10 +404,10 @@ function ShapeExploration() {
               fontFamily: 'Inter, system-ui, sans-serif',
             }}
           >
-            Find Your Shape
+            Prefer A Different Shape?
           </p>
           <h2
-            className="text-[32px] md:text-[44px] leading-[1.1] font-light mb-4"
+            className="text-[32px] md:text-[46px] leading-[1.08] font-light mb-4"
             style={{
               fontFamily: 'Cormorant Garamond, Georgia, serif',
               letterSpacing: '0.005em',
@@ -290,10 +417,10 @@ function ShapeExploration() {
             Not Your Style?
           </h2>
           <p
-            className="text-[14px] md:text-[16px] text-foreground/65 max-w-[460px] mx-auto leading-[1.7]"
+            className="text-[14px] md:text-[16px] text-foreground/65 max-w-[460px] mx-auto leading-[1.75]"
             style={{fontFamily: 'Inter, system-ui, sans-serif'}}
           >
-            Explore different diamond shapes and find the one that feels like yours.
+            Six diamond shapes. Six different personalities. Pick the one that feels like hers — we'll take it from there.
           </p>
         </div>
 
@@ -319,13 +446,14 @@ function ShapeExploration() {
                   prefetch="intent"
                   className="group block bg-white border border-[#ece4d4] hover:border-[#d4af79] transition-all duration-500"
                 >
-                  <div className="aspect-square overflow-hidden bg-[#f4ede0]">
+                  <div className="aspect-square overflow-hidden bg-[#f4ede0] relative">
                     <img
                       src={img}
                       alt={`${shape.label} cut diamond ring`}
                       loading="lazy"
-                      className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-[1200ms] ease-out"
+                      className="w-full h-full object-cover group-hover:scale-[1.05] transition-transform duration-[1200ms] ease-out"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
                   <div className="px-3 md:px-5 py-4 md:py-5 text-center">
                     <h3
@@ -356,7 +484,93 @@ function ShapeExploration() {
   );
 }
 
-/* ---------- 3. CUSTOMIZER ---------- */
+/* ---------- 4. IMAGINE HER REACTION ---------- */
+
+function ImagineReaction() {
+  return (
+    <section
+      className="relative overflow-hidden"
+      style={{background: '#1a1410'}}
+    >
+      <div className="grid grid-cols-1 md:grid-cols-2">
+        <div className="relative aspect-[4/5] md:aspect-auto md:min-h-[600px]">
+          <img
+            src="/moment-bridal.jpg"
+            alt="The moment she sees the ring"
+            loading="lazy"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'linear-gradient(180deg, rgba(26,20,16,0.0) 40%, rgba(26,20,16,0.55) 100%)',
+            }}
+          />
+        </div>
+        <div className="relative flex items-center justify-center px-7 md:px-16 py-20 md:py-28">
+          <div
+            aria-hidden
+            className="absolute inset-0 pointer-events-none opacity-50"
+            style={{
+              background:
+                'radial-gradient(60% 50% at 30% 50%, rgba(212,175,121,0.25) 0%, rgba(0,0,0,0) 70%)',
+            }}
+          />
+          <motion.div
+            initial={{opacity: 0, y: 20}}
+            whileInView={{opacity: 1, y: 0}}
+            viewport={{once: true}}
+            transition={{duration: 1, ease: [0.22, 1, 0.36, 1]}}
+            className="relative max-w-[460px]"
+          >
+            <p
+              className="text-[10px] md:text-[11px] uppercase mb-5 text-[#e8c98a]"
+              style={{
+                letterSpacing: '0.3em',
+                fontFamily: 'Inter, system-ui, sans-serif',
+              }}
+            >
+              Imagine Her Reaction
+            </p>
+            <h2
+              className="text-white text-[30px] md:text-[44px] font-light leading-[1.12] mb-7"
+              style={{
+                fontFamily: 'Cormorant Garamond, Georgia, serif',
+                textWrap: 'balance',
+              }}
+            >
+              She won't stop staring at it.
+            </h2>
+            <div className="space-y-4 text-white/75 text-[15px] md:text-[16px] leading-[1.85]"
+              style={{fontFamily: 'Inter, system-ui, sans-serif'}}
+            >
+              <p>The way the light hits it on the drive home. The friends who notice without being told. The first time someone reaches for her hand.</p>
+              <p className="text-white/90 italic" style={{fontFamily: 'Cormorant Garamond, Georgia, serif', fontSize: '19px'}}>
+                "I keep looking at my own hand. I can't help it."
+              </p>
+            </div>
+            <a
+              href="#customize"
+              className="inline-flex items-center gap-2 mt-9 text-[11px] md:text-[12px] uppercase border-b pb-1 transition-all duration-500 hover:gap-3"
+              style={{
+                letterSpacing: '0.22em',
+                color: '#e8c98a',
+                borderColor: '#e8c98a',
+                fontFamily: 'Inter, system-ui, sans-serif',
+              }}
+            >
+              Design The Ring She'll Never Forget
+              <ArrowRight className="w-3.5 h-3.5" />
+            </a>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- 5. CUSTOMIZER ---------- */
 
 function Customizer() {
   const family = getDesignFamily('classic-solitaire-ring');
@@ -375,7 +589,7 @@ function Customizer() {
   return (
     <section
       id="customize"
-      className="py-20 md:py-32"
+      className="py-20 md:py-32 relative"
       style={{background: 'hsl(var(--ivory))'}}
     >
       <div className="max-w-[1240px] mx-auto px-5 md:px-12">
@@ -388,22 +602,22 @@ function Customizer() {
               fontFamily: 'Inter, system-ui, sans-serif',
             }}
           >
-            Design Studio
+            Design Her Ring
           </p>
           <h2
-            className="text-[32px] md:text-[44px] leading-[1.1] font-light mb-4"
+            className="text-[32px] md:text-[46px] leading-[1.08] font-light mb-4"
             style={{
               fontFamily: 'Cormorant Garamond, Georgia, serif',
               textWrap: 'balance',
             }}
           >
-            Design A Ring That Feels Like Yours
+            Watch It Become <em className="italic">Hers</em>.
           </h2>
           <p
-            className="text-[14px] md:text-[16px] text-foreground/65 max-w-[480px] mx-auto leading-[1.7]"
+            className="text-[14px] md:text-[16px] text-foreground/65 max-w-[480px] mx-auto leading-[1.75]"
             style={{fontFamily: 'Inter, system-ui, sans-serif'}}
           >
-            Four gentle choices. One unforgettable ring.
+            Four gentle choices. One unforgettable ring. The preview updates as you go — so you'll know the second it looks right.
           </p>
         </div>
 
@@ -416,16 +630,17 @@ function Customizer() {
                   key={previewImage}
                   src={previewImage}
                   alt={`${shape} cut solitaire in ${color} gold`}
-                  initial={{opacity: 0, scale: 1.02}}
+                  initial={{opacity: 0, scale: 1.03}}
                   animate={{opacity: 1, scale: 1}}
                   exit={{opacity: 0}}
-                  transition={{duration: 0.55, ease: [0.22, 1, 0.36, 1]}}
+                  transition={{duration: 0.6, ease: [0.22, 1, 0.36, 1]}}
                   className="absolute inset-0 w-full h-full object-cover"
                 />
               </AnimatePresence>
-              <div className="absolute top-3 left-3 md:top-5 md:left-5 bg-white/85 backdrop-blur-sm px-3 py-1.5 text-[9px] md:text-[10px] uppercase"
+              <div className="absolute top-3 left-3 md:top-5 md:left-5 bg-white/85 backdrop-blur-sm px-3 py-1.5 text-[9px] md:text-[10px] uppercase flex items-center gap-1.5"
                 style={{letterSpacing: '0.22em', fontFamily: 'Inter, system-ui, sans-serif'}}
               >
+                <span className="w-1.5 h-1.5 rounded-full" style={{background: 'hsl(var(--gold))'}} />
                 Live Preview
               </div>
             </div>
@@ -441,7 +656,7 @@ function Customizer() {
 
           {/* Steps */}
           <div className="space-y-10 md:space-y-12">
-            <Step number="01" label="Choose Your Shape">
+            <Step number="01" label="Choose Her Shape" hint="Her personality decides this — not yours.">
               <div className="grid grid-cols-3 gap-2 md:gap-3">
                 {SHAPES.map((s) => (
                   <button
@@ -471,7 +686,7 @@ function Customizer() {
               </div>
             </Step>
 
-            <Step number="02" label="Choose Carat Size">
+            <Step number="02" label="Choose Her Carat" hint="How present should the sparkle feel?">
               <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
                 {CARATS.map((c) => (
                   <button
@@ -501,7 +716,7 @@ function Customizer() {
               </div>
             </Step>
 
-            <Step number="03" label="Choose Gold Color">
+            <Step number="03" label="Choose Her Gold" hint="Each gold tells a slightly different story.">
               <div className="grid grid-cols-3 gap-2 md:gap-3">
                 {COLORS.map((c) => (
                   <button
@@ -515,7 +730,7 @@ function Customizer() {
                     }`}
                   >
                     <span
-                      className="w-8 h-8 md:w-10 md:h-10 rounded-full border border-black/10 shadow-inner"
+                      className="w-8 h-8 md:w-10 md:h-10 rounded-full border border-black/10"
                       style={{
                         background: c.swatch,
                         boxShadow:
@@ -563,21 +778,22 @@ function Customizer() {
               </div>
             </Step>
 
-            <Step number="04" label="Preview Your Ring">
+            <Step number="04" label="See Her Ring" hint="One more step — and you'll see exactly what she will.">
               <Link
                 to={designUrl}
                 prefetch="intent"
-                className="group w-full flex items-center justify-between px-6 py-5 transition-all duration-500"
+                className="group w-full flex items-center justify-between px-6 py-5 transition-all duration-500 hover:scale-[1.01]"
                 style={{
                   background: 'hsl(var(--gold))',
                   color: '#1a1410',
+                  boxShadow: '0 12px 40px -16px rgba(212,175,121,0.6)',
                 }}
               >
                 <span
                   className="text-[11px] md:text-[12px] font-semibold uppercase"
                   style={{letterSpacing: '0.22em', fontFamily: 'Inter, system-ui, sans-serif'}}
                 >
-                  Continue To Your Ring
+                  Create The Ring She'll Treasure Forever
                 </span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-500" />
               </Link>
@@ -598,15 +814,17 @@ function Customizer() {
 function Step({
   number,
   label,
+  hint,
   children,
 }: {
   number: string;
   label: string;
+  hint?: string;
   children: React.ReactNode;
 }) {
   return (
     <div>
-      <div className="flex items-baseline gap-3 mb-4 md:mb-5">
+      <div className="flex items-baseline gap-3 mb-2">
         <span
           className="text-[11px] md:text-[12px]"
           style={{
@@ -624,12 +842,109 @@ function Step({
           {label}
         </h3>
       </div>
+      {hint && (
+        <p
+          className="text-[12px] md:text-[13px] text-foreground/55 mb-4 md:mb-5 italic"
+          style={{fontFamily: 'Cormorant Garamond, Georgia, serif'}}
+        >
+          {hint}
+        </p>
+      )}
       {children}
     </div>
   );
 }
 
-/* ---------- 4. ESCAPE PATH ---------- */
+/* ---------- 6. DESIGNED TO BE ADMIRED ---------- */
+
+function DesignedToBeAdmired() {
+  const cards = [
+    {
+      title: 'Designed To Be Admired',
+      copy: 'The kind of ring that catches attention instantly — without trying. The first comment is never asked for.',
+      img: '/most-loved-solitaire.jpg',
+    },
+    {
+      title: 'Her Favorite Piece Forever',
+      copy: 'Worn at breakfast. Worn at the gym. Worn to bed. Designed to become part of her — not part of a jewelry box.',
+      img: '/most-loved-oval.jpg',
+    },
+    {
+      title: 'A Compliment Magnet',
+      copy: 'Brilliance you can see across a room. The kind of sparkle people ask about before they ask her name.',
+      img: '/most-loved-marquise.jpg',
+    },
+  ];
+
+  return (
+    <section
+      className="py-20 md:py-28"
+      style={{background: '#f7ede0'}}
+    >
+      <div className="max-w-[1240px] mx-auto px-5 md:px-12">
+        <div className="text-center mb-12 md:mb-16">
+          <p
+            className="text-[10px] md:text-[11px] uppercase mb-4"
+            style={{
+              letterSpacing: '0.3em',
+              color: 'hsl(var(--gold-dark))',
+              fontFamily: 'Inter, system-ui, sans-serif',
+            }}
+          >
+            What She'll Feel
+          </p>
+          <h2
+            className="text-[32px] md:text-[46px] leading-[1.08] font-light"
+            style={{
+              fontFamily: 'Cormorant Garamond, Georgia, serif',
+              textWrap: 'balance',
+            }}
+          >
+            Not Just A Ring. <em className="italic">An Identity.</em>
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+          {cards.map((c, i) => (
+            <motion.div
+              key={c.title}
+              initial={{opacity: 0, y: 16}}
+              whileInView={{opacity: 1, y: 0}}
+              viewport={{once: true, margin: '-50px'}}
+              transition={{duration: 0.6, delay: i * 0.08}}
+              className="bg-white border border-[#ece4d4] overflow-hidden group"
+            >
+              <div className="aspect-[4/5] overflow-hidden bg-[#f4ede0]">
+                <img
+                  src={c.img}
+                  alt=""
+                  loading="lazy"
+                  className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-[1400ms] ease-out"
+                />
+              </div>
+              <div className="px-6 py-7 md:px-8 md:py-9">
+                <h3
+                  className="text-[22px] md:text-[26px] font-light mb-3 leading-[1.2]"
+                  style={{fontFamily: 'Cormorant Garamond, Georgia, serif'}}
+                >
+                  {c.title}
+                </h3>
+                <p
+                  className="text-[14px] md:text-[15px] text-foreground/65 leading-[1.85]"
+                  style={{fontFamily: 'Inter, system-ui, sans-serif'}}
+                >
+                  {c.copy}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- 7. ESCAPE PATH ---------- */
 
 function EscapePath() {
   return (
@@ -661,13 +976,13 @@ function EscapePath() {
                 textWrap: 'balance',
               }}
             >
-              Looking For Another Style?
+              Want To See Every Style?
             </h2>
             <p
-              className="text-[15px] md:text-[16px] text-foreground/70 leading-[1.8] max-w-[460px] mb-8"
+              className="text-[15px] md:text-[16px] text-foreground/70 leading-[1.85] max-w-[460px] mb-8"
               style={{fontFamily: 'Inter, system-ui, sans-serif'}}
             >
-              Explore our full collection of handcrafted engagement rings — solitaires, side-stone settings, vintage cuts, and modern silhouettes.
+              Solitaires, side-stone settings, vintage cuts, modern silhouettes. Every ring in our collection — handcrafted, certified, and made for the one who'll never take it off.
             </p>
             <Link
               to="/collections/rings"
@@ -689,7 +1004,134 @@ function EscapePath() {
   );
 }
 
-/* ---------- 5. BRAND STORY ---------- */
+/* ---------- 8. UGC WALL ---------- */
+
+function UGCWall() {
+  // Vertical slots ready for real TikTok/UGC clips at /ugc-1.mp4 ... /ugc-6.mp4
+  // Falls back to lifestyle image posters until videos are uploaded.
+  const slots = [
+    {video: '/ugc-1.mp4', poster: '/moment-bridal.jpg', caption: '"I can\'t stop looking at it."', author: '@sofia.m'},
+    {video: '/ugc-2.mp4', poster: '/moment-portrait.jpg', caption: '"He nailed it. Every single detail."', author: '@camille.d'},
+    {video: '/ugc-3.mp4', poster: '/moment-couple.jpg', caption: '"Everyone keeps asking where it\'s from."', author: '@eleanor.t'},
+    {video: '/ugc-4.mp4', poster: '/romantic-rose-gold.jpg', caption: '"The sparkle in real sunlight…"', author: '@chiara.r'},
+    {video: '/ugc-5.mp4', poster: '/romantic-white-gold.jpg', caption: '"It looks even better in person."', author: '@aria.l'},
+    {video: '/ugc-6.mp4', poster: '/editorial-lifestyle.jpg', caption: '"I haven\'t taken it off since."', author: '@valentina'},
+  ];
+
+  return (
+    <section
+      className="py-20 md:py-28 relative overflow-hidden"
+      style={{background: '#1a1410'}}
+    >
+      <div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none opacity-40"
+        style={{
+          background:
+            'radial-gradient(70% 50% at 50% 0%, rgba(212,175,121,0.35) 0%, rgba(0,0,0,0) 70%)',
+        }}
+      />
+      <div className="relative max-w-[1240px] mx-auto px-5 md:px-12">
+        <div className="text-center mb-12 md:mb-16">
+          <p
+            className="text-[10px] md:text-[11px] uppercase mb-4 text-[#e8c98a]"
+            style={{
+              letterSpacing: '0.3em',
+              fontFamily: 'Inter, system-ui, sans-serif',
+            }}
+          >
+            Real Hands · Real Reactions
+          </p>
+          <h2
+            className="text-white text-[32px] md:text-[46px] leading-[1.08] font-light mb-4"
+            style={{
+              fontFamily: 'Cormorant Garamond, Georgia, serif',
+              textWrap: 'balance',
+            }}
+          >
+            See It On <em className="italic text-[#e8c98a]">Her</em>.
+          </h2>
+          <p
+            className="text-white/65 text-[14px] md:text-[16px] max-w-[480px] mx-auto leading-[1.75]"
+            style={{fontFamily: 'Inter, system-ui, sans-serif'}}
+          >
+            Real fingers. Real sunlight. Real reactions filmed by the people who own one.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2.5 md:gap-3">
+          {slots.map((s, i) => (
+            <motion.div
+              key={i}
+              initial={{opacity: 0, y: 16}}
+              whileInView={{opacity: 1, y: 0}}
+              viewport={{once: true, margin: '-30px'}}
+              transition={{duration: 0.55, delay: i * 0.05}}
+              className="group relative aspect-[9/16] overflow-hidden bg-black/40"
+            >
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="none"
+                poster={s.poster}
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-[1200ms] ease-out"
+              >
+                <source src={s.video} type="video/mp4" />
+              </video>
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background:
+                    'linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.85) 100%)',
+                }}
+              />
+              <div className="absolute top-2.5 right-2.5 bg-black/40 backdrop-blur-sm rounded-full w-7 h-7 flex items-center justify-center opacity-80">
+                <Play className="w-3 h-3 text-white" fill="white" />
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4">
+                <p
+                  className="text-white text-[12px] md:text-[13px] leading-[1.4] mb-1.5 italic"
+                  style={{fontFamily: 'Cormorant Garamond, Georgia, serif'}}
+                >
+                  {s.caption}
+                </p>
+                <p
+                  className="text-[#e8c98a] text-[9px] md:text-[10px] uppercase"
+                  style={{
+                    letterSpacing: '0.18em',
+                    fontFamily: 'Inter, system-ui, sans-serif',
+                  }}
+                >
+                  {s.author}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="text-center mt-10 md:mt-14">
+          <a
+            href="#customize"
+            className="inline-flex items-center gap-2 px-8 py-4 text-[11px] md:text-[12px] uppercase font-semibold transition-all duration-500 hover:scale-[1.02]"
+            style={{
+              background: 'hsl(var(--gold))',
+              color: '#1a1410',
+              letterSpacing: '0.22em',
+              fontFamily: 'Inter, system-ui, sans-serif',
+            }}
+          >
+            Start Your Dream Ring
+            <ArrowRight className="w-3.5 h-3.5" />
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- 9. BRAND STORY ---------- */
 
 function BrandStory() {
   return (
@@ -726,7 +1168,7 @@ function BrandStory() {
               textWrap: 'balance',
             }}
           >
-            She will wear it every single day.
+            She'll wear it every single day.
           </p>
           <p
             className="text-[24px] md:text-[34px] leading-[1.4] font-light italic"
@@ -736,7 +1178,7 @@ function BrandStory() {
               textWrap: 'balance',
             }}
           >
-            She will look at it during ordinary moments and remember one extraordinary one.
+            She'll look at it during ordinary moments and remember one extraordinary one.
           </p>
           <p
             className="text-[20px] md:text-[26px] leading-[1.5] font-light"
@@ -745,7 +1187,7 @@ function BrandStory() {
               textWrap: 'balance',
             }}
           >
-            A ring is never just jewelry. It becomes part of someone's story.
+            A ring is never just jewelry. It becomes part of her story.
           </p>
         </motion.div>
         <div className="mt-14 md:mt-20 grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5 max-w-[680px] mx-auto">
@@ -758,7 +1200,7 @@ function BrandStory() {
   );
 }
 
-/* ---------- 6. WHY LAB DIAMONDS ---------- */
+/* ---------- 10. WHY LAB DIAMONDS ---------- */
 
 function WhyLabDiamonds() {
   const points = [
@@ -809,7 +1251,7 @@ function WhyLabDiamonds() {
               className="text-[15px] md:text-[16px] text-foreground/70 leading-[1.85] mb-10 max-w-[500px]"
               style={{fontFamily: 'Inter, system-ui, sans-serif'}}
             >
-              Lab-grown diamonds are not alternatives. They are diamonds — grown in advanced laboratories instead of pulled from the earth. Same stone. Cleaner story. Better value.
+              Lab-grown diamonds aren't alternatives. They <em>are</em> diamonds — grown in advanced laboratories instead of pulled from the earth. Same stone. Cleaner story. Better value.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-6">
               {points.map((p) => (
@@ -836,7 +1278,62 @@ function WhyLabDiamonds() {
   );
 }
 
-/* ---------- 7. WHY ASTREAS ---------- */
+/* ---------- 11. LUXURY VALIDATION ---------- */
+
+function LuxuryValidation() {
+  return (
+    <section
+      className="py-16 md:py-24 relative overflow-hidden"
+      style={{background: 'linear-gradient(180deg, hsl(var(--ivory)) 0%, #f7ede0 100%)'}}
+    >
+      <div className="max-w-[860px] mx-auto px-6 md:px-12 text-center">
+        <motion.h2
+          initial={{opacity: 0, y: 14}}
+          whileInView={{opacity: 1, y: 0}}
+          viewport={{once: true}}
+          transition={{duration: 1}}
+          className="text-[26px] md:text-[40px] leading-[1.2] font-light"
+          style={{
+            fontFamily: 'Cormorant Garamond, Georgia, serif',
+            textWrap: 'balance',
+          }}
+        >
+          The kind of ring people <em className="italic" style={{color: 'hsl(var(--gold-dark))'}}>assume</em> cost far more.
+        </motion.h2>
+        <motion.p
+          initial={{opacity: 0}}
+          whileInView={{opacity: 1}}
+          viewport={{once: true}}
+          transition={{duration: 1, delay: 0.2}}
+          className="mt-6 text-[14px] md:text-[16px] text-foreground/65 leading-[1.85] max-w-[560px] mx-auto"
+          style={{fontFamily: 'Inter, system-ui, sans-serif'}}
+        >
+          Luxury jewelry without traditional retail markups. Designed to look and feel exceptional — because it is.
+        </motion.p>
+        <div className="mt-8 md:mt-10 flex flex-wrap items-center justify-center gap-x-7 gap-y-3">
+          {[
+            'Solid 14K & 18K Gold',
+            'IGI Certified Diamonds',
+            'DEF Color · VS1 Clarity',
+            'Handcrafted To Order',
+          ].map((b) => (
+            <div key={b} className="flex items-center gap-2">
+              <span className="w-1 h-1 rounded-full" style={{background: 'hsl(var(--gold-dark))'}} />
+              <span
+                className="text-[11px] md:text-[12px] uppercase text-foreground/70"
+                style={{letterSpacing: '0.22em', fontFamily: 'Inter, system-ui, sans-serif'}}
+              >
+                {b}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- 12. WHY ASTREAS ---------- */
 
 function WhyAstreas() {
   const pillars = [
@@ -925,7 +1422,7 @@ function WhyAstreas() {
   );
 }
 
-/* ---------- 8. SOCIAL PROOF ---------- */
+/* ---------- 13. SOCIAL PROOF ---------- */
 
 function SocialProof() {
   const reviews = [
@@ -1014,7 +1511,7 @@ function SocialProof() {
                 className="text-[14px] md:text-[15px] text-foreground/75 leading-[1.8] mb-5"
                 style={{fontFamily: 'Cormorant Garamond, Georgia, serif', fontStyle: 'italic'}}
               >
-                "{r.text}"
+                &ldquo;{r.text}&rdquo;
               </p>
               <div
                 className="text-[11px] md:text-[12px] uppercase text-foreground/55"
@@ -1025,35 +1522,12 @@ function SocialProof() {
             </motion.div>
           ))}
         </div>
-
-        <div className="mt-10 md:mt-14 grid grid-cols-3 md:grid-cols-6 gap-3">
-          {[
-            '/most-loved-solitaire.jpg',
-            '/most-loved-oval.jpg',
-            '/most-loved-marquise.jpg',
-            '/moment-couple.jpg',
-            '/moment-bridal.jpg',
-            '/editorial-lifestyle.jpg',
-          ].map((src, i) => (
-            <motion.img
-              key={src}
-              src={src}
-              alt=""
-              loading="lazy"
-              initial={{opacity: 0, scale: 1.04}}
-              whileInView={{opacity: 1, scale: 1}}
-              viewport={{once: true}}
-              transition={{duration: 0.6, delay: i * 0.04}}
-              className="w-full aspect-[9/16] object-cover"
-            />
-          ))}
-        </div>
       </div>
     </section>
   );
 }
 
-/* ---------- 9. FAQ ---------- */
+/* ---------- 14. FAQ ---------- */
 
 function FAQ() {
   const items = [
@@ -1155,12 +1629,12 @@ function FAQ() {
                       transition={{duration: 0.45, ease: [0.22, 1, 0.36, 1]}}
                       className="overflow-hidden"
                     >
-                      <p
+                      <div
                         className="text-[14px] md:text-[15px] text-foreground/65 leading-[1.85] pb-6 pr-8"
                         style={{fontFamily: 'Inter, system-ui, sans-serif'}}
                       >
                         {it.a}
-                      </p>
+                      </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -1195,11 +1669,11 @@ function FAQ() {
   );
 }
 
-/* ---------- 10. FINAL CTA ---------- */
+/* ---------- 15. FINAL CTA ---------- */
 
 function FinalCTA() {
   return (
-    <section className="relative min-h-[80vh] md:min-h-[680px] flex items-center justify-center overflow-hidden bg-[#1a1410]">
+    <section className="relative min-h-[85vh] md:min-h-[720px] flex items-center justify-center overflow-hidden bg-[#1a1410]">
       <img
         src="/editorial-lifestyle.jpg"
         alt=""
@@ -1210,47 +1684,50 @@ function FinalCTA() {
         className="absolute inset-0"
         style={{
           background:
-            'linear-gradient(180deg, rgba(20,15,12,0.4) 0%, rgba(20,15,12,0.7) 100%)',
+            'linear-gradient(180deg, rgba(20,15,12,0.45) 0%, rgba(20,15,12,0.72) 100%)',
         }}
       />
+      <Sparks />
       <motion.div
         initial={{opacity: 0, y: 16}}
         whileInView={{opacity: 1, y: 0}}
         viewport={{once: true}}
         transition={{duration: 1}}
-        className="relative z-10 text-center px-6 max-w-[680px] py-20"
+        className="relative z-10 text-center px-6 max-w-[720px] py-20"
       >
         <Heart
           className="w-6 h-6 mx-auto mb-6 text-[#e8c98a]"
           strokeWidth={1.2}
-          fill="rgba(232,201,138,0.18)"
+          fill="rgba(232,201,138,0.22)"
         />
         <h2
-          className="text-white text-[34px] sm:text-[42px] md:text-[56px] leading-[1.1] font-light mb-6"
+          className="text-white text-[36px] sm:text-[46px] md:text-[60px] leading-[1.06] font-light mb-7"
           style={{
             fontFamily: 'Cormorant Garamond, Georgia, serif',
             textWrap: 'balance',
           }}
         >
-          The ring she will wear forever starts here.
+          The ring she'll wear <em className="italic text-[#e8c98a]">forever</em> starts here.
         </h2>
         <p
-          className="text-white/75 text-[14px] md:text-[16px] leading-[1.85] max-w-[460px] mx-auto mb-10"
+          className="text-white/80 text-[15px] md:text-[17px] leading-[1.85] max-w-[480px] mx-auto mb-10"
           style={{fontFamily: 'Inter, system-ui, sans-serif'}}
         >
-          Luxury quality. Honest pricing. Designed to become part of your story.
+          Luxury quality. Honest pricing. Designed to become part of her story — every single day.
         </p>
         <a
           href="#customize"
-          className="inline-flex items-center justify-center px-10 py-4 text-[11px] md:text-[12px] font-semibold uppercase transition-all duration-500"
+          className="inline-flex items-center justify-center gap-2 px-10 py-4 text-[11px] md:text-[12px] font-semibold uppercase transition-all duration-500 hover:scale-[1.03]"
           style={{
             background: 'hsl(var(--gold))',
             color: '#1a1410',
             letterSpacing: '0.22em',
             fontFamily: 'Inter, system-ui, sans-serif',
+            boxShadow: '0 14px 50px -10px rgba(232,201,138,0.45)',
           }}
         >
-          Design Your Ring
+          Find Your Forever Ring
+          <ArrowRight className="w-3.5 h-3.5" />
         </a>
       </motion.div>
     </section>
@@ -1291,7 +1768,7 @@ function StickyMobileCTA() {
         </Link>
         <a
           href="#customize"
-          className="flex-[1.4] text-center py-3.5 uppercase text-[10.5px] font-semibold"
+          className="flex-[1.5] text-center py-3.5 uppercase text-[10.5px] font-semibold"
           style={{
             background: 'hsl(var(--gold))',
             color: '#1a1410',
@@ -1299,7 +1776,7 @@ function StickyMobileCTA() {
             fontFamily: 'Inter, system-ui, sans-serif',
           }}
         >
-          Design Your Ring
+          Create Her Ring
         </a>
       </div>
     </div>
