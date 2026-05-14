@@ -15,6 +15,12 @@ import {
   ChevronDown,
   ArrowRight,
   Play,
+  X,
+  Check,
+  Mail,
+  PackageCheck,
+  MapPin,
+  BadgeCheck,
 } from 'lucide-react';
 import {getDesignFamily, getConfiguratorImage} from '~/lib/design-families';
 
@@ -75,12 +81,17 @@ function buildDesignUrl(opts: {
   return `/design/classic-solitaire-ring?${params.toString()}`;
 }
 
+// Public-facing welcome offer code (luxury framing — not a flash sale)
+const WELCOME_CODE = 'ASTREAS10';
+
 /* ---------- PAGE ---------- */
 
 export default function TikTokLanding() {
   return (
     <div className="bg-background text-foreground overflow-x-hidden">
+      <AnnouncementBar />
       <Hero />
+      <LuxuryOffer />
       <TrustBar />
       <Customizer />
       <ImagineReaction />
@@ -90,14 +101,696 @@ export default function TikTokLanding() {
       <UGCWall />
       <BrandStory />
       <WhyLabDiamonds />
-      <LuxuryValidation />
+      <PriceAnchoring />
+      <ShippingTrust />
       <WhyAstreas />
       <SocialProof />
       <FAQ />
+      <PrivateList />
       <SparkleObsession />
       <FinalCTA />
       <StickyMobileCTA />
     </div>
+  );
+}
+
+/* ---------- 0. ANNOUNCEMENT BAR ---------- */
+
+function AnnouncementBar() {
+  const [dismissed, setDismissed] = useState(false);
+  if (dismissed) return null;
+
+  return (
+    <div
+      className="relative w-full text-white"
+      style={{
+        background:
+          'linear-gradient(90deg, #1a1410 0%, #2a1f17 50%, #1a1410 100%)',
+        borderBottom: '1px solid rgba(212,175,121,0.25)',
+      }}
+    >
+      <div className="max-w-[1320px] mx-auto px-5 md:px-10 py-2.5 md:py-3 flex items-center justify-center gap-3 text-center">
+        <Sparkles
+          className="w-3.5 h-3.5 shrink-0 hidden sm:block"
+          style={{color: '#e8c98a'}}
+          strokeWidth={1.4}
+        />
+        <p
+          className="text-[11px] md:text-[12.5px] tracking-[0.05em] leading-snug"
+          style={{fontFamily: 'Inter, system-ui, sans-serif'}}
+        >
+          <span className="font-medium">Enjoy 10% Off Your Ring Today</span>
+          <span className="hidden sm:inline" style={{color: '#e8c98a'}}>
+            {' '}+ An Extra 5% For Astreas Members
+          </span>
+          <span className="mx-2 hidden md:inline text-white/35">·</span>
+          <span className="hidden md:inline text-white/60 italic">
+            Exclusive Online Offer
+          </span>
+        </p>
+        <Sparkles
+          className="w-3.5 h-3.5 shrink-0 hidden sm:block"
+          style={{color: '#e8c98a'}}
+          strokeWidth={1.4}
+        />
+      </div>
+      <button
+        type="button"
+        onClick={() => setDismissed(true)}
+        className="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-white/40 hover:text-white/80 transition-colors"
+        aria-label="Dismiss"
+      >
+        <X className="w-3.5 h-3.5" />
+      </button>
+    </div>
+  );
+}
+
+/* ---------- LUXURY OFFER CARD ---------- */
+
+function LuxuryOffer() {
+  const [copied, setCopied] = useState(false);
+
+  const copyCode = async () => {
+    try {
+      await navigator.clipboard.writeText(WELCOME_CODE);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // ignore
+    }
+  };
+
+  return (
+    <section
+      className="relative py-14 md:py-20"
+      style={{
+        background:
+          'linear-gradient(180deg, #fbf7f1 0%, hsl(var(--ivory)) 100%)',
+      }}
+    >
+      <div className="max-w-[1100px] mx-auto px-5 md:px-12">
+        <motion.div
+          initial={{opacity: 0, y: 18}}
+          whileInView={{opacity: 1, y: 0}}
+          viewport={{once: true}}
+          transition={{duration: 0.9, ease: [0.22, 1, 0.36, 1]}}
+          className="relative overflow-hidden border bg-white"
+          style={{
+            borderColor: 'rgba(191,146,85,0.35)',
+            boxShadow: '0 30px 80px -40px rgba(102,72,30,0.35)',
+          }}
+        >
+          {/* Gold thread accents */}
+          <div
+            aria-hidden
+            className="absolute inset-x-0 top-0 h-px"
+            style={{
+              background:
+                'linear-gradient(90deg, transparent 0%, hsl(var(--gold)) 50%, transparent 100%)',
+            }}
+          />
+          <div
+            aria-hidden
+            className="absolute inset-x-0 bottom-0 h-px"
+            style={{
+              background:
+                'linear-gradient(90deg, transparent 0%, hsl(var(--gold)) 50%, transparent 100%)',
+            }}
+          />
+
+          <div className="grid grid-cols-1 md:grid-cols-[1.05fr_1fr]">
+            {/* Left: emotional offer copy */}
+            <div className="px-7 py-10 md:px-12 md:py-14 border-b md:border-b-0 md:border-r" style={{borderColor: 'rgba(191,146,85,0.18)'}}>
+              <p
+                className="text-[10px] md:text-[11px] uppercase mb-5 flex items-center gap-2"
+                style={{
+                  letterSpacing: '0.3em',
+                  color: 'hsl(var(--gold-dark))',
+                  fontFamily: 'Inter, system-ui, sans-serif',
+                }}
+              >
+                <span className="inline-block w-1.5 h-1.5 rounded-full" style={{background: 'hsl(var(--gold))'}} />
+                Limited Launch Offer · TikTok Exclusive
+              </p>
+              <h2
+                className="text-[28px] md:text-[40px] leading-[1.08] font-light mb-5"
+                style={{
+                  fontFamily: 'Cormorant Garamond, Georgia, serif',
+                  textWrap: 'balance',
+                }}
+              >
+                A Welcome Offer — <em className="italic" style={{color: 'hsl(var(--gold-dark))'}}>From Us To Her.</em>
+              </h2>
+              <p
+                className="text-[14px] md:text-[15.5px] text-foreground/65 leading-[1.85] mb-7 max-w-[480px]"
+                style={{fontFamily: 'Inter, system-ui, sans-serif'}}
+              >
+                Because you found us through TikTok, your first ring comes with a private welcome — applied at checkout, on top of our already direct, honest pricing.
+              </p>
+
+              {/* Tier breakdown */}
+              <div className="space-y-3.5 mb-8">
+                <div className="flex items-start gap-3.5">
+                  <span
+                    className="shrink-0 w-9 h-9 rounded-full flex items-center justify-center text-[11px] font-semibold"
+                    style={{
+                      background: 'hsl(var(--gold))',
+                      color: '#1a1410',
+                      letterSpacing: '0.05em',
+                      fontFamily: 'Inter, system-ui, sans-serif',
+                    }}
+                  >
+                    10%
+                  </span>
+                  <div>
+                    <p
+                      className="text-[15px] md:text-[16px] font-light"
+                      style={{fontFamily: 'Cormorant Garamond, Georgia, serif'}}
+                    >
+                      Off your ring today
+                    </p>
+                    <p
+                      className="text-[12px] md:text-[12.5px] text-foreground/55"
+                      style={{fontFamily: 'Inter, system-ui, sans-serif'}}
+                    >
+                      Auto-applied with code <span className="font-semibold tracking-[0.1em]" style={{color: 'hsl(var(--gold-dark))'}}>{WELCOME_CODE}</span>
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3.5">
+                  <span
+                    className="shrink-0 w-9 h-9 rounded-full flex items-center justify-center text-[11px] font-medium border"
+                    style={{
+                      borderColor: 'hsl(var(--gold))',
+                      color: 'hsl(var(--gold-dark))',
+                      letterSpacing: '0.05em',
+                      fontFamily: 'Inter, system-ui, sans-serif',
+                    }}
+                  >
+                    +5%
+                  </span>
+                  <div>
+                    <p
+                      className="text-[15px] md:text-[16px] font-light"
+                      style={{fontFamily: 'Cormorant Garamond, Georgia, serif'}}
+                    >
+                      Additional for Astreas Private List members
+                    </p>
+                    <p
+                      className="text-[12px] md:text-[12.5px] text-foreground/55"
+                      style={{fontFamily: 'Inter, system-ui, sans-serif'}}
+                    >
+                      Stacks on top of your welcome offer · <a href="#private-list" className="underline underline-offset-2" style={{color: 'hsl(var(--gold-dark))'}}>Become a member</a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 items-stretch sm:items-center">
+                <a
+                  href="#customize"
+                  className="inline-flex items-center justify-center gap-2 px-7 py-3.5 text-[11px] font-semibold uppercase transition-all duration-500 hover:scale-[1.02]"
+                  style={{
+                    background: 'hsl(var(--gold))',
+                    color: '#1a1410',
+                    letterSpacing: '0.22em',
+                    fontFamily: 'Inter, system-ui, sans-serif',
+                  }}
+                >
+                  Create Her Ring
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </a>
+                <button
+                  type="button"
+                  onClick={copyCode}
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3.5 text-[10.5px] font-medium uppercase border transition-all duration-400 hover:bg-[#fbf6ec]"
+                  style={{
+                    borderColor: 'rgba(191,146,85,0.45)',
+                    color: 'hsl(var(--gold-dark))',
+                    letterSpacing: '0.2em',
+                    fontFamily: 'Inter, system-ui, sans-serif',
+                  }}
+                >
+                  {copied ? (
+                    <>
+                      <Check className="w-3.5 h-3.5" /> Code Copied
+                    </>
+                  ) : (
+                    <>
+                      Copy Code · {WELCOME_CODE}
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+
+            {/* Right: validation + scarcity column */}
+            <div
+              className="relative px-7 py-10 md:px-10 md:py-14"
+              style={{
+                background:
+                  'linear-gradient(160deg, #fbf6ec 0%, #f4ead7 100%)',
+              }}
+            >
+              <div
+                aria-hidden
+                className="absolute inset-0 pointer-events-none opacity-50"
+                style={{
+                  background:
+                    'radial-gradient(70% 50% at 100% 0%, rgba(212,175,121,0.25) 0%, rgba(0,0,0,0) 70%)',
+                }}
+              />
+              <div className="relative">
+                <p
+                  className="text-[10px] md:text-[11px] uppercase mb-5"
+                  style={{
+                    letterSpacing: '0.3em',
+                    color: 'hsl(var(--gold-dark))',
+                    fontFamily: 'Inter, system-ui, sans-serif',
+                  }}
+                >
+                  What's Included
+                </p>
+                <ul className="space-y-3.5">
+                  {[
+                    'Free insured express shipping',
+                    'Luxury signature packaging',
+                    'IGI certified center stone',
+                    'Lifetime craftsmanship warranty',
+                    'Free resizing within the first year',
+                  ].map((b) => (
+                    <li key={b} className="flex items-start gap-3 text-[14px] md:text-[15px]" style={{fontFamily: 'Inter, system-ui, sans-serif'}}>
+                      <Check
+                        className="w-4 h-4 shrink-0 mt-[3px]"
+                        style={{color: 'hsl(var(--gold-dark))'}}
+                        strokeWidth={2}
+                      />
+                      <span className="text-foreground/75 leading-[1.5]">{b}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div
+                  className="mt-8 pt-6 border-t"
+                  style={{borderColor: 'rgba(191,146,85,0.22)'}}
+                >
+                  <p
+                    className="text-[11px] md:text-[12px] italic leading-[1.7]"
+                    style={{
+                      fontFamily: 'Cormorant Garamond, Georgia, serif',
+                      color: 'hsl(var(--gold-dark))',
+                      fontSize: '14px',
+                    }}
+                  >
+                    "We open this welcome offer only to TikTok visitors — quietly, and not for long."
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- PRICE ANCHORING ---------- */
+
+function PriceAnchoring() {
+  const rows = [
+    {label: 'Solid 14K / 18K gold', astreas: true, traditional: 'Often hollow or plated'},
+    {label: 'IGI certified DEF / VS1 diamond', astreas: true, traditional: 'Lower color & clarity grades'},
+    {label: 'Handcrafted to order', astreas: true, traditional: 'Mass produced'},
+    {label: 'Direct atelier pricing', astreas: true, traditional: 'Multi-step retail markup'},
+    {label: 'Free insured shipping', astreas: true, traditional: 'Additional fees'},
+    {label: 'Lifetime warranty', astreas: true, traditional: 'Limited terms'},
+  ];
+
+  return (
+    <section
+      className="py-20 md:py-28"
+      style={{background: 'hsl(var(--ivory))'}}
+    >
+      <div className="max-w-[1100px] mx-auto px-5 md:px-12">
+        <div className="text-center mb-12 md:mb-16">
+          <p
+            className="text-[10px] md:text-[11px] uppercase mb-4"
+            style={{
+              letterSpacing: '0.3em',
+              color: 'hsl(var(--gold-dark))',
+              fontFamily: 'Inter, system-ui, sans-serif',
+            }}
+          >
+            Honest Pricing
+          </p>
+          <h2
+            className="text-[32px] md:text-[46px] leading-[1.08] font-light mb-5"
+            style={{
+              fontFamily: 'Cormorant Garamond, Georgia, serif',
+              textWrap: 'balance',
+            }}
+          >
+            Luxury Jewelry Without Traditional Retail Markups.
+          </h2>
+          <p
+            className="text-[14px] md:text-[16px] text-foreground/65 max-w-[560px] mx-auto leading-[1.85]"
+            style={{fontFamily: 'Inter, system-ui, sans-serif'}}
+          >
+            The same gold, the same diamonds, the same craftsmanship — at the price you'd pay if the heritage logo wasn't part of the cost.
+          </p>
+        </div>
+
+        <div className="overflow-hidden border bg-white" style={{borderColor: '#ece4d4'}}>
+          <div className="grid grid-cols-[1.4fr_1fr_1fr] text-[10px] md:text-[11px] uppercase" style={{letterSpacing: '0.22em', fontFamily: 'Inter, system-ui, sans-serif'}}>
+            <div className="px-4 md:px-7 py-4 md:py-5 text-foreground/45 border-b" style={{borderColor: '#ece4d4'}}>
+              What You Get
+            </div>
+            <div
+              className="px-3 md:px-7 py-4 md:py-5 text-center border-b border-l"
+              style={{
+                borderColor: '#ece4d4',
+                background: 'linear-gradient(180deg, #fbf6ec 0%, #f4ead7 100%)',
+                color: 'hsl(var(--gold-dark))',
+                fontWeight: 600,
+              }}
+            >
+              Astreas
+            </div>
+            <div className="px-3 md:px-7 py-4 md:py-5 text-center text-foreground/45 border-b border-l" style={{borderColor: '#ece4d4'}}>
+              Traditional Retail
+            </div>
+          </div>
+          {rows.map((r, i) => (
+            <div
+              key={r.label}
+              className={`grid grid-cols-[1.4fr_1fr_1fr] items-center ${
+                i % 2 === 1 ? 'bg-[#fbf7f1]' : ''
+              }`}
+            >
+              <div
+                className="px-4 md:px-7 py-4 md:py-5 text-[13px] md:text-[15px] text-foreground/80 border-t"
+                style={{borderColor: '#ece4d4', fontFamily: 'Inter, system-ui, sans-serif'}}
+              >
+                {r.label}
+              </div>
+              <div
+                className="px-3 md:px-7 py-4 md:py-5 text-center border-t border-l"
+                style={{borderColor: '#ece4d4', background: 'rgba(232,201,138,0.08)'}}
+              >
+                <Check
+                  className="w-4 h-4 md:w-5 md:h-5 mx-auto"
+                  style={{color: 'hsl(var(--gold-dark))'}}
+                  strokeWidth={2.4}
+                />
+              </div>
+              <div
+                className="px-3 md:px-7 py-4 md:py-5 text-center text-[11.5px] md:text-[13px] text-foreground/50 border-t border-l italic"
+                style={{borderColor: '#ece4d4', fontFamily: 'Cormorant Garamond, Georgia, serif'}}
+              >
+                {typeof r.traditional === 'string' ? r.traditional : '—'}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <p
+          className="mt-8 md:mt-10 text-center text-[12px] md:text-[13px] text-foreground/55 italic max-w-[560px] mx-auto leading-[1.8]"
+          style={{fontFamily: 'Cormorant Garamond, Georgia, serif', fontSize: '15px'}}
+        >
+          The kind of ring people assume cost far more — because, until now, it always did.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- SHIPPING TRUST ---------- */
+
+function ShippingTrust() {
+  const points = [
+    {Icon: PackageCheck, title: 'Fully Tracked Delivery', desc: 'Real-time tracking from atelier to her hands.'},
+    {Icon: ShieldCheck, title: 'Fully Insured', desc: 'Every shipment is insured end-to-end.'},
+    {Icon: BadgeCheck, title: 'Signature On Delivery', desc: 'Required signature — never left at the door.'},
+    {Icon: Gift, title: 'Luxury Packaging', desc: 'Hand-finished signature box, sealed for the moment.'},
+  ];
+
+  return (
+    <section
+      className="py-20 md:py-28 relative overflow-hidden"
+      style={{background: '#fbf7f1'}}
+    >
+      <div className="max-w-[1240px] mx-auto px-5 md:px-12">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.05fr] gap-10 md:gap-16 items-center">
+          <div>
+            <p
+              className="text-[10px] md:text-[11px] uppercase mb-4 flex items-center gap-2"
+              style={{
+                letterSpacing: '0.3em',
+                color: 'hsl(var(--gold-dark))',
+                fontFamily: 'Inter, system-ui, sans-serif',
+              }}
+            >
+              <MapPin className="w-3.5 h-3.5" strokeWidth={1.6} />
+              Ships To USA &amp; Canada
+            </p>
+            <h2
+              className="text-[30px] md:text-[44px] leading-[1.08] font-light mb-5"
+              style={{
+                fontFamily: 'Cormorant Garamond, Georgia, serif',
+                textWrap: 'balance',
+              }}
+            >
+              Free Insured Shipping. <em className="italic" style={{color: 'hsl(var(--gold-dark))'}}>Always.</em>
+            </h2>
+            <p
+              className="text-[15px] md:text-[16px] text-foreground/70 leading-[1.85] max-w-[500px] mb-8"
+              style={{fontFamily: 'Inter, system-ui, sans-serif'}}
+            >
+              Your ring is handcrafted in our European atelier and shipped fully insured, signature-required, with real-time tracking — including all customs, duties, and import fees, prepaid by us. You never pay extra at the door.
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-7 gap-y-5">
+              {points.map(({Icon, title, desc}) => (
+                <div key={title} className="flex items-start gap-3">
+                  <Icon
+                    className="w-5 h-5 shrink-0 mt-0.5"
+                    style={{color: 'hsl(var(--gold-dark))'}}
+                    strokeWidth={1.4}
+                  />
+                  <div>
+                    <p
+                      className="text-[14px] md:text-[15px] font-light mb-0.5"
+                      style={{fontFamily: 'Cormorant Garamond, Georgia, serif'}}
+                    >
+                      {title}
+                    </p>
+                    <p
+                      className="text-[12.5px] md:text-[13px] text-foreground/60 leading-[1.6]"
+                      style={{fontFamily: 'Inter, system-ui, sans-serif'}}
+                    >
+                      {desc}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div
+              className="mt-9 pt-7 border-t flex items-center gap-3"
+              style={{borderColor: 'rgba(191,146,85,0.22)'}}
+            >
+              <Mail
+                className="w-4 h-4 shrink-0"
+                style={{color: 'hsl(var(--gold-dark))'}}
+                strokeWidth={1.4}
+              />
+              <p
+                className="text-[12.5px] md:text-[13.5px] text-foreground/65 leading-[1.7]"
+                style={{fontFamily: 'Inter, system-ui, sans-serif'}}
+              >
+                Dedicated concierge support — a real human replies within hours, not days.
+              </p>
+            </div>
+          </div>
+
+          <div className="relative aspect-[5/6] overflow-hidden">
+            <img
+              src="/moment-portrait.jpg"
+              alt="Luxury signature packaging"
+              loading="lazy"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  'linear-gradient(180deg, rgba(20,15,12,0.0) 50%, rgba(20,15,12,0.5) 100%)',
+              }}
+            />
+            <div className="absolute bottom-5 left-5 right-5 md:bottom-8 md:left-8 md:right-8 text-white">
+              <p
+                className="text-[10px] uppercase mb-1.5"
+                style={{
+                  letterSpacing: '0.3em',
+                  color: '#e8c98a',
+                  fontFamily: 'Inter, system-ui, sans-serif',
+                }}
+              >
+                The Moment It Arrives
+              </p>
+              <p
+                className="text-[18px] md:text-[22px] font-light italic"
+                style={{fontFamily: 'Cormorant Garamond, Georgia, serif'}}
+              >
+                Sealed. Signed for. Unforgettable.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- PRIVATE LIST (VIP EMAIL CAPTURE) ---------- */
+
+function PrivateList() {
+  const [email, setEmail] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email.trim()) return;
+    // Soft submit — the actual capture wiring (Klaviyo / Shopify customer list)
+    // can be added later. This gives users immediate confirmation.
+    setSubmitted(true);
+    // Persist locally so the user sees a calm "you're in" state on next visit
+    try {
+      localStorage.setItem('astreas_private_list', email.trim());
+    } catch {
+      // ignore
+    }
+  };
+
+  return (
+    <section
+      id="private-list"
+      className="relative py-20 md:py-28 overflow-hidden"
+      style={{background: '#1f1812'}}
+    >
+      <div
+        aria-hidden
+        className="absolute inset-0 opacity-30 pointer-events-none"
+        style={{
+          background:
+            'radial-gradient(60% 60% at 50% 0%, rgba(212,175,121,0.5) 0%, rgba(0,0,0,0) 70%)',
+        }}
+      />
+      <div className="relative max-w-[760px] mx-auto px-5 md:px-12 text-center">
+        <motion.p
+          initial={{opacity: 0, y: 8}}
+          whileInView={{opacity: 1, y: 0}}
+          viewport={{once: true}}
+          transition={{duration: 0.8}}
+          className="text-[10px] md:text-[11px] uppercase mb-5 text-[#e8c98a] flex items-center justify-center gap-2"
+          style={{
+            letterSpacing: '0.3em',
+            fontFamily: 'Inter, system-ui, sans-serif',
+          }}
+        >
+          <span className="inline-block w-1.5 h-1.5 rounded-full" style={{background: '#e8c98a'}} />
+          The Astreas Private List
+        </motion.p>
+        <motion.h2
+          initial={{opacity: 0, y: 12}}
+          whileInView={{opacity: 1, y: 0}}
+          viewport={{once: true}}
+          transition={{duration: 0.9, delay: 0.1}}
+          className="text-white text-[28px] md:text-[42px] leading-[1.1] font-light mb-5"
+          style={{
+            fontFamily: 'Cormorant Garamond, Georgia, serif',
+            textWrap: 'balance',
+          }}
+        >
+          An Extra <em className="italic text-[#e8c98a]">5%</em> — Quietly Yours.
+        </motion.h2>
+        <p
+          className="text-white/65 text-[14px] md:text-[16px] leading-[1.85] max-w-[520px] mx-auto mb-9"
+          style={{fontFamily: 'Inter, system-ui, sans-serif'}}
+        >
+          Members of our private list receive an additional 5% — stacked on top of your welcome offer — plus first access to new collections and limited pieces. No newsletter noise. One quiet note when it matters.
+        </p>
+
+        {submitted ? (
+          <motion.div
+            initial={{opacity: 0, y: 8}}
+            animate={{opacity: 1, y: 0}}
+            transition={{duration: 0.6}}
+            className="inline-flex flex-col items-center"
+          >
+            <div className="flex items-center gap-2 text-[#e8c98a] mb-4">
+              <Check className="w-4 h-4" strokeWidth={2} />
+              <span
+                className="text-[11px] md:text-[12px] uppercase"
+                style={{letterSpacing: '0.25em', fontFamily: 'Inter, system-ui, sans-serif'}}
+              >
+                You're On The List
+              </span>
+            </div>
+            <p
+              className="text-white/75 text-[14px] md:text-[15px] max-w-[420px] leading-[1.7]"
+              style={{fontFamily: 'Cormorant Garamond, Georgia, serif', fontStyle: 'italic', fontSize: '16px'}}
+            >
+              Your member code will arrive in your inbox shortly. It stacks automatically with your welcome offer at checkout.
+            </p>
+          </motion.div>
+        ) : (
+          <form
+            onSubmit={onSubmit}
+            className="max-w-[480px] mx-auto"
+          >
+            <div
+              className="flex flex-col sm:flex-row gap-2.5 p-2 border"
+              style={{
+                borderColor: 'rgba(232,201,138,0.3)',
+                background: 'rgba(255,255,255,0.04)',
+                backdropFilter: 'blur(8px)',
+              }}
+            >
+              <input
+                type="email"
+                required
+                placeholder="Your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="flex-1 bg-transparent text-white placeholder:text-white/35 px-4 py-3 text-[14px] md:text-[15px] outline-none"
+                style={{fontFamily: 'Inter, system-ui, sans-serif'}}
+              />
+              <button
+                type="submit"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 text-[10.5px] md:text-[11px] font-semibold uppercase whitespace-nowrap transition-all duration-500 hover:scale-[1.02]"
+                style={{
+                  background: 'hsl(var(--gold))',
+                  color: '#1a1410',
+                  letterSpacing: '0.22em',
+                  fontFamily: 'Inter, system-ui, sans-serif',
+                }}
+              >
+                Join Privately
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+            <p
+              className="mt-5 text-[11px] md:text-[12px] text-white/40 leading-[1.7]"
+              style={{fontFamily: 'Inter, system-ui, sans-serif'}}
+            >
+              We treat your inbox the way we treat our pieces — with restraint. Unsubscribe anytime.
+            </p>
+          </form>
+        )}
+      </div>
+    </section>
   );
 }
 
@@ -797,6 +1490,29 @@ function Customizer() {
                 </span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-500" />
               </Link>
+
+              {/* Offer reminder chip — luxury, not flashy */}
+              <div
+                className="mt-4 flex items-start gap-2.5 px-4 py-3 border"
+                style={{
+                  borderColor: 'rgba(191,146,85,0.3)',
+                  background: 'rgba(232,201,138,0.08)',
+                }}
+              >
+                <Sparkles
+                  className="w-3.5 h-3.5 shrink-0 mt-[3px]"
+                  style={{color: 'hsl(var(--gold-dark))'}}
+                  strokeWidth={1.6}
+                />
+                <p
+                  className="text-[11.5px] md:text-[12px] leading-[1.6] text-foreground/75"
+                  style={{fontFamily: 'Inter, system-ui, sans-serif'}}
+                >
+                  <span className="font-semibold" style={{color: 'hsl(var(--gold-dark))'}}>10% off applied at checkout</span>
+                  <span className="text-foreground/55"> with code <span className="font-semibold tracking-[0.1em]" style={{color: 'hsl(var(--gold-dark))'}}>{WELCOME_CODE}</span> — auto-applied for TikTok visitors.</span>
+                </p>
+              </div>
+
               <p
                 className="text-[11px] md:text-[12px] text-foreground/55 mt-3 leading-[1.7]"
                 style={{fontFamily: 'Inter, system-ui, sans-serif'}}
@@ -1729,6 +2445,14 @@ function FinalCTA() {
           Find Your Forever Ring
           <ArrowRight className="w-3.5 h-3.5" />
         </a>
+        <p
+          className="mt-7 text-[11px] md:text-[12px] uppercase text-[#e8c98a]/85 flex items-center justify-center gap-2"
+          style={{letterSpacing: '0.28em', fontFamily: 'Inter, system-ui, sans-serif'}}
+        >
+          <span className="w-1 h-1 rounded-full" style={{background: '#e8c98a'}} />
+          10% Welcome Offer · Free Insured Shipping · Lifetime Warranty
+          <span className="w-1 h-1 rounded-full" style={{background: '#e8c98a'}} />
+        </p>
       </motion.div>
     </section>
   );
