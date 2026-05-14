@@ -30,7 +30,7 @@ export function meta({}: Route.MetaArgs) {
     {
       name: 'description',
       content:
-        'The Astreas Classic Solitaire — one IGI-certified lab diamond, hand-finished in solid 14K or 18K gold. 10% + 5% welcome offer. Free insured shipping to USA & Canada. Lifetime warranty.',
+        'Luxury lab-grown diamond rings designed to be worn, admired, and remembered forever. Honest pricing. IGI certified. Handcrafted to order.',
     },
     {name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=5'},
   ];
@@ -139,13 +139,13 @@ function AnnouncementBar() {
           className="text-[11px] md:text-[12.5px] tracking-[0.05em] leading-snug"
           style={{fontFamily: 'Inter, system-ui, sans-serif'}}
         >
-          <span className="font-medium">10% Off Her Ring Today</span>
+          <span className="font-medium">Enjoy 10% Off Your Ring Today</span>
           <span className="hidden sm:inline" style={{color: '#e8c98a'}}>
-            {' '}+ An Extra 5% For Private List Members
+            {' '}+ An Extra 5% For Astreas Members
           </span>
           <span className="mx-2 hidden md:inline text-white/35">·</span>
-          <span className="hidden md:inline text-white/70">
-            Free Insured Shipping · USA &amp; Canada
+          <span className="hidden md:inline text-white/60 italic">
+            Exclusive Online Offer
           </span>
         </p>
         <Sparkles
@@ -231,7 +231,7 @@ function LuxuryOffer() {
                 }}
               >
                 <span className="inline-block w-1.5 h-1.5 rounded-full" style={{background: 'hsl(var(--gold))'}} />
-                Private Welcome · TikTok Only · Closes Quietly
+                Limited Launch Offer · TikTok Exclusive
               </p>
               <h2
                 className="text-[28px] md:text-[40px] leading-[1.08] font-light mb-5"
@@ -246,7 +246,7 @@ function LuxuryOffer() {
                 className="text-[14px] md:text-[15.5px] text-foreground/65 leading-[1.85] mb-7 max-w-[480px]"
                 style={{fontFamily: 'Inter, system-ui, sans-serif'}}
               >
-                Because you found us through TikTok, her ring comes with a private welcome — quietly stacked at checkout, on top of our already direct atelier pricing. Only a small number of rings can be hand-finished each week.
+                Because you found us through TikTok, your first ring comes with a private welcome — applied at checkout, on top of our already direct, honest pricing.
               </p>
 
               {/* Tier breakdown */}
@@ -374,10 +374,9 @@ function LuxuryOffer() {
                 </p>
                 <ul className="space-y-3.5">
                   {[
-                    'Free insured shipping to USA & Canada',
-                    'Signed-for, fully tracked, duties prepaid',
-                    'IGI certified center stone',
+                    'Free insured express shipping',
                     'Luxury signature packaging',
+                    'IGI certified center stone',
                     'Lifetime craftsmanship warranty',
                     'Free resizing within the first year',
                   ].map((b) => (
@@ -404,7 +403,7 @@ function LuxuryOffer() {
                       fontSize: '14px',
                     }}
                   >
-                    "We open this welcome offer only to TikTok visitors — quietly, and not for long. Once this week's atelier slots fill, it closes."
+                    "We open this welcome offer only to TikTok visitors — quietly, and not for long."
                   </p>
                 </div>
               </div>
@@ -615,10 +614,10 @@ function ShippingTrust() {
             </div>
           </div>
 
-          <div className="relative aspect-[5/6] overflow-hidden bg-[#1a1410]">
+          <div className="relative aspect-[5/6] overflow-hidden">
             <img
-              src="/signature-solitaire-ring.jpg"
-              alt="Classic Solitaire — handcrafted, sealed, signed for"
+              src="/moment-portrait.jpg"
+              alt="Luxury signature packaging"
               loading="lazy"
               className="absolute inset-0 w-full h-full object-cover"
             />
@@ -626,7 +625,7 @@ function ShippingTrust() {
               className="absolute inset-0"
               style={{
                 background:
-                  'linear-gradient(180deg, rgba(20,15,12,0.0) 35%, rgba(20,15,12,0.78) 100%)',
+                  'linear-gradient(180deg, rgba(20,15,12,0.0) 50%, rgba(20,15,12,0.5) 100%)',
               }}
             />
             <div className="absolute bottom-5 left-5 right-5 md:bottom-8 md:left-8 md:right-8 text-white">
@@ -638,13 +637,13 @@ function ShippingTrust() {
                   fontFamily: 'Inter, system-ui, sans-serif',
                 }}
               >
-                The Moment Her Ring Arrives
+                The Moment It Arrives
               </p>
               <p
                 className="text-[18px] md:text-[22px] font-light italic"
                 style={{fontFamily: 'Cormorant Garamond, Georgia, serif'}}
               >
-                The same ring. Sealed. Signed for. Hers.
+                Sealed. Signed for. Unforgettable.
               </p>
             </div>
           </div>
@@ -864,7 +863,7 @@ function Hero() {
           className="text-white/85 text-[15px] md:text-[17px] leading-[1.7] max-w-[500px] mx-auto mb-10"
           style={{fontFamily: 'Inter, system-ui, sans-serif'}}
         >
-          The Astreas Classic Solitaire — a single IGI-certified lab diamond, hand-finished in solid 14K or 18K gold. One unforgettable ring, made to become the favorite thing she owns.
+          Luxury lab-grown diamond rings handcrafted in solid 14K or 18K gold — designed to be the favorite thing she owns.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-center">
@@ -899,7 +898,7 @@ function Hero() {
             textTransform: 'uppercase',
           }}
         >
-          IGI Certified · Free Insured Shipping To USA &amp; Canada · Lifetime Warranty
+          IGI Certified · Free Insured Shipping · Lifetime Warranty
         </p>
 
         <motion.div
@@ -1044,7 +1043,7 @@ function SparkleObsession() {
           className="text-[10px] md:text-[11px] uppercase mb-7 text-[#e8c98a]"
           style={{fontFamily: 'Inter, system-ui, sans-serif'}}
         >
-          Her Ring · The Sparkle People Notice Instantly
+          The Sparkle People Notice Instantly
         </motion.p>
 
         <motion.h2
@@ -1070,7 +1069,7 @@ function SparkleObsession() {
           className="mt-8 text-white/65 text-[14px] md:text-[16px] max-w-[440px] leading-[1.75]"
           style={{fontFamily: 'Inter, system-ui, sans-serif'}}
         >
-          The same diamond. Made to catch light — and attention. Every facet, every angle, every glance.
+          Made to catch light — and attention. Every facet, every angle, every glance.
         </motion.p>
       </div>
     </section>
@@ -1187,20 +1186,12 @@ function ImagineReaction() {
       style={{background: '#1a1410'}}
     >
       <div className="grid grid-cols-1 md:grid-cols-2">
-        <div className="relative aspect-[4/5] md:aspect-auto md:min-h-[600px] bg-[#1a1410]">
+        <div className="relative aspect-[4/5] md:aspect-auto md:min-h-[600px]">
           <img
-            src="/solitaire-white-gold.jpg"
-            alt="The Classic Solitaire — the ring she keeps looking at"
+            src="/moment-bridal.jpg"
+            alt="The moment she sees the ring"
             loading="lazy"
             className="absolute inset-0 w-full h-full object-cover"
-          />
-          <div
-            aria-hidden
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background:
-                'radial-gradient(60% 45% at 50% 45%, rgba(232,201,138,0.18) 0%, rgba(0,0,0,0) 70%)',
-            }}
           />
           <div
             className="absolute inset-0"
@@ -1233,7 +1224,7 @@ function ImagineReaction() {
                 fontFamily: 'Inter, system-ui, sans-serif',
               }}
             >
-              This Ring. On Her Hand.
+              Imagine Her Reaction
             </p>
             <h2
               className="text-white text-[30px] md:text-[44px] font-light leading-[1.12] mb-7"
@@ -1242,12 +1233,12 @@ function ImagineReaction() {
                 textWrap: 'balance',
               }}
             >
-              She won't stop looking at <em className="italic text-[#e8c98a]">this</em> one.
+              She won't stop staring at it.
             </h2>
             <div className="space-y-4 text-white/75 text-[15px] md:text-[16px] leading-[1.85]"
               style={{fontFamily: 'Inter, system-ui, sans-serif'}}
             >
-              <p>The way <em className="text-white/90">this</em> diamond catches the light on the drive home. The friends who notice without being told. The first time someone reaches for her hand — and stays there.</p>
+              <p>The way the light hits it on the drive home. The friends who notice without being told. The first time someone reaches for her hand.</p>
               <p className="text-white/90 italic" style={{fontFamily: 'Cormorant Garamond, Georgia, serif', fontSize: '19px'}}>
                 "I keep looking at my own hand. I can't help it."
               </p>
@@ -1262,7 +1253,7 @@ function ImagineReaction() {
                 fontFamily: 'Inter, system-ui, sans-serif',
               }}
             >
-              Make This Ring Hers
+              Design The Ring She'll Never Forget
               <ArrowRight className="w-3.5 h-3.5" />
             </a>
           </motion.div>
@@ -1304,7 +1295,7 @@ function Customizer() {
               fontFamily: 'Inter, system-ui, sans-serif',
             }}
           >
-            Design Her Classic Solitaire
+            Design Her Ring
           </p>
           <h2
             className="text-[32px] md:text-[46px] leading-[1.08] font-light mb-4"
@@ -1313,13 +1304,13 @@ function Customizer() {
               textWrap: 'balance',
             }}
           >
-            Watch <em className="italic">This</em> Ring Become Hers.
+            Watch It Become <em className="italic">Hers</em>.
           </h2>
           <p
             className="text-[14px] md:text-[16px] text-foreground/65 max-w-[480px] mx-auto leading-[1.75]"
             style={{fontFamily: 'Inter, system-ui, sans-serif'}}
           >
-            One ring. Four gentle choices. The same Classic Solitaire you've been looking at — quietly shifting until it looks like <em className="italic">her</em>.
+            Four gentle choices. One unforgettable ring. The preview updates as you go — so you'll know the second it looks right.
           </p>
         </div>
 
@@ -1583,26 +1574,21 @@ function Step({
 /* ---------- 6. DESIGNED TO BE ADMIRED ---------- */
 
 function DesignedToBeAdmired() {
-  // Three angles of the SAME Classic Solitaire — same setting, same design,
-  // shown in the three golds she can choose from. Visual continuity is the point.
   const cards = [
     {
-      title: 'The First Time She Looks Down',
-      copy: 'She catches it on her own hand and forgets where she was going. The same ring she chose, suddenly real.',
-      img: '/signature-solitaire-ring.jpg',
-      caption: 'Her Ring · Yellow Gold',
+      title: 'Designed To Be Admired',
+      copy: 'The kind of ring that catches attention instantly — without trying. The first comment is never asked for.',
+      img: '/most-loved-solitaire.jpg',
     },
     {
-      title: 'Worn Every Single Day',
-      copy: 'At breakfast. At the gym. To bed. The same ring becomes part of her — not part of a jewelry box.',
-      img: '/solitaire-white-gold.jpg',
-      caption: 'Her Ring · White Gold',
+      title: 'Her Favorite Piece Forever',
+      copy: 'Worn at breakfast. Worn at the gym. Worn to bed. Designed to become part of her — not part of a jewelry box.',
+      img: '/most-loved-oval.jpg',
     },
     {
-      title: 'The Compliment Magnet',
-      copy: 'Brilliance people notice across a room. The same sparkle they ask about before they ask her name.',
-      img: '/solitaire-rose-gold.jpg',
-      caption: 'Her Ring · Rose Gold',
+      title: 'A Compliment Magnet',
+      copy: 'Brilliance you can see across a room. The kind of sparkle people ask about before they ask her name.',
+      img: '/most-loved-marquise.jpg',
     },
   ];
 
@@ -1624,20 +1610,14 @@ function DesignedToBeAdmired() {
             What She'll Feel
           </p>
           <h2
-            className="text-[32px] md:text-[46px] leading-[1.08] font-light mb-4"
+            className="text-[32px] md:text-[46px] leading-[1.08] font-light"
             style={{
               fontFamily: 'Cormorant Garamond, Georgia, serif',
               textWrap: 'balance',
             }}
           >
-            Not Just A Ring. <em className="italic">Her Identity.</em>
+            Not Just A Ring. <em className="italic">An Identity.</em>
           </h2>
-          <p
-            className="text-[14px] md:text-[15.5px] text-foreground/65 max-w-[520px] mx-auto leading-[1.8]"
-            style={{fontFamily: 'Inter, system-ui, sans-serif'}}
-          >
-            One Classic Solitaire. Same setting. Same hand-finished design. Three quiet golds — so she chooses the one that already feels like her.
-          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
@@ -1650,18 +1630,13 @@ function DesignedToBeAdmired() {
               transition={{duration: 0.6, delay: i * 0.08}}
               className="bg-white border border-[#ece4d4] overflow-hidden group"
             >
-              <div className="aspect-[4/5] overflow-hidden bg-[#f4ede0] relative">
+              <div className="aspect-[4/5] overflow-hidden bg-[#f4ede0]">
                 <img
                   src={c.img}
-                  alt={c.caption}
+                  alt=""
                   loading="lazy"
                   className="w-full h-full object-cover group-hover:scale-[1.04] transition-transform duration-[1400ms] ease-out"
                 />
-                <div className="absolute top-3 left-3 bg-white/85 backdrop-blur-sm px-2.5 py-1 text-[9px] uppercase"
-                  style={{letterSpacing: '0.22em', fontFamily: 'Inter, system-ui, sans-serif', color: 'hsl(var(--gold-dark))'}}
-                >
-                  {c.caption}
-                </div>
               </div>
               <div className="px-6 py-7 md:px-8 md:py-9">
                 <h3
@@ -1736,8 +1711,8 @@ function EscapePath() {
             </Link>
           </div>
           <div className="grid grid-cols-2 gap-3">
-            <img src="/signature-solitaire-ring.jpg" alt="Classic Solitaire — yellow gold" loading="lazy" className="w-full aspect-[3/4] object-cover" />
-            <img src="/solitaire-rose-gold.jpg" alt="Classic Solitaire — rose gold" loading="lazy" className="w-full aspect-[3/4] object-cover mt-8" />
+            <img src="/most-loved-solitaire.jpg" alt="Solitaire ring" loading="lazy" className="w-full aspect-[3/4] object-cover" />
+            <img src="/most-loved-oval.jpg" alt="Oval ring" loading="lazy" className="w-full aspect-[3/4] object-cover mt-8" />
           </div>
         </div>
       </div>
@@ -1750,15 +1725,13 @@ function EscapePath() {
 function UGCWall() {
   // Vertical slots ready for real TikTok/UGC clips at /ugc-1.mp4 ... /ugc-6.mp4
   // Falls back to lifestyle image posters until videos are uploaded.
-  // Posters intentionally show the SAME Classic Solitaire across golds and shapes,
-  // so the visual story never breaks even before video uploads.
   const slots = [
-    {video: '/ugc-1.mp4', poster: '/signature-solitaire-ring.jpg', caption: '"I can\'t stop looking at it."', author: '@sofia.m'},
-    {video: '/ugc-2.mp4', poster: '/solitaire-white-gold.jpg', caption: '"He nailed it. Every single detail."', author: '@camille.d'},
-    {video: '/ugc-3.mp4', poster: '/sol-wg-round.jpg', caption: '"Everyone keeps asking where it\'s from."', author: '@eleanor.t'},
-    {video: '/ugc-4.mp4', poster: '/solitaire-rose-gold.jpg', caption: '"The sparkle in real sunlight…"', author: '@chiara.r'},
-    {video: '/ugc-5.mp4', poster: '/sol-wg-oval.jpg', caption: '"It looks even better in person."', author: '@aria.l'},
-    {video: '/ugc-6.mp4', poster: '/sol-rg-round.jpg', caption: '"I haven\'t taken it off since."', author: '@valentina'},
+    {video: '/ugc-1.mp4', poster: '/moment-bridal.jpg', caption: '"I can\'t stop looking at it."', author: '@sofia.m'},
+    {video: '/ugc-2.mp4', poster: '/moment-portrait.jpg', caption: '"He nailed it. Every single detail."', author: '@camille.d'},
+    {video: '/ugc-3.mp4', poster: '/moment-couple.jpg', caption: '"Everyone keeps asking where it\'s from."', author: '@eleanor.t'},
+    {video: '/ugc-4.mp4', poster: '/romantic-rose-gold.jpg', caption: '"The sparkle in real sunlight…"', author: '@chiara.r'},
+    {video: '/ugc-5.mp4', poster: '/romantic-white-gold.jpg', caption: '"It looks even better in person."', author: '@aria.l'},
+    {video: '/ugc-6.mp4', poster: '/editorial-lifestyle.jpg', caption: '"I haven\'t taken it off since."', author: '@valentina'},
   ];
 
   return (
@@ -1934,9 +1907,9 @@ function BrandStory() {
           </p>
         </motion.div>
         <div className="mt-14 md:mt-20 grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5 max-w-[680px] mx-auto">
-          <img src="/signature-solitaire-ring.jpg" alt="Classic Solitaire — yellow gold" loading="lazy" className="w-full aspect-[3/4] object-cover" />
-          <img src="/solitaire-white-gold.jpg" alt="Classic Solitaire — white gold" loading="lazy" className="w-full aspect-[3/4] object-cover md:mt-10" />
-          <img src="/solitaire-rose-gold.jpg" alt="Classic Solitaire — rose gold" loading="lazy" className="w-full aspect-[3/4] object-cover col-span-2 md:col-span-1 md:mt-0" />
+          <img src="/moment-couple.jpg" alt="" loading="lazy" className="w-full aspect-[3/4] object-cover" />
+          <img src="/moment-bridal.jpg" alt="" loading="lazy" className="w-full aspect-[3/4] object-cover md:mt-10" />
+          <img src="/moment-portrait.jpg" alt="" loading="lazy" className="w-full aspect-[3/4] object-cover col-span-2 md:col-span-1 md:mt-0" />
         </div>
       </div>
     </section>
@@ -1964,8 +1937,8 @@ function WhyLabDiamonds() {
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-10 lg:gap-16 items-center">
           <div>
             <img
-              src="/sol-wg-round.jpg"
-              alt="The Classic Solitaire — IGI certified DEF/VS1 lab-grown diamond"
+              src="/editorial-pendant.jpg"
+              alt="Lab-grown diamond detail"
               loading="lazy"
               className="w-full aspect-[4/5] object-cover"
             />
@@ -2418,24 +2391,16 @@ function FinalCTA() {
   return (
     <section className="relative min-h-[85vh] md:min-h-[720px] flex items-center justify-center overflow-hidden bg-[#1a1410]">
       <img
-        src="/signature-solitaire-ring.jpg"
+        src="/editorial-lifestyle.jpg"
         alt=""
         loading="lazy"
-        className="absolute inset-0 w-full h-full object-cover opacity-55"
+        className="absolute inset-0 w-full h-full object-cover opacity-70"
       />
       <div
         className="absolute inset-0"
         style={{
           background:
-            'linear-gradient(180deg, rgba(20,15,12,0.55) 0%, rgba(20,15,12,0.8) 100%)',
-        }}
-      />
-      <div
-        aria-hidden
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(55% 45% at 50% 45%, rgba(232,201,138,0.22) 0%, rgba(0,0,0,0) 70%)',
+            'linear-gradient(180deg, rgba(20,15,12,0.45) 0%, rgba(20,15,12,0.72) 100%)',
         }}
       />
       <Sparks />
@@ -2458,13 +2423,13 @@ function FinalCTA() {
             textWrap: 'balance',
           }}
         >
-          This is <em className="italic text-[#e8c98a]">the</em> ring. <br className="hidden sm:block" />Hers, forever.
+          The ring she'll wear <em className="italic text-[#e8c98a]">forever</em> starts here.
         </h2>
         <p
           className="text-white/80 text-[15px] md:text-[17px] leading-[1.85] max-w-[480px] mx-auto mb-10"
           style={{fontFamily: 'Inter, system-ui, sans-serif'}}
         >
-          The same Classic Solitaire you saw above — hand-finished to order, sealed in our signature box, delivered fully insured to USA &amp; Canada. Worn every single day. Remembered forever.
+          Luxury quality. Honest pricing. Designed to become part of her story — every single day.
         </p>
         <a
           href="#customize"
@@ -2477,26 +2442,16 @@ function FinalCTA() {
             boxShadow: '0 14px 50px -10px rgba(232,201,138,0.45)',
           }}
         >
-          Make This Ring Hers
+          Find Your Forever Ring
           <ArrowRight className="w-3.5 h-3.5" />
         </a>
         <p
-          className="mt-7 text-[11px] md:text-[12px] uppercase text-[#e8c98a]/85 flex flex-wrap items-center justify-center gap-x-3 gap-y-2"
+          className="mt-7 text-[11px] md:text-[12px] uppercase text-[#e8c98a]/85 flex items-center justify-center gap-2"
           style={{letterSpacing: '0.28em', fontFamily: 'Inter, system-ui, sans-serif'}}
         >
           <span className="w-1 h-1 rounded-full" style={{background: '#e8c98a'}} />
-          10% + 5% Welcome Offer
+          10% Welcome Offer · Free Insured Shipping · Lifetime Warranty
           <span className="w-1 h-1 rounded-full" style={{background: '#e8c98a'}} />
-          Free Insured Shipping · USA &amp; Canada
-          <span className="w-1 h-1 rounded-full" style={{background: '#e8c98a'}} />
-          Lifetime Warranty
-          <span className="w-1 h-1 rounded-full" style={{background: '#e8c98a'}} />
-        </p>
-        <p
-          className="mt-4 text-[11px] md:text-[12px] text-white/55 italic max-w-[420px] mx-auto leading-[1.7]"
-          style={{fontFamily: 'Cormorant Garamond, Georgia, serif', fontSize: '14px'}}
-        >
-          Only a small number of rings can be hand-finished each week — this welcome offer closes when those slots are full.
         </p>
       </motion.div>
     </section>
@@ -2526,40 +2481,27 @@ function StickyMobileCTA() {
         paddingBottom: 'env(safe-area-inset-bottom)',
       }}
     >
-      <div className="bg-white/95 backdrop-blur border-t border-[#e6dcc7]">
-        <div
-          className="text-center py-1.5 text-[9.5px] uppercase"
+      <div className="bg-white/95 backdrop-blur border-t border-[#e6dcc7] px-3 py-2.5 flex gap-2">
+        <Link
+          to="/collections/rings"
+          prefetch="intent"
+          className="flex-1 text-center py-3.5 border border-foreground text-foreground uppercase text-[10.5px] font-semibold"
+          style={{letterSpacing: '0.18em', fontFamily: 'Inter, system-ui, sans-serif'}}
+        >
+          All Rings
+        </Link>
+        <a
+          href="#customize"
+          className="flex-[1.5] text-center py-3.5 uppercase text-[10.5px] font-semibold"
           style={{
-            background: 'linear-gradient(90deg, #1a1410 0%, #2a1f17 50%, #1a1410 100%)',
-            color: '#e8c98a',
-            letterSpacing: '0.2em',
+            background: 'hsl(var(--gold))',
+            color: '#1a1410',
+            letterSpacing: '0.18em',
             fontFamily: 'Inter, system-ui, sans-serif',
           }}
         >
-          10% + 5% Off · Free Insured Shipping
-        </div>
-        <div className="px-3 py-2.5 flex gap-2">
-          <Link
-            to="/collections/rings"
-            prefetch="intent"
-            className="flex-1 text-center py-3.5 border border-foreground text-foreground uppercase text-[10.5px] font-semibold"
-            style={{letterSpacing: '0.18em', fontFamily: 'Inter, system-ui, sans-serif'}}
-          >
-            All Rings
-          </Link>
-          <a
-            href="#customize"
-            className="flex-[1.5] text-center py-3.5 uppercase text-[10.5px] font-semibold"
-            style={{
-              background: 'hsl(var(--gold))',
-              color: '#1a1410',
-              letterSpacing: '0.18em',
-              fontFamily: 'Inter, system-ui, sans-serif',
-            }}
-          >
-            Make This Ring Hers
-          </a>
-        </div>
+          Create Her Ring
+        </a>
       </div>
     </div>
   );
