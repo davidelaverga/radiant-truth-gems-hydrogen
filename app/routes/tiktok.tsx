@@ -881,14 +881,13 @@ function Hero() {
             Create Her Ring
             <ArrowRight className="w-3.5 h-3.5" />
           </a>
-          <Link
-            to="/collections/rings"
-            prefetch="intent"
+          <a
+            href="#shapes"
             className="w-full sm:w-auto inline-flex items-center justify-center px-9 py-4 text-[11px] font-semibold uppercase border border-white/60 text-white hover:bg-white hover:text-[#1a1410] transition-all duration-500"
             style={{letterSpacing: '0.22em'}}
           >
-            Explore Ring Styles
-          </Link>
+            See This Ring Up Close
+          </a>
         </div>
 
         <p
@@ -962,7 +961,7 @@ function TrustBar() {
     {Icon: Award, label: 'IGI Certified'},
     {Icon: Sparkles, label: 'DEF Color'},
     {Icon: Gem, label: 'VS1 Clarity'},
-    {Icon: Truck, label: 'Free Insured Shipping'},
+    {Icon: Truck, label: 'Free Insured · USA & Canada'},
     {Icon: Gift, label: 'Luxury Packaging'},
     {Icon: Lock, label: 'Lifetime Warranty'},
   ];
@@ -1098,7 +1097,7 @@ function ShapeExploration() {
               fontFamily: 'Inter, system-ui, sans-serif',
             }}
           >
-            Prefer A Different Shape?
+            Same Ring · Her Cut
           </p>
           <h2
             className="text-[32px] md:text-[46px] leading-[1.08] font-light mb-4"
@@ -1108,13 +1107,13 @@ function ShapeExploration() {
               textWrap: 'balance',
             }}
           >
-            Not Your Style?
+            One Classic Solitaire. <em className="italic">Her Diamond.</em>
           </h2>
           <p
-            className="text-[14px] md:text-[16px] text-foreground/65 max-w-[460px] mx-auto leading-[1.75]"
+            className="text-[14px] md:text-[16px] text-foreground/65 max-w-[480px] mx-auto leading-[1.75]"
             style={{fontFamily: 'Inter, system-ui, sans-serif'}}
           >
-            Six diamond shapes. Six different personalities. Pick the one that feels like hers — we'll take it from there.
+            The same hand-finished setting. The same proportions. Six diamond cuts — so the center stone looks like <em className="italic">her</em>.
           </p>
         </div>
 
@@ -1685,60 +1684,105 @@ function DesignedToBeAdmired() {
   );
 }
 
-/* ---------- 7. ESCAPE PATH ---------- */
+/* ---------- 7. MACRO WALL — EVERY ANGLE, SAME RING ---------- */
 
 function EscapePath() {
+  // Cinematic macro grid of the SAME Classic Solitaire — six framed views,
+  // every tile labelled so the customer can't mistake them for different rings.
+  const views = [
+    {img: '/signature-solitaire-ring.jpg', tag: 'Hero · Yellow Gold', span: 'md:col-span-2 md:row-span-2', aspect: 'aspect-square md:aspect-auto'},
+    {img: '/sol-wg-round.jpg', tag: 'Macro · The Diamond', span: '', aspect: 'aspect-square'},
+    {img: '/solitaire-white-gold.jpg', tag: 'Worn · White Gold', span: '', aspect: 'aspect-square'},
+    {img: '/sol-wg-oval.jpg', tag: 'Her Cut · Oval', span: '', aspect: 'aspect-square'},
+    {img: '/solitaire-rose-gold.jpg', tag: 'Worn · Rose Gold', span: '', aspect: 'aspect-square'},
+  ];
+
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-hidden" style={{background: '#1a1410'}}>
       <div
-        className="absolute inset-0"
+        aria-hidden
+        className="absolute inset-0 pointer-events-none opacity-30"
         style={{
           background:
-            'linear-gradient(135deg, #f7ede0 0%, #f0e3cf 50%, #ead5b6 100%)',
+            'radial-gradient(60% 50% at 50% 0%, rgba(212,175,121,0.35) 0%, rgba(0,0,0,0) 70%)',
         }}
       />
       <div className="relative max-w-[1240px] mx-auto px-5 md:px-12 py-20 md:py-28">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
-          <div>
-            <p
-              className="text-[10px] md:text-[11px] uppercase mb-4"
-              style={{
-                letterSpacing: '0.3em',
-                color: 'hsl(var(--gold-dark))',
-                fontFamily: 'Inter, system-ui, sans-serif',
-              }}
+        <div className="text-center mb-12 md:mb-16">
+          <p
+            className="text-[10px] md:text-[11px] uppercase mb-4 text-[#e8c98a]"
+            style={{
+              letterSpacing: '0.3em',
+              fontFamily: 'Inter, system-ui, sans-serif',
+            }}
+          >
+            Every Angle · The Same Ring
+          </p>
+          <h2
+            className="text-white text-[32px] md:text-[46px] leading-[1.08] font-light mb-4"
+            style={{
+              fontFamily: 'Cormorant Garamond, Georgia, serif',
+              textWrap: 'balance',
+            }}
+          >
+            <em className="italic text-[#e8c98a]">This</em> Is The Ring.
+          </h2>
+          <p
+            className="text-white/70 text-[14px] md:text-[16px] max-w-[520px] mx-auto leading-[1.8]"
+            style={{fontFamily: 'Inter, system-ui, sans-serif'}}
+          >
+            The Astreas Classic Solitaire — from every angle, in the gold she'll choose. The same setting. The same proportions. The same ring she'll never take off.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 md:grid-rows-2 gap-2.5 md:gap-3 max-w-[1080px] mx-auto">
+          {views.map((v, i) => (
+            <motion.div
+              key={v.img + i}
+              initial={{opacity: 0, y: 14}}
+              whileInView={{opacity: 1, y: 0}}
+              viewport={{once: true, margin: '-40px'}}
+              transition={{duration: 0.6, delay: i * 0.06}}
+              className={`relative overflow-hidden bg-black/40 ${v.span} ${v.aspect}`}
             >
-              The Full Collection
-            </p>
-            <h2
-              className="text-[32px] md:text-[46px] leading-[1.08] font-light mb-5"
-              style={{
-                fontFamily: 'Cormorant Garamond, Georgia, serif',
-                textWrap: 'balance',
-              }}
-            >
-              Want To See Every Style?
-            </h2>
-            <p
-              className="text-[15px] md:text-[16px] text-foreground/70 leading-[1.85] max-w-[460px] mb-8"
-              style={{fontFamily: 'Inter, system-ui, sans-serif'}}
-            >
-              Solitaires, side-stone settings, vintage cuts, modern silhouettes. Every ring in our collection — handcrafted, certified, and made for the one who'll never take it off.
-            </p>
-            <Link
-              to="/collections/rings"
-              prefetch="intent"
-              className="inline-flex items-center gap-3 px-8 py-4 bg-foreground text-background uppercase text-[11px] md:text-[12px] font-semibold hover:bg-foreground/85 transition-all duration-500"
-              style={{letterSpacing: '0.22em', fontFamily: 'Inter, system-ui, sans-serif'}}
-            >
-              Explore All Rings
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-          <div className="grid grid-cols-2 gap-3">
-            <img src="/signature-solitaire-ring.jpg" alt="Classic Solitaire — yellow gold" loading="lazy" className="w-full aspect-[3/4] object-cover" />
-            <img src="/solitaire-rose-gold.jpg" alt="Classic Solitaire — rose gold" loading="lazy" className="w-full aspect-[3/4] object-cover mt-8" />
-          </div>
+              <img
+                src={v.img}
+                alt={`Classic Solitaire — ${v.tag}`}
+                loading="lazy"
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-out hover:scale-[1.04]"
+              />
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  background:
+                    'linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,0.7) 100%)',
+                }}
+              />
+              <div
+                className="absolute bottom-2.5 left-2.5 right-2.5 md:bottom-3.5 md:left-3.5 md:right-3.5 text-[#e8c98a] text-[9px] md:text-[10px] uppercase"
+                style={{letterSpacing: '0.22em', fontFamily: 'Inter, system-ui, sans-serif'}}
+              >
+                {v.tag}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="text-center mt-12 md:mt-16">
+          <a
+            href="#customize"
+            className="inline-flex items-center gap-2 px-10 py-4 text-[11px] md:text-[12px] font-semibold uppercase transition-all duration-500 hover:scale-[1.02]"
+            style={{
+              background: 'hsl(var(--gold))',
+              color: '#1a1410',
+              letterSpacing: '0.22em',
+              fontFamily: 'Inter, system-ui, sans-serif',
+              boxShadow: '0 14px 50px -10px rgba(232,201,138,0.45)',
+            }}
+          >
+            Make This Ring Hers
+            <ArrowRight className="w-3.5 h-3.5" />
+          </a>
         </div>
       </div>
     </section>
@@ -1938,6 +1982,16 @@ function BrandStory() {
           <img src="/solitaire-white-gold.jpg" alt="Classic Solitaire — white gold" loading="lazy" className="w-full aspect-[3/4] object-cover md:mt-10" />
           <img src="/solitaire-rose-gold.jpg" alt="Classic Solitaire — rose gold" loading="lazy" className="w-full aspect-[3/4] object-cover col-span-2 md:col-span-1 md:mt-0" />
         </div>
+        <p
+          className="mt-7 md:mt-9 text-[10px] md:text-[11px] uppercase text-center"
+          style={{
+            letterSpacing: '0.32em',
+            color: 'hsl(var(--gold-dark))',
+            fontFamily: 'Inter, system-ui, sans-serif',
+          }}
+        >
+          One Ring · Her Gold · Hers Forever
+        </p>
       </div>
     </section>
   );
